@@ -23,11 +23,11 @@ MonoBehaviour:
     m_Hash: 863768520
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: personaggio_matteo_15
-      m_Hash: 227158109
-      m_Sprite: {fileID: -1773662380909277063, guid: e87a12d01ffc3493e8d4a60e853b31e7, type: 3}
+    - m_Name: personaggio_matteo_14
+      m_Hash: 982325451
+      m_Sprite: {fileID: 2332077847945445318, guid: e87a12d01ffc3493e8d4a60e853b31e7, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -1773662380909277063, guid: e87a12d01ffc3493e8d4a60e853b31e7, type: 3}
+      m_SpriteOverride: {fileID: 2332077847945445318, guid: e87a12d01ffc3493e8d4a60e853b31e7, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 1
   - m_Name: Walk_Down
@@ -134,5 +134,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 6
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639081837358705530
+  m_ModificationHash: 639082178993527570
   m_Version: 1
