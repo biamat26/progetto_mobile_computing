@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 85db35608f9e94a2ba84bce8ef86aae2
+guid: a028200fc6f654ef9a3509fcf16c40fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 264980361536901393
-    second: Screenshot 2026-03-04 alle 22.29.39_0
+      213: 1301091260040165736
+    second: celle_dati3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Screenshot 2026-03-04 alle 22.29.39_0
+      name: celle_dati3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 684
-        height: 662
+        width: 338
+        height: 422
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1119cd12c366da300800000000000000
-      internalID: 264980361536901393
+      spriteID: 8693f078b976e0210800000000000000
+      internalID: 1301091260040165736
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f0e54af8a894d46f795ac07dc769a079
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +159,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":338.0,"y":422.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Screenshot 2026-03-04 alle 22.29.39_0: 264980361536901393
+      celle_dati3_0: 1301091260040165736
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
