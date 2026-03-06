@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 69.666664
+  spritePixelsToUnits: 139.33333
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -130,9 +130,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 735
-        width: 627
-        height: 627
+        y: 108
+        width: 1254
+        height: 1254
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,72 +143,6 @@ TextureImporter:
       bones: []
       spriteID: c183d98c477268500800000000000000
       internalID: 398048999604303900
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Screenshot 2026-03-04 alle 22.44.14_1
-      rect:
-        serializedVersion: 2
-        x: 627
-        y: 735
-        width: 627
-        height: 627
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d1fc09eddf98d4b52950d65f87321db4
-      internalID: 1042357526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Screenshot 2026-03-04 alle 22.44.14_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 108
-        width: 627
-        height: 627
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 505ba3adb2bba48208a27c40184d5406
-      internalID: -936590725
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Screenshot 2026-03-04 alle 22.44.14_3
-      rect:
-        serializedVersion: 2
-        x: 627
-        y: 108
-        width: 627
-        height: 627
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0daff45d1cf024eb599767a127c95865
-      internalID: -1394339558
       vertices: []
       indices: 
       edges: []
@@ -227,12 +161,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":2.0},"gridSpriteSize":{"x":627.0,"y":627.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1254.0,"y":1254.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Screenshot 2026-03-04 alle 22.44.14_0: 398048999604303900
-      Screenshot 2026-03-04 alle 22.44.14_1: 1042357526
-      Screenshot 2026-03-04 alle 22.44.14_2: -936590725
-      Screenshot 2026-03-04 alle 22.44.14_3: -1394339558
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
