@@ -14,6 +14,7 @@ public class BattleSystem : MonoBehaviour
 
     Unit playerUnit;
     Unit enemyUnit;
+
     public BattleState state;
 
     private 
@@ -31,6 +32,7 @@ public class BattleSystem : MonoBehaviour
         
         GameObject enemyGO = Instantiate(enemyPrefab,enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
+
     }
 
 }
