@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: e0ce5796711e2427cb8f132e8cd96c63
+guid: cc69c58b43d3e54978039ce0aba9da29
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3656040753047444621
-    second: Studente con zaino in stile pixel art_0
-  - first:
-      213: 7715965190919102776
-    second: Studente con zaino in stile pixel art_1
+      213: -1623725936333779432
+    second: ChatGPT Image 7 mar 2026, 18_44_08_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Studente con zaino in stile pixel art_0
+      name: ChatGPT Image 7 mar 2026, 18_44_08_0
       rect:
         serializedVersion: 2
-        x: 83
+        x: 0
         y: 0
-        width: 941
+        width: 1024
         height: 1536
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -118,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 373614e3e42234dc0800000000000000
-      internalID: -3656040753047444621
+      spriteID: 81e8c302ddd5779e0800000000000000
+      internalID: -1623725936333779432
       vertices: []
       indices: 
       edges: []
@@ -128,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e658a3ae5d0cbcc3a86ffb688500904e
+    spriteID: 0ce7b91137e680496b68f780b0d47f51
     internalID: 0
     vertices: []
     indices: 
@@ -140,7 +137,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1024.0,"y":1536.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Studente con zaino in stile pixel art_0: -3656040753047444621
+      ChatGPT Image 7 mar 2026, 18_44_08_0: -1623725936333779432
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
