@@ -20,7 +20,7 @@ public class AuthManager : MonoBehaviour
     public static AuthManager Instance { get; private set; }
 
     [Header("Firebase Config")]
-    [SerializeField] private string firebaseApiKey = "725114139409";
+    [SerializeField] private string firebaseApiKey = "AIzaSyCA_N8tI7GyE1E9REC0Rv1nMsfJOr7Az0k";
 
     // URL Firebase REST API
     private const string REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
