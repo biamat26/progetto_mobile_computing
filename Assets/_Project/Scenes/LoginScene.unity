@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05d59a762bcb4d2baa41ad0c0bc5aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AuthManager
-  firebaseApiKey: 725114139409
+  firebaseApiKey: AIzaSyCA_N8tI7GyE1E9REC0Rv1nMsfJOr7Az0k
 --- !u!4 &1957252220
 Transform:
   m_ObjectHideFlags: 0
