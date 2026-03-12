@@ -44,11 +44,14 @@ TagManager:
   - name: Background
     uniqueID: 1828928173
     locked: 0
-  - name: BusParticles
+  - name: Floor
     uniqueID: 2870394563
     locked: 0
-  - name: Player
+  - name: Walls
     uniqueID: 606219237
+    locked: 0
+  - name: Player
+    uniqueID: 4008585699
     locked: 0
   m_RenderingLayers:
   - Default
