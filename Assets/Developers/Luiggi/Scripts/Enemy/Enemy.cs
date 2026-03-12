@@ -1,61 +1,72 @@
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
-    public float moveSpeed = 2f;
-    private Rigidbody2D rb;
-    private Animator anim;
-    private Vector2 moveDir;
-    private float timer;
-    private bool isMoving;
+{   
+    public Transform player;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+    public float moveSpeed = 3f;
+
+    private float attackRange = 1.5f; 
+
+    public float attackCoolDown = 1.5f;
+
+    public float nextAttackTime = 0f;
+
+    public int virus_hp = 50;
+
+    public int damage = 30;
+
+    private const string horizontal = "Horizontal";
+
+    private const string vertical = "Vertical"; 
+
+    private const string lastHorizontal = "LastHorizontal";
+
+    private const string lastVertical = "LastVertical"; 
+    public Vector2 movement;
+
+    public Rigidbody2D rb2;
+
+    private Animator animator;
+
+
+    void Start(){
+        rb2 = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
+    void Update(){
+        Vector2 direction = (player.position - transform.position).normalized;
+        float distance = Vector2.Distance(transform.position,player.position);
 
-    void Update()
-    {
-        timer -= Time.deltaTime;
+        //se distanza è minore del range in cui posso attaccare allora attacco
+        if(distance < attackRange){
+            movement = Vector2.zero;
+            rb2.linearVelocity = Vector2.zero;
 
-        if (timer <= 0)
-        {
-            // Sceglie un tempo a caso tra 1.5 e 4 secondi per la prossima azione
-            timer = Random.Range(1.5f, 4f);
-            
-            // Alterna tra stare fermo e muoversi
-            isMoving = !isMoving; 
-
-            if (isMoving)
-            {
-                // Sceglie una direzione a caso
-                moveDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-
-                // Aggiorna LastHorizontal/Vertical così l'animator sa dove guardare
-                anim.SetFloat("LastHorizontal", moveDir.x);
-                anim.SetFloat("LastVertical", moveDir.y);
-            }
-            else
-            {
-                moveDir = Vector2.zero;
+            if(Time.time >= nextAttackTime){
+                Attack();
+                nextAttackTime = Time.time + attackCoolDown;
             }
         }
+        else{
+            movement = direction;
+            rb2.linearVelocity = movement * moveSpeed;
+        }
 
-        // Invia i dati all'Animator (ATTENZIONE alle maiuscole, devono essere uguali all'Animator)
-        anim.SetFloat("Horizontal", moveDir.x);
-        anim.SetFloat("Vertical", moveDir.y);
-        
-        // Questo risolve l'errore "Parameter Speed does not exist" 
-        // (Assicurati di aver creato il parametro Float "Speed" nell'Animator!)
-        anim.SetFloat("Speed", isMoving ? 1f : 0f); 
+        animator.SetFloat(horizontal,movement.x);
+        animator.SetFloat(vertical,movement.y);
+
+        if(movement != Vector2.zero){
+            animator.SetFloat(lastHorizontal,movement.x);
+            animator.SetFloat(lastVertical,movement.y);
+        }
     }
-
-    void FixedUpdate()
-    {
-        if (isMoving)
-        {
-            rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+    void Attack(){
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        animator.SetTrigger("Attack");
+        if(playerHealth!=null){
+            playerHealth.TakeDamage(damage);
+            Debug.Log("Ti ho infettato!");
         }
     }
 }
