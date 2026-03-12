@@ -7,6 +7,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+    public int playerHP = 100;
+
+    public int damage = 50;
+
     private const string horizontal = "Horizontal";
     private const string vertical = "Vertical";
 
@@ -30,7 +34,10 @@ public class PlayerMovement : MonoBehaviour
         if(movement != Vector2.zero){
             animator.SetFloat(lastHorizontal,movement.x);
             animator.SetFloat(lastVertical,movement.y);
+     
         }
     }
+
+    
 
 }
