@@ -6,6 +6,7 @@ public class GCSentinelController : MonoBehaviour
     public float speed = 2f;
     public float waypointRadius = 0.1f;
 
+    public int startDirection = 3;
     private int _currentWP = 0;
     private Animator _anim;
     private Transform _visionCone;
@@ -19,6 +20,10 @@ public class GCSentinelController : MonoBehaviour
     {
         _anim = GetComponentInChildren<Animator>();
         _visionCone = transform.Find("VisionCone");
+        _anim.SetInteger("dir", startDirection);
+
+        Vector2 dir = DirFromInt(startDirection);
+        RotateVisionCone(dir); 
     }
 
     void Update()
@@ -56,4 +61,16 @@ public class GCSentinelController : MonoBehaviour
             _visionCone.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
+
+    Vector2 DirFromInt(int d)
+{
+    switch(d)
+    {
+        case 0: return Vector2.down;
+        case 1: return Vector2.up;
+        case 2: return Vector2.left;
+        case 3: return Vector2.right;
+        default: return Vector2.down;
+    }
+}
 }
