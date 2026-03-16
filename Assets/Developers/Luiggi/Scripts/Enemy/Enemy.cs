@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 3f;
     public float attackRange = 1.8f; // Prova ad alzarlo un po' se ti sembra ancora lento
     public float attackCoolDown = 1.5f;
-    public int damage = 30;
+    public int damage = 20;
 
     private float nextAttackTime = 0f;
     private Rigidbody2D rb2;
