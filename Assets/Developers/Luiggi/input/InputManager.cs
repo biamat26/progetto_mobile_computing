@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction moveAction;
     private InputAction attackAction;
+
+    private PlayerHealth playerHealth;
     public static bool Attack;
 
 
@@ -20,10 +22,12 @@ public class InputManager : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         attackAction = playerInput.actions["Attack"];
+        playerHealth = FindObjectOfType<PlayerHealth>();
     }
 
     private void Update()
-    {
+    {   
+        if (playerHealth == null || playerHealth.isDead) return;
         Movement = moveAction.ReadValue<Vector2>();
         Attack = attackAction.triggered;
     }

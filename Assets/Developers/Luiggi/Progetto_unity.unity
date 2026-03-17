@@ -193,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 1481839110}
     - target: {fileID: 7495608897409988933, guid: a880320c4ae8b23ee89294018915fa65, type: 3}
       propertyPath: attackRange
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7495608897409988933, guid: a880320c4ae8b23ee89294018915fa65, type: 3}
       propertyPath: enemyLayers.m_Bits
@@ -384,6 +384,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -3263309154711798340, guid: 2ec8320b9e9d05e0c8b47071d1b398a3, type: 3}
+    - target: {fileID: 6682633258827004458, guid: ae4a51a56da6f7ca69050787f5dbf6c9, type: 3}
+      propertyPath: damage
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6682633258827004458, guid: ae4a51a56da6f7ca69050787f5dbf6c9, type: 3}
       propertyPath: player
       value: 
@@ -635,6 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHP: 100
   invulnerabilityDuration: 1
+  isDead: 0
 --- !u!61 &2092690451
 BoxCollider2D:
   m_ObjectHideFlags: 0

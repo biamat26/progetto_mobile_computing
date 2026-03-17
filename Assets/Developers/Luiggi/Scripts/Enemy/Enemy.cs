@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (GetComponent<EnemyHealth>() != null && GetComponent<EnemyHealth>().currentHP <= 0) return;
+        
         if (player == null || !player.GetComponent<SpriteRenderer>().enabled) 
         {
             movement = Vector2.zero;
