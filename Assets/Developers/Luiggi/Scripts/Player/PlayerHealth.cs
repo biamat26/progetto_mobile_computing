@@ -4,13 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int hp = 100;
+    public int maxHP = 100;
+
+    private int currentHP;
     public float invulnerabilityDuration = 1.0f;
     private bool isInvulnerable = false;
     private SpriteRenderer sprite;
 
     void Start()
     {
+        currentHP = maxHP;
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -18,10 +21,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isInvulnerable) return;
 
-        hp -= qt;
-        Debug.Log($"Danno ricevuto! HP: {hp}");
+            currentHP -= qt;
+            Debug.Log($"Danno ricevuto! HP: {currentHP}");
 
-        if (hp <= 0)
+        if (currentHP <= 0)
         {
             Die();
         }
