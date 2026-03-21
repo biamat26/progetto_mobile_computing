@@ -93,13 +93,13 @@ public class Enemy : MonoBehaviour
     // FUNZIONE PER ANIMATION EVENT (Mettila nel frame dell'attacco!)
     public void HitPlayer()
     {
-        if (player == null) return;
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth == null || playerHealth.isDead) return;
 
         float distance = Mathf.Abs(transform.position.x - player.position.x);
 
         if (distance <= attackRange + 0.5f)
         {
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHP = 100;
+    public GameoverUI gameOverUI;
 
     private int currentHP;
     public float invulnerabilityDuration = 1.0f;
@@ -54,19 +55,14 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         Debug.Log("GAME OVER");
 
-        // 1. IMPORTANTE: Recuperiamo l'ultima direzione dal movimento prima di fermarci
         float lastH = anim.GetFloat("LastHorizontal");
-        // Forziamo il parametro Horizontal affinché il Blend Tree scelga il lato giusto
         anim.SetFloat("Horizontal", lastH);
 
-        // 2. Disabilita lo script di movimento così non sovrascrive più i parametri
         PlayerMovement mov = GetComponent<PlayerMovement>();
         if (mov != null) mov.enabled = false;
 
-        // 3. Resetta il flip (fondamentale se usi animazioni direzionali diverse)
         sprite.flipX = false; 
 
-        // 4. Gestione Fisica
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null) {
             rb.linearVelocity = Vector2.zero;
@@ -75,14 +71,19 @@ public class PlayerHealth : MonoBehaviour
 
         if (GetComponent<Collider2D>()) GetComponent<Collider2D>().enabled = false;
 
-        // 5. Trigger Animazione
         anim.SetTrigger("Die");
 
-        Invoke(nameof(RestartLevel), 2f);
+        if (gameOverUI != null)
+            StartCoroutine(ShowGameOverDelayed(gameOverUI));
+        else
+            Debug.LogError("gameOverUI non assegnato nell'Inspector!");
     }
 
-    void RestartLevel()
+    private IEnumerator ShowGameOverDelayed(GameoverUI ui)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("ShowGameOverDelayed avviato, aspetto 1.2s...");
+        yield return new WaitForSeconds(1.2f);
+        Debug.Log("Chiamo ui.Show()...");
+        ui.Show();
     }
 }
