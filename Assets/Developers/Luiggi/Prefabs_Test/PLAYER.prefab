@@ -43,11 +43,9 @@ GameObject:
   - component: {fileID: 8067658189029340556}
   - component: {fileID: 1823903276470367333}
   - component: {fileID: 983384802529991273}
-  - component: {fileID: 8001577228081732928}
   - component: {fileID: 7121815946793404927}
   - component: {fileID: 6155099615637903629}
   - component: {fileID: 1119812466182387006}
-  - component: {fileID: 5390038403890237179}
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Player
@@ -165,22 +163,6 @@ MonoBehaviour:
   gameOverUI: {fileID: 0}
   invulnerabilityDuration: 1
   isDead: 0
---- !u!114 &8001577228081732928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3412151138833462980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63cd1a2632702d9db854a5b29aee7f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHP: 100
-  gameOverUI: {fileID: 0}
-  invulnerabilityDuration: 1
-  isDead: 0
 --- !u!50 &7121815946793404927
 Rigidbody2D:
   serializedVersion: 5
@@ -231,52 +213,6 @@ Animator:
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &1119812466182387006
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3412151138833462980}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9375, y: 1.375}
-    newSize: {x: 0.9375, y: 1.375}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.9375, y: 1.375}
-  m_EdgeRadius: 0
---- !u!61 &5390038403890237179
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
