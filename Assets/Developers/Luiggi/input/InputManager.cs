@@ -31,5 +31,13 @@ public class InputManager : MonoBehaviour
         Movement = moveAction.ReadValue<Vector2>();
         Attack = attackAction.triggered;
         ToggleInventory = inventoryAction.triggered;
+
+        if (Movement != Vector2.zero || Attack || ToggleInventory)
+    {
+        if (TerminalManager.Istanza != null)
+        {
+            TerminalManager.Istanza.ResetProgressoGiocatore();
+        }
+    }
     }
 }
