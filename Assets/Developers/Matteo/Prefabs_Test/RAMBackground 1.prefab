@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8325434381219366501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7866024947458014032}
+  - component: {fileID: 4557285602667222576}
+  m_Layer: 0
+  m_Name: RAMBackground 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7866024947458014032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325434381219366501}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4557285602667222576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325434381219366501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3398fa9f7517546fbaa42141c7233130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RAMBackground
+  cols: 40
+  rows: 25
+  tileSize: 1
+  frequency: 4
+  particleCount: 8
+  bgColor: {r: 0.04, g: 0.05, b: 0.09, a: 1}
+  tileColor0: {r: 0.055, g: 0.067, b: 0.118, a: 1}
+  tileColor1: {r: 0.063, g: 0.078, b: 0.137, a: 1}
+  tileColor2: {r: 0.047, g: 0.059, b: 0.102, a: 1}
+  edgeLight: {r: 0.118, g: 0.165, b: 0.255, a: 1}
+  edgeDark: {r: 0.031, g: 0.039, b: 0.071, a: 1}
+  particleColors:
+  - {r: 0.267, g: 0.4, b: 1, a: 1}
+  - {r: 0.4, g: 0.2, b: 0.8, a: 1}
+  - {r: 0.533, g: 0.267, b: 0.933, a: 1}
+  - {r: 0.2, g: 0.333, b: 0.867, a: 1}
+  - {r: 0.467, g: 0.133, b: 0.733, a: 1}
+  - {r: 0.333, g: 0.267, b: 1, a: 1}
