@@ -49,8 +49,23 @@ public class TerminalManager : MonoBehaviour
     {
         databaseMessaggi.Clear(); 
         
-        // AGGIUNGI QUI I TUOI MESSAGGI
-        databaseMessaggi.Add("intro", "> SISTEMA ONLINE.\n> Monitoraggio avviato.");
+        // --- LA NUOVA INTRO DEL GIOCO CON SPIEGAZIONE E MISSIONI ---
+        string testoIntro = "> CONNESSIONE AL SISTEMA STABILITA...\n" +
+                            "> STATO UTENTE: Digitalizzato.\n\n" +
+                            "> BENVENUTO, ALUNNO.\n" +
+                            "> Sei stato intrappolato all'interno della struttura hardware di un computer.\n" +
+                            "> Attualmente ti trovi fisicamente sui circuiti della scheda madre.\n" +
+                            "> Il sistema è gravemente infetto e ha bisogno del tuo intervento manuale.\n\n" +
+                            "> DIRETTIVE DI MISSIONE:\n" +
+                            "> 1. Esplora i componenti fisici del PC (CPU, RAM, Hard Disk).\n" +
+                            "> 2. Utilizza i BUS di sistema per viaggiare tra i vari settori.\n" +
+                            "> 3. Combatti ed elimina le minacce Virus che incontri.\n" +
+                            "> 4. Sconfiggi il Boss finale (Rootkit) per riparare il PC e fuggire.\n\n" +
+                            "> Buona fortuna. Avvio del sistema in corso...";
+
+        databaseMessaggi.Add("intro", testoIntro);
+
+        // Altri messaggi esistenti
         databaseMessaggi.Add("virus_alert", "> ATTENZIONE!\n> Rilevata minaccia virale.");
         databaseMessaggi.Add("hint_generico", "> ANALISI AMBIENTALE:\n> Esplora l'area circostante.");
     }
