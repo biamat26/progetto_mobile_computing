@@ -32378,37 +32378,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355452564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e2582d63fe004c6d993b6c59c7b494d, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c6b68c85d7742be9b760ab7106c6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RAMChunkSystem
   BaseSprites:
-  - {fileID: -939607621947103265, guid: feb98d7a601544a56b8dfee340e9e790, type: 3}
-  - {fileID: 2602060528916442992, guid: 605c11866f0a741119ee0952873d8b77, type: 3}
-  - {fileID: -7351202245221260596, guid: e03d706d9a2654d8dbd9035f63e87a61, type: 3}
-  - {fileID: 1591268313405388852, guid: 4942e85c32dff4ee4aafb7ec7c6428df, type: 3}
+  - {fileID: -939607621947103265, guid: 2695c9fb99bdb425583611270dfcaedc, type: 3}
+  - {fileID: 2602060528916442992, guid: 015e87c74dfc04c8dad5db2aa17f1bef, type: 3}
+  - {fileID: -7351202245221260596, guid: 09e8e6da59a8645cfa78fe3a93a2f63e, type: 3}
+  - {fileID: 1591268313405388852, guid: f5dfdc7bec20c4377ab0a98b75adaf6c, type: 3}
   FancySprites:
-  - {fileID: 4792125536570783956, guid: a289ae0205bc3435fafa7c40d21e00f6, type: 3}
-  - {fileID: 1685184256056902824, guid: 0f755e7059ee94acb95861141d3f7fc7, type: 3}
-  - {fileID: -4855269967285629772, guid: 7c29c935fee68424eab1449bb5aa69a6, type: 3}
-  - {fileID: 8611004563950747525, guid: 0fec4297f86674fa090724a4cbe519b5, type: 3}
-  - {fileID: 2654638482386371155, guid: 21ae52368e84845d7b2c0ae824938100, type: 3}
-  - {fileID: 7201504027321367845, guid: 40482eced41d343aaa5039fa3d48acdc, type: 3}
-  - {fileID: -6941583786112203546, guid: 46367bed13a854e2eb6ca75d886a1dd3, type: 3}
-  - {fileID: -4468439608998436721, guid: 19e7a8c5010b2470983ccd65488f8f1e, type: 3}
+  - {fileID: 4792125536570783956, guid: 9892ece41f98c4d539cfae745d87d90e, type: 3}
+  - {fileID: 1685184256056902824, guid: 5e8835fb1bf9a433d944d5fb30bb61b5, type: 3}
+  - {fileID: -4855269967285629772, guid: b55daa94a072741939d7f08fbcf00336, type: 3}
+  - {fileID: 8611004563950747525, guid: d16dafc8d887840bd8a8f82d90450440, type: 3}
+  - {fileID: 2654638482386371155, guid: 3987fba50a48542ae82d1c34c8f5b7e2, type: 3}
+  - {fileID: 7201504027321367845, guid: 88ac458773a3b482c86f081c739f6c17, type: 3}
+  - {fileID: -6941583786112203546, guid: b31bea1a1b2f24f3f82c84cc141686a0, type: 3}
+  - {fileID: -4468439608998436721, guid: bc5acc19f115d44a682fe779e92e2f03, type: 3}
   MapWidth: 300
   MapHeight: 300
   ChunkSize: 16
-  TileWorld: 1
-  TileGap: 0
+  TileWorld: 0.99
   SortingLayer: Background
   OrderBase: -10
   OrderFancy: -9
   MaxAnimating: 4
   LiftHeight: 1.5
   LiftSpeed: 5
-  HoldTime: 0.5
-  FadeTime: 0.3
-  TriggerInterval: 1
+  HoldTime: 0.6
+  FadeTime: 0.35
+  TriggerInterval: 1.2
   CamTransform: {fileID: 1347591468}
   CullBuffer: 1
 --- !u!1001 &1393406008
@@ -40571,24 +40570,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2070204311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b9444f74ec32493e8c0e93737b1b645, type: 3}
+  m_Script: {fileID: 11500000, guid: 9686e17a949c74bffacd63852b3f2716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircuitParticleSystem
   LaserSprites:
   - {fileID: -3164809056393425246, guid: 8e3fe2025d0b14c40a793af75ac53baa, type: 3}
-  - {fileID: -5225540622116197949, guid: cd9b9a6b2badc4aa68ec637bc18c889f, type: 3}
   - {fileID: 8793915729297761979, guid: a01886f42aba54c1088382e2f387e6d7, type: 3}
   - {fileID: 2750298860172458669, guid: be37da56c04ab4005824f0ac791f4892, type: 3}
   - {fileID: -2276259661975475453, guid: 8a5d7cdb3918e45b19146b2bfecea4c5, type: 3}
   - {fileID: 141893073332109768, guid: 1740fb8a81b1f4ba8ad8d9c465541a43, type: 3}
   - {fileID: 7336298474659753992, guid: 9ebf7f71d32384b26a6a58a714e501d0, type: 3}
   - {fileID: -247037112251525876, guid: a589fc1484e64419d80b50efe42d9352, type: 3}
-  - {fileID: -3356593810811537127, guid: 4b623816f713344e6b2ee3cdcce498d0, type: 3}
-  - {fileID: -5099292496197868168, guid: 11523685ad6a942cf8493cfca147eff5, type: 3}
   CamTransform: {fileID: 1347591468}
   SortingLayer: Background
   SortingOrder: -8
-  CircuitCount: 6
+  CircuitCount: 8
   SegMin: 2
   SegMax: 8
   JogSize: 1
@@ -40597,9 +40593,10 @@ MonoBehaviour:
   ShowTracks: 1
   TrackColor: {r: 0.2, g: 0.5, b: 1, a: 0.15}
   PerCircuit: 2
-  SpeedMin: 3
-  SpeedMax: 7
+  SpeedMin: 2
+  SpeedMax: 5
   SpriteScale: 0.5
+  LoopsBeforeRecycle: 0
 --- !u!1 &2090941025
 GameObject:
   m_ObjectHideFlags: 0
