@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7491683078357350568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908007950737161535}
+  - component: {fileID: 5023184795774964179}
+  m_Layer: 0
+  m_Name: RAMSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &908007950737161535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491683078357350568}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5023184795774964179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491683078357350568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c6b68c85d7742be9b760ab7106c6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RAMChunkSystem
+  BaseSprites:
+  - {fileID: -939607621947103265, guid: 2695c9fb99bdb425583611270dfcaedc, type: 3}
+  - {fileID: 2602060528916442992, guid: 015e87c74dfc04c8dad5db2aa17f1bef, type: 3}
+  - {fileID: -7351202245221260596, guid: 09e8e6da59a8645cfa78fe3a93a2f63e, type: 3}
+  - {fileID: 1591268313405388852, guid: f5dfdc7bec20c4377ab0a98b75adaf6c, type: 3}
+  FancySprites:
+  - {fileID: 4792125536570783956, guid: 9892ece41f98c4d539cfae745d87d90e, type: 3}
+  - {fileID: 1685184256056902824, guid: 5e8835fb1bf9a433d944d5fb30bb61b5, type: 3}
+  - {fileID: -4855269967285629772, guid: b55daa94a072741939d7f08fbcf00336, type: 3}
+  - {fileID: 8611004563950747525, guid: d16dafc8d887840bd8a8f82d90450440, type: 3}
+  - {fileID: 2654638482386371155, guid: 3987fba50a48542ae82d1c34c8f5b7e2, type: 3}
+  - {fileID: 7201504027321367845, guid: 88ac458773a3b482c86f081c739f6c17, type: 3}
+  - {fileID: -6941583786112203546, guid: b31bea1a1b2f24f3f82c84cc141686a0, type: 3}
+  - {fileID: -4468439608998436721, guid: bc5acc19f115d44a682fe779e92e2f03, type: 3}
+  MapWidth: 300
+  MapHeight: 300
+  ChunkSize: 16
+  TileWorld: 0.99
+  SortingLayer: Background
+  OrderBase: -10
+  OrderFancy: -9
+  MaxAnimating: 4
+  LiftHeight: 1.5
+  LiftSpeed: 5
+  HoldTime: 0.6
+  FadeTime: 0.35
+  TriggerInterval: 1.2
+  CamTransform: {fileID: 0}
+  CullBuffer: 1
