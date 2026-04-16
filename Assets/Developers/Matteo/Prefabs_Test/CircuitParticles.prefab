@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6760188765905031293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6243260816601787367}
+  - component: {fileID: 4048738695516661223}
+  m_Layer: 0
+  m_Name: CircuitParticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6243260816601787367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760188765905031293}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.72258, y: 6.60985, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4048738695516661223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760188765905031293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9686e17a949c74bffacd63852b3f2716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CircuitParticleSystem
+  LaserSprites:
+  - {fileID: -3164809056393425246, guid: 8e3fe2025d0b14c40a793af75ac53baa, type: 3}
+  - {fileID: 8793915729297761979, guid: a01886f42aba54c1088382e2f387e6d7, type: 3}
+  - {fileID: 2750298860172458669, guid: be37da56c04ab4005824f0ac791f4892, type: 3}
+  - {fileID: -2276259661975475453, guid: 8a5d7cdb3918e45b19146b2bfecea4c5, type: 3}
+  - {fileID: 141893073332109768, guid: 1740fb8a81b1f4ba8ad8d9c465541a43, type: 3}
+  - {fileID: 7336298474659753992, guid: 9ebf7f71d32384b26a6a58a714e501d0, type: 3}
+  - {fileID: -247037112251525876, guid: a589fc1484e64419d80b50efe42d9352, type: 3}
+  CamTransform: {fileID: 0}
+  SortingLayer: Background
+  SortingOrder: -8
+  CircuitCount: 8
+  SegMin: 2
+  SegMax: 8
+  JogSize: 1
+  JogProb: 0.5
+  VerticalRatio: 0.4
+  ShowTracks: 1
+  TrackColor: {r: 0.2, g: 0.5, b: 1, a: 0.15}
+  PerCircuit: 2
+  SpeedMin: 2
+  SpeedMax: 5
+  SpriteScale: 0.5
+  LoopsBeforeRecycle: 0
