@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -5,7 +6,8 @@ public class Enemy : MonoBehaviour
     [Header("Settings")]
     public Transform player;
     public float moveSpeed = 3f;
-    public float attackRange = 1.8f; // Prova ad alzarlo un po' se ti sembra ancora lento
+    public float engageDistance = 6f;
+    public float attackRange = 0.8f;
     public float attackCoolDown = 1.5f;
     public int damage = 20;
 
@@ -13,6 +15,10 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb2;
     private Animator animator;
     private Vector2 movement;
+    private bool isAttacking = false;
+    private EnemyHealth enemyHealth;
+    private PlayerHealth playerHealth;
+    private EnemyEngagementManager engagementManager;
 
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
     private static readonly int Vertical = Animator.StringToHash("Vertical");
@@ -24,41 +30,70 @@ public class Enemy : MonoBehaviour
     {
         rb2 = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
-        // Blocca la rotazione (Z) e prepara l'attacco subito
+        enemyHealth = GetComponent<EnemyHealth>();
+        engagementManager = EnemyEngagementManager.Instance;
         rb2.constraints = RigidbodyConstraints2D.FreezeRotation;
-        nextAttackTime = Time.time; 
+        nextAttackTime = Time.time;
+
+        if (player == null)
+        {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+                player = playerObject.transform;
+        }
+
+        // Cache del PlayerHealth al posto di cercarlo ogni frame
+        if (player != null)
+            playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
-        if (GetComponent<EnemyHealth>() != null && GetComponent<EnemyHealth>().currentHP <= 0) return;
-        
-        if (player == null || !player.GetComponent<SpriteRenderer>().enabled) 
+        // Morto = fermo
+        if (enemyHealth != null && enemyHealth.currentHP <= 0) return;
+
+        // Controlla isDead invece di SpriteRenderer.enabled
+        if (player == null || playerHealth == null || playerHealth.isDead)
         {
             movement = Vector2.zero;
-            rb2.linearVelocity = Vector2.zero; // Si ferma se il player muore
             UpdateAnimation(Vector2.zero);
             return;
         }
 
-        float distance = Mathf.Abs(transform.position.x - player.position.x);
-        Vector2 direction = (player.position - transform.position).normalized;
+        // Mentre attacca, NESSUN calcolo di movimento
+        if (isAttacking) return;
 
-        if (distance < attackRange)
+        bool canEngage = IsPlayerInsideEngageDistance();
+        if (!canEngage)
         {
             movement = Vector2.zero;
-            rb2.linearVelocity = Vector2.zero; // FIX: Si inchioda sul posto per attaccare
+            UpdateAnimation(Vector2.zero);
+            return;
+        }
 
-            if (Time.time >= nextAttackTime)
-            {
-                Attack();
-                nextAttackTime = Time.time + attackCoolDown;
-            }
+        float distance = Vector2.Distance(transform.position, player.position);
+        Vector2 direction = (player.position - transform.position).normalized;
+
+        if (distance < attackRange && Time.time >= nextAttackTime)
+        {
+            // FIX: reset movimento PRIMA di entrare nella coroutine
+            movement = Vector2.zero;
+            rb2.linearVelocity = Vector2.zero;
+
+            // FIX: imposta nextAttackTime PRIMA di lanciare la coroutine
+            // così non può partire una seconda coroutine nel mezzo
+            nextAttackTime = Time.time + attackCoolDown;
+            StartCoroutine(PerformAttack());
+        }
+        else if (distance >= attackRange)
+        {
+            // Si muove SOLO se è fuori range — niente drifting residuo
+            movement = direction;
         }
         else
         {
-            movement = direction;
+            // In range ma cooldown non ancora scaduto: aspetta fermo
+            movement = Vector2.zero;
         }
 
         UpdateAnimation(movement);
@@ -66,11 +101,39 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Applica velocità solo se non siamo fermi ad attaccare
-        if (movement != Vector2.zero) {
-            rb2.linearVelocity = movement * moveSpeed;
-        } else {
+        if (isAttacking || movement == Vector2.zero)
             rb2.linearVelocity = Vector2.zero;
+        else
+            rb2.linearVelocity = movement * moveSpeed;
+    }
+
+    private IEnumerator PerformAttack()
+    {
+        isAttacking = true;
+
+        movement = Vector2.zero;
+        rb2.linearVelocity = Vector2.zero;
+        UpdateAnimation(Vector2.zero);
+
+        animator.SetTrigger(AttackTrigger);
+
+        yield return new WaitForSeconds(0.5f);
+
+        animator.ResetTrigger(AttackTrigger);
+        isAttacking = false;
+    }
+
+    // Chiamato dall'Animation Event
+    public void HitPlayer()
+    {
+        if (playerHealth == null || playerHealth.isDead) return;
+        if (!IsPlayerInsideEngageDistance()) return;
+
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (distance <= attackRange + 0.5f)
+        {
+            playerHealth.TakeDamage(damage);
+            Debug.Log("Danno inflitto con successo dal Virus!");
         }
     }
 
@@ -85,26 +148,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Attack()
+    private bool IsPlayerInsideEngageDistance()
     {
-        animator.SetTrigger(AttackTrigger);
+        if (player == null) return false;
+
+        if (engagementManager != null)
+            return engagementManager.IsInsideEngageDistance(transform.position, player.position, engageDistance);
+
+        float engageDistanceSafe = Mathf.Max(0f, engageDistance);
+        return (player.position - transform.position).sqrMagnitude <= engageDistanceSafe * engageDistanceSafe;
     }
 
-    // FUNZIONE PER ANIMATION EVENT (Mettila nel frame dell'attacco!)
-    public void HitPlayer()
+    private void OnDrawGizmosSelected()
     {
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth == null || playerHealth.isDead) return;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, engageDistance);
 
-        float distance = Mathf.Abs(transform.position.x - player.position.x);
-
-        if (distance <= attackRange + 0.5f)
-        {
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damage);
-                Debug.Log("Danno inflitto con successo!");
-            }
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
