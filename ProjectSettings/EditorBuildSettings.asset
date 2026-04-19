@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/CharacterSelectScene.unity
     guid: cc31a5232981645e2a9f755f4072528d
+  - enabled: 1
+    path: Assets/Developers/Matteo/Scenes_test/Test_HD.unity
+    guid: 5a65a2b9fb0bb4abf94908917bdc18a9
+  - enabled: 1
+    path: Assets/Developers/Matteo/Scenes_test/Test_RAM.unity
+    guid: 03308621094524176ad7aa0e04b10d81
+  - enabled: 1
+    path: Assets/Developers/Matteo/Scenes_test/ScenaTransizione.unity
+    guid: 6a756f37b576d4d03be4630a96647804
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
