@@ -1,56 +1,79 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DoorTerminal : MonoBehaviour
 {
     [Header("Porta")]
-    [SerializeField] private Sprite[] disintegrateFrames;
-    [SerializeField] private float    animFps = 8f;
+    [SerializeField] private Sprite[]   disintegrateFrames;
+    [SerializeField] private float      animFps = 8f;
+    [SerializeField] private GameObject doorObject;
 
-    [Header("UI Prompt")]
+    [Header("Prompt [E]")]
     [SerializeField] private GameObject promptPanel;
 
     [Header("UI Terminale")]
     [SerializeField] private GameObject      terminalPanel;
     [SerializeField] private TextMeshProUGUI headerText;
-    [SerializeField] private TextMeshProUGUI inputText;
-    [SerializeField] private TextMeshProUGUI keypadText;
+    [SerializeField] private TextMeshProUGUI inputDisplay;
     [SerializeField] private TextMeshProUGUI statusText;
+
+    [Header("Bottoni 0-9")]
+    [SerializeField] private Button btn1, btn2, btn3;
+    [SerializeField] private Button btn4, btn5, btn6;
+    [SerializeField] private Button btn7, btn8, btn9;
+    [SerializeField] private Button btn0;
+
+    [Header("Bottoni azione")]
+    [SerializeField] private Button btnDel;
+    [SerializeField] private Button btnEsc;
+
+    [Header("Colori UI")]
+    [SerializeField] private Color successColor = new Color(0f, 1f, 0.53f, 1f);
+    [SerializeField] private Color errorColor   = new Color(1f, 0.27f, 0.27f, 1f);
+    [SerializeField] private Color grayColor    = new Color(1f, 1f, 1f, 0.4f);
 
     [Header("Password")]
     [SerializeField] private string correctPassword = "11092001";
     [SerializeField] private int    maxDigits = 8;
 
-    [Header("Movimento player")]
+    [Header("Player")]
     [SerializeField] private MonoBehaviour playerMovementScript;
 
-    private bool   _playerInRange  = false;
-    private bool   _terminalOpen   = false;
-    private bool   _doorOpen       = false;
-    private bool   _animating      = false;
-    private string _input          = "";
-    private bool   _cursorVisible  = true;
-    private float  _cursorTimer    = 0f;
+    private bool   _playerInRange = false;
+    private bool   _terminalOpen  = false;
+    private bool   _doorOpen      = false;
+    private bool   _animating     = false;
+    private bool   _inputLocked   = false;
+    private string _input         = "";
+    private bool   _cursorVisible = true;
+    private float  _cursorTimer   = 0f;
 
     private SpriteRenderer _sr;
     private Collider2D     _col;
-    private Vector3        _originalScale; // ← salva la scala originale
+    private Vector3        _originalScale;
 
     private void Awake()
     {
-        _sr  = GetComponent<SpriteRenderer>();
-        _col = GetComponent<Collider2D>();
-
-        // Salva la scala originale al momento dell'avvio
-        _originalScale = transform.localScale;
-
-        if (disintegrateFrames != null && disintegrateFrames.Length > 0)
-            _sr.sprite = disintegrateFrames[0];
+        if (doorObject != null)
+        {
+            _sr            = doorObject.GetComponent<SpriteRenderer>();
+            _col           = doorObject.GetComponent<Collider2D>();
+            _originalScale = doorObject.transform.localScale;
+            if (disintegrateFrames != null && disintegrateFrames.Length > 0)
+                _sr.sprite = disintegrateFrames[0];
+        }
 
         promptPanel?.SetActive(false);
         terminalPanel?.SetActive(false);
-        UpdateKeypadDisplay();
+
+        BindKey(btn1,"1"); BindKey(btn2,"2"); BindKey(btn3,"3");
+        BindKey(btn4,"4"); BindKey(btn5,"5"); BindKey(btn6,"6");
+        BindKey(btn7,"7"); BindKey(btn8,"8"); BindKey(btn9,"9");
+        BindKey(btn0,"0");
+        btnDel?.onClick.AddListener(PressDelete);
+        btnEsc?.onClick.AddListener(PressEsc);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -81,117 +104,114 @@ public class DoorTerminal : MonoBehaviour
 
         if (!_terminalOpen) return;
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (!_inputLocked)
         {
-            CloseTerminal();
-            return;
+            for (int i = 0; i <= 9; i++)
+                if (Input.GetKeyDown(KeyCode.Alpha0 + i) || Input.GetKeyDown(KeyCode.Keypad0 + i))
+                    PressKey(i.ToString());
+            if (Input.GetKeyDown(KeyCode.Backspace)) PressDelete();
         }
 
-        for (int i = 0; i <= 9; i++)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha0 + i) || Input.GetKeyDown(KeyCode.Keypad0 + i))
-            {
-                if (_input.Length < maxDigits)
-                {
-                    _input += i.ToString();
-                    UpdateInputDisplay();
-                    CheckPassword();
-                }
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Backspace) && _input.Length > 0)
-        {
-            _input = _input.Substring(0, _input.Length - 1);
-            UpdateInputDisplay();
-            if (statusText) statusText.text = "";
-        }
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z)) PressEsc();
 
         _cursorTimer += Time.deltaTime;
         if (_cursorTimer >= 0.5f)
         {
             _cursorTimer   = 0f;
             _cursorVisible = !_cursorVisible;
-            UpdateInputDisplay();
+            UpdateDisplay();
         }
     }
 
     private void OpenTerminal()
     {
         _terminalOpen = true;
+        _inputLocked  = false;
         _input        = "";
         promptPanel?.SetActive(false);
         terminalPanel?.SetActive(true);
         if (playerMovementScript) playerMovementScript.enabled = false;
-
-        if (headerText) headerText.text = "> SISTEMA DI SICUREZZA v2.4\n> Inserisci codice di accesso:";
+        if (headerText) headerText.text = "> SISTEMA DI SICUREZZA v2.4";
         if (statusText) statusText.text = "";
-        UpdateKeypadDisplay();
-        UpdateInputDisplay();
+        UpdateDisplay();
     }
 
     private void CloseTerminal()
     {
         _terminalOpen = false;
+        _inputLocked  = false;
         _input        = "";
         terminalPanel?.SetActive(false);
         if (playerMovementScript) playerMovementScript.enabled = true;
         if (_playerInRange) promptPanel?.SetActive(true);
     }
 
-    private void UpdateInputDisplay()
+    private void BindKey(Button btn, string digit)
     {
-        if (inputText == null) return;
-        inputText.text = "> " + _input + (_cursorVisible ? "_" : " ");
+        if (btn != null) btn.onClick.AddListener(() => PressKey(digit));
     }
 
-    private void UpdateKeypadDisplay()
+    private void PressKey(string digit)
     {
-        if (keypadText == null) return;
-        keypadText.text =
-            "  [ 1 ] [ 2 ] [ 3 ]\n" +
-            "  [ 4 ] [ 5 ] [ 6 ]\n" +
-            "  [ 7 ] [ 8 ] [ 9 ]\n" +
-            "        [ 0 ]      \n\n" +
-            "  [BACKSPACE] cancella\n" +
-            "  [ Z ] esci";
+        if (_inputLocked || _input.Length >= maxDigits) return;
+        _input += digit;
+        if (statusText) statusText.text = "";
+        UpdateDisplay();
+        if (_input.Length == maxDigits) CheckPassword();
+    }
+
+    private void PressDelete()
+    {
+        if (_inputLocked || _input.Length == 0) return;
+        _input = _input.Substring(0, _input.Length - 1);
+        if (statusText) statusText.text = "";
+        UpdateDisplay();
+    }
+
+    private void PressEsc()
+    {
+        if (statusText) { statusText.color = grayColor; statusText.text = "> Uscita dal terminale..."; }
+        StartCoroutine(DelayedClose(0.6f));
+    }
+
+    private void UpdateDisplay()
+    {
+        if (inputDisplay == null) return;
+        inputDisplay.text = "> " + new string('*', _input.Length) + (_cursorVisible ? "_" : " ");
     }
 
     private void CheckPassword()
     {
-        if (_input.Length < maxDigits) return;
-
         if (_input == correctPassword)
         {
-            if (statusText)
-            {
-                statusText.text  = "> ACCESSO CONSENTITO\n> Apertura in corso...";
-                statusText.color = new Color(0f, 1f, 0.5f);
-            }
+            _inputLocked = true;
+            if (statusText) { statusText.color = successColor; statusText.text = "> ACCESSO CONSENTITO\n> Apertura in corso..."; }
             StartCoroutine(GrantAccess());
         }
         else
         {
-            if (statusText)
-            {
-                statusText.text  = "> CODICE ERRATO. Riprova.";
-                statusText.color = new Color(1f, 0.2f, 0.2f);
-            }
-            StartCoroutine(ClearInputAfterDelay(1f));
+            if (statusText) { statusText.color = errorColor; statusText.text = "> CODICE ERRATO. Riprova."; }
+            StartCoroutine(ClearAfterDelay(1.2f));
         }
     }
 
-    private IEnumerator ClearInputAfterDelay(float delay)
+    private IEnumerator ClearAfterDelay(float t)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(t);
         _input = "";
         if (statusText) statusText.text = "";
-        UpdateInputDisplay();
+        UpdateDisplay();
+    }
+
+    private IEnumerator DelayedClose(float t)
+    {
+        yield return new WaitForSeconds(t);
+        CloseTerminal();
     }
 
     private IEnumerator GrantAccess()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
         CloseTerminal();
         yield return new WaitForSeconds(0.3f);
         StartCoroutine(DisintegrateDoor());
@@ -199,10 +219,10 @@ public class DoorTerminal : MonoBehaviour
 
     private IEnumerator DisintegrateDoor()
     {
+        if (_sr == null) yield break;
         _animating = true;
         _doorOpen  = true;
 
-        // Flash cyan
         _sr.color = new Color(0.5f, 1f, 1f, 1f);
         yield return new WaitForSeconds(0.08f);
         _sr.color = Color.white;
@@ -211,8 +231,7 @@ public class DoorTerminal : MonoBehaviour
         foreach (var frame in disintegrateFrames)
         {
             _sr.sprite = frame;
-            // Mantieni sempre la scala originale
-            transform.localScale = _originalScale;
+            doorObject.transform.localScale = _originalScale;
             yield return new WaitForSeconds(delay);
         }
 
