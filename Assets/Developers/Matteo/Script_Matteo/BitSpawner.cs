@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class BitSpawner : MonoBehaviour
 {
+    public enum BitDirection { RightToLeft, LeftToRight }
+
+    [Header("Direzione")]
+    [Tooltip("RightToLeft = andata, LeftToRight = ritorno")]
+    [SerializeField] private BitDirection direction = BitDirection.RightToLeft;
+
     [Header("Sprites laser")]
-    [Tooltip("Trascina qui direttamente gli sprite — niente prefab")]
     [SerializeField] private Sprite[] bitSprites;
 
     [Header("Spawning")]
     [SerializeField] private float spawnRate     = 0.12f;
     [SerializeField] private int   maxBits        = 35;
     [SerializeField] private float tubeHalfHeight = 1.6f;
-    [SerializeField] private float spawnX         = 12f;
-    [SerializeField] private float despawnX       = -12f;
 
     [Header("Velocità")]
     [SerializeField] private float minSpeed = 4f;
@@ -22,22 +25,39 @@ public class BitSpawner : MonoBehaviour
     [SerializeField] private float minScale = 0.08f;
     [SerializeField] private float maxScale = 0.18f;
 
+    private float   _spawnX;
+    private float   _despawnX;
+    private Vector3 _moveDir;
+    private float   _rotation;
+
     private readonly List<BitParticle> _bits = new();
     private float _timer = 0f;
 
     private void Start()
     {
-        // Pre-popola il tubo con bit già distribuiti su tutta la larghezza
-        // così dall'inizio sembra già a regime
-        int preCount = maxBits;
-        for (int i = 0; i < preCount; i++)
+        if (direction == BitDirection.RightToLeft)
         {
-            // X random su tutto il tubo (da despawnX a spawnX)
-            float x = Random.Range(despawnX, spawnX);
+            _spawnX   =  12f;
+            _despawnX = -12f;
+            _moveDir  = Vector3.left;
+            _rotation = 180f;
+        }
+        else
+        {
+            _spawnX   = -12f;
+            _despawnX =  12f;
+            _moveDir  = Vector3.right;
+            _rotation = 0f;
+        }
+
+        // Pre-popola il tubo
+        for (int i = 0; i < maxBits; i++)
+        {
+            float x = Random.Range(_despawnX, _spawnX);
             SpawnBitAt(x);
         }
 
-        _timer = spawnRate; // evita burst al primo frame
+        _timer = spawnRate;
     }
 
     private void Update()
@@ -46,7 +66,7 @@ public class BitSpawner : MonoBehaviour
         if (_timer >= spawnRate && _bits.Count < maxBits)
         {
             _timer = 0f;
-            SpawnBitAt(spawnX);
+            SpawnBitAt(_spawnX);
         }
 
         for (int i = _bits.Count - 1; i >= 0; i--)
@@ -54,9 +74,13 @@ public class BitSpawner : MonoBehaviour
             var b = _bits[i];
             if (b.obj == null) { _bits.RemoveAt(i); continue; }
 
-            b.obj.transform.Translate(Vector3.left * b.speed * Time.deltaTime, Space.World);
+            b.obj.transform.Translate(_moveDir * b.speed * Time.deltaTime, Space.World);
 
-            if (b.obj.transform.position.x < despawnX)
+            bool outOfBounds = direction == BitDirection.RightToLeft
+                ? b.obj.transform.position.x < _despawnX
+                : b.obj.transform.position.x > _despawnX;
+
+            if (outOfBounds)
             {
                 Destroy(b.obj);
                 _bits.RemoveAt(i);
@@ -74,7 +98,7 @@ public class BitSpawner : MonoBehaviour
 
         var obj = new GameObject("Bit");
         obj.transform.position   = new Vector3(x, y, 0f);
-        obj.transform.rotation   = Quaternion.Euler(0f, 0f, 180f);
+        obj.transform.rotation   = Quaternion.Euler(0f, 0f, _rotation);
         obj.transform.localScale = Vector3.one * scale;
 
         var sr = obj.AddComponent<SpriteRenderer>();

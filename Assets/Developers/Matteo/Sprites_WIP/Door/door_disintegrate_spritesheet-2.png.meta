@@ -1,0 +1,634 @@
+fileFormatVersion: 2
+guid: 9aa2f7bb3e31745dc95150ae90aaa499
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7882244643537331265
+    second: door_disintegrate_spritesheet-2_0
+  - first:
+      213: 446297473612772824
+    second: door_disintegrate_spritesheet-2_1
+  - first:
+      213: -4392736887523598127
+    second: door_disintegrate_spritesheet-2_2
+  - first:
+      213: 3015189287978235895
+    second: door_disintegrate_spritesheet-2_3
+  - first:
+      213: -8674186944229535575
+    second: door_disintegrate_spritesheet-2_4
+  - first:
+      213: -4260407635771343893
+    second: door_disintegrate_spritesheet-2_5
+  - first:
+      213: -53749426824408808
+    second: door_disintegrate_spritesheet-2_6
+  - first:
+      213: -3810415344673071375
+    second: door_disintegrate_spritesheet-2_7
+  - first:
+      213: 2132701727318882699
+    second: door_disintegrate_spritesheet-2_8
+  - first:
+      213: 3001594489261442040
+    second: door_disintegrate_spritesheet-2_9
+  - first:
+      213: -4065047886748611283
+    second: door_disintegrate_spritesheet-2_10
+  - first:
+      213: -8181233401596486284
+    second: door_disintegrate_spritesheet-2_11
+  - first:
+      213: -658188022498757924
+    second: door_disintegrate_spritesheet-2_12
+  - first:
+      213: 6299574962141980885
+    second: door_disintegrate_spritesheet-2_13
+  - first:
+      213: -2838006189771263929
+    second: door_disintegrate_spritesheet-2_14
+  - first:
+      213: 1659192955595923986
+    second: door_disintegrate_spritesheet-2_15
+  - first:
+      213: -6219220836913966609
+    second: door_disintegrate_spritesheet-2_16
+  - first:
+      213: -3366635186273725347
+    second: door_disintegrate_spritesheet-2_17
+  - first:
+      213: 4363298772146475162
+    second: door_disintegrate_spritesheet-2_18
+  - first:
+      213: 5489783518521219495
+    second: door_disintegrate_spritesheet-2_19
+  - first:
+      213: 7898800920723778711
+    second: door_disintegrate_spritesheet-2_20
+  - first:
+      213: -2135130410814749523
+    second: door_disintegrate_spritesheet-2_21
+  - first:
+      213: 5964201543551568570
+    second: door_disintegrate_spritesheet-2_22
+  - first:
+      213: 3919086247335340336
+    second: door_disintegrate_spritesheet-2_23
+  - first:
+      213: 5561017215110174403
+    second: door_disintegrate_spritesheet-2_24
+  - first:
+      213: -3659801091248696143
+    second: door_disintegrate_spritesheet-2_25
+  - first:
+      213: 1698656817325607129
+    second: door_disintegrate_spritesheet-2_26
+  - first:
+      213: 3663978420816613204
+    second: door_disintegrate_spritesheet-2_27
+  - first:
+      213: -8446963914816382997
+    second: door_disintegrate_spritesheet-2_28
+  - first:
+      213: 2742503689782465007
+    second: door_disintegrate_spritesheet-2_29
+  - first:
+      213: -8451134418810419465
+    second: door_disintegrate_spritesheet-2_30
+  - first:
+      213: 3447813483172800117
+    second: door_disintegrate_spritesheet-2_31
+  - first:
+      213: -1160280081630789703
+    second: door_disintegrate_spritesheet-2_32
+  - first:
+      213: -6065916638578249508
+    second: door_disintegrate_spritesheet-2_33
+  - first:
+      213: -5760642143739708236
+    second: door_disintegrate_spritesheet-2_34
+  - first:
+      213: -3328983586775543696
+    second: door_disintegrate_spritesheet-2_35
+  - first:
+      213: 6229548585981389649
+    second: door_disintegrate_spritesheet-2_36
+  - first:
+      213: 3785124162157415791
+    second: door_disintegrate_spritesheet-2_37
+  - first:
+      213: -1597592439767079995
+    second: door_disintegrate_spritesheet-2_38
+  - first:
+      213: 2289086164681103251
+    second: door_disintegrate_spritesheet-2_39
+  - first:
+      213: 615682807424929243
+    second: door_disintegrate_spritesheet-2_40
+  - first:
+      213: -5392623071181415318
+    second: door_disintegrate_spritesheet-2_41
+  - first:
+      213: 8947965379272294627
+    second: door_disintegrate_spritesheet-2_42
+  - first:
+      213: 6372722426309067957
+    second: door_disintegrate_spritesheet-2_43
+  - first:
+      213: -3662473387101113219
+    second: door_disintegrate_spritesheet-2_44
+  - first:
+      213: 5671927020783780213
+    second: door_disintegrate_spritesheet-2_45
+  - first:
+      213: 9206189616380356168
+    second: door_disintegrate_spritesheet-2_46
+  - first:
+      213: -7964763754889962588
+    second: door_disintegrate_spritesheet-2_47
+  - first:
+      213: -2924778805384872796
+    second: door_disintegrate_spritesheet-2_48
+  - first:
+      213: 5870360506318599720
+    second: door_disintegrate_spritesheet-2_49
+  - first:
+      213: -2167381013890529600
+    second: door_disintegrate_spritesheet-2_50
+  - first:
+      213: -4494970602489285159
+    second: door_disintegrate_spritesheet-2_51
+  - first:
+      213: 6961835896888145190
+    second: door_disintegrate_spritesheet-2_52
+  - first:
+      213: -2133385609000121434
+    second: door_disintegrate_spritesheet-2_53
+  - first:
+      213: -967829459237976051
+    second: door_disintegrate_spritesheet-2_54
+  - first:
+      213: -4285987866129210802
+    second: door_disintegrate_spritesheet-2_55
+  - first:
+      213: 5109490241742516237
+    second: door_disintegrate_spritesheet-2_56
+  - first:
+      213: 6951734184913555448
+    second: door_disintegrate_spritesheet-2_57
+  - first:
+      213: 2539322186804460625
+    second: door_disintegrate_spritesheet-2_58
+  - first:
+      213: 5622780898000587704
+    second: door_disintegrate_spritesheet-2_59
+  - first:
+      213: 7465717326162597252
+    second: door_disintegrate_spritesheet-2_60
+  - first:
+      213: 7652428603895157122
+    second: door_disintegrate_spritesheet-2_61
+  - first:
+      213: 6448450143710017940
+    second: door_disintegrate_spritesheet-2_62
+  - first:
+      213: 1873639979766417681
+    second: door_disintegrate_spritesheet-2_63
+  - first:
+      213: -6585934716860666829
+    second: door_disintegrate_spritesheet-2_64
+  - first:
+      213: -8692723032645742417
+    second: door_disintegrate_spritesheet-2_65
+  - first:
+      213: -3369329412394398105
+    second: door_disintegrate_spritesheet-2_66
+  - first:
+      213: 1993714272652448236
+    second: door_disintegrate_spritesheet-2_67
+  - first:
+      213: -5378086573598512693
+    second: door_disintegrate_spritesheet-2_68
+  - first:
+      213: -7210778637036946087
+    second: door_disintegrate_spritesheet-2_69
+  - first:
+      213: 3270964795009380775
+    second: door_disintegrate_spritesheet-2_70
+  - first:
+      213: 4571186007815466359
+    second: door_disintegrate_spritesheet-2_71
+  - first:
+      213: 6208427184222127773
+    second: door_disintegrate_spritesheet-2_72
+  - first:
+      213: 2770336888043425254
+    second: door_disintegrate_spritesheet-2_73
+  - first:
+      213: 3317120350717423740
+    second: door_disintegrate_spritesheet-2_74
+  - first:
+      213: -3922029640527649799
+    second: door_disintegrate_spritesheet-2_75
+  - first:
+      213: 112995254099528391
+    second: door_disintegrate_spritesheet-2_76
+  - first:
+      213: 8220764535059345235
+    second: door_disintegrate_spritesheet-2_77
+  - first:
+      213: 6311926783466694155
+    second: door_disintegrate_spritesheet-2_78
+  - first:
+      213: -8930447100637522245
+    second: door_disintegrate_spritesheet-2_79
+  - first:
+      213: 2236452581960571635
+    second: door_disintegrate_spritesheet-2_80
+  - first:
+      213: 3130450673964205276
+    second: door_disintegrate_spritesheet-2_81
+  - first:
+      213: 9087608466804577816
+    second: door_disintegrate_spritesheet-2_82
+  - first:
+      213: 4454027311930015629
+    second: door_disintegrate_spritesheet-2_83
+  - first:
+      213: 4428838283533520446
+    second: door_disintegrate_spritesheet-2_84
+  - first:
+      213: 563516428136484337
+    second: door_disintegrate_spritesheet-2_85
+  - first:
+      213: -4850002446095317764
+    second: door_disintegrate_spritesheet-2_86
+  - first:
+      213: 1667045729316719122
+    second: door_disintegrate_spritesheet-2_87
+  - first:
+      213: 290027325964907692
+    second: door_disintegrate_spritesheet-2_88
+  - first:
+      213: 940149212604975330
+    second: door_disintegrate_spritesheet-2_89
+  - first:
+      213: 65164017868062653
+    second: door_disintegrate_spritesheet-2_90
+  - first:
+      213: 5994286617553471954
+    second: door_disintegrate_spritesheet-2_91
+  - first:
+      213: 5780142162435591109
+    second: door_disintegrate_spritesheet-2_92
+  - first:
+      213: -588230582988597280
+    second: door_disintegrate_spritesheet-2_93
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 4
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 144a4cacdbb536d60800000000000000
+      internalID: 7882244643537331265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d5f7da0031913600800000000000000
+      internalID: 446297473612772824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d0a663131dd903c0800000000000000
+      internalID: -4392736887523598127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f77188aeaa18d920800000000000000
+      internalID: 3015189287978235895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a01ed99ee81f9780800000000000000
+      internalID: -8674186944229535575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bebbc7fe3ddffd4c0800000000000000
+      internalID: -4260407635771343893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 811104b5e2b014ff0800000000000000
+      internalID: -53749426824408808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fe5016be6fae1bc0800000000000000
+      internalID: -3810415344673071375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_disintegrate_spritesheet-2_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8934b4ebe0e89d10800000000000000
+      internalID: 2132701727318882699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d19f2c83a2dbe4a97a2f435fb7c1f401
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":96.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      door_disintegrate_spritesheet-2_0: 7882244643537331265
+      door_disintegrate_spritesheet-2_1: 446297473612772824
+      door_disintegrate_spritesheet-2_2: -4392736887523598127
+      door_disintegrate_spritesheet-2_3: 3015189287978235895
+      door_disintegrate_spritesheet-2_4: -8674186944229535575
+      door_disintegrate_spritesheet-2_5: -4260407635771343893
+      door_disintegrate_spritesheet-2_6: -53749426824408808
+      door_disintegrate_spritesheet-2_7: -3810415344673071375
+      door_disintegrate_spritesheet-2_8: 2132701727318882699
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -2,50 +2,38 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Scena "BUS TUBE" — navicella che scorre automaticamente nel tubo.
-/// 
-/// Setup scena:
-///   1. Camera ortografica, size ~3, sfondo nero
-///   2. Due sprite lunghi orizzontali per le pareti (top e bottom) — tag "Wall"
-///   3. Trascina lo sprite navicella in scena, assegna a "shipSprite"
-///   4. Crea un ParticleSystem, assegna a "bitParticles"
-///   5. Aggiungi questo script a un GameObject vuoto "SceneManager"
-///   6. Imposta "Next Scene Name" con il nome della scena destinazione
-/// </summary>
 public class BusTubeScene : MonoBehaviour
 {
+    public enum TravelDirection { LeftToRight, RightToLeft }
+
+    [Header("Direzione")]
+    [SerializeField] private TravelDirection direction = TravelDirection.LeftToRight;
+
     [Header("Navicella")]
     [SerializeField] private GameObject shipObject;
-    [SerializeField] private float shipSpeed = 4f;
-    [SerializeField] private float travelDistance = 30f;   // unità da percorrere prima di uscire
+    [SerializeField] private float shipSpeed      = 2f;
+    [SerializeField] private float travelDistance = 50f;
 
     [Header("Scena destinazione")]
-    [SerializeField] private string nextSceneName = "ScenaDestinazione";
-    [SerializeField] private float fadeDuration = 0.8f;
+    [SerializeField] private string nextSceneName = "Test_RAM";
+    [SerializeField] private float fadeDuration   = 0.8f;
 
-    [Header("Effetto entrata")]
-    [SerializeField] private float entryDelay = 0.5f;      // pausa prima di partire
+    [Header("Entrata")]
+    [SerializeField] private float entryDelay = 0.5f;
 
-    private bool _traveling = false;
-    private float _distanceTraveled = 0f;
-    private Vector3 _startPos;
-
-    // ─── Start ─────────────────────────────────────────────────────
+    private bool    _traveling        = false;
+    private float   _distanceTraveled = 0f;
+    private Vector3 _moveDir;
 
     private void Start()
     {
-        if (shipObject == null) return;
-        _startPos = shipObject.transform.position;
+        _moveDir = direction == TravelDirection.LeftToRight ? Vector3.right : Vector3.left;
 
-        // Fade in all'arrivo
         if (SceneTransition.Instance != null)
             StartCoroutine(SceneTransition.Instance.FadeIn(fadeDuration));
 
         StartCoroutine(BeginTravel());
     }
-
-    // ─── Travel ────────────────────────────────────────────────────
 
     private IEnumerator BeginTravel()
     {
@@ -58,7 +46,7 @@ public class BusTubeScene : MonoBehaviour
         if (!_traveling || shipObject == null) return;
 
         float step = shipSpeed * Time.deltaTime;
-        shipObject.transform.Translate(Vector3.right * step);
+        shipObject.transform.Translate(_moveDir * step, Space.World);
         _distanceTraveled += step;
 
         if (_distanceTraveled >= travelDistance)
@@ -68,17 +56,13 @@ public class BusTubeScene : MonoBehaviour
         }
     }
 
-    // ─── Uscita dal tubo ───────────────────────────────────────────
-
     private IEnumerator ExitTube()
     {
-        // Accelera verso l'uscita
-        float exitTime = 0.6f;
         float elapsed = 0f;
-        while (elapsed < exitTime)
+        while (elapsed < 0.6f)
         {
             elapsed += Time.deltaTime;
-            shipObject.transform.Translate(Vector3.right * shipSpeed * 2f * Time.deltaTime);
+            shipObject.transform.Translate(_moveDir * shipSpeed * 2f * Time.deltaTime, Space.World);
             yield return null;
         }
 

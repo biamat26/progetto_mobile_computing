@@ -21,8 +21,11 @@ EditorBuildSettings:
     path: Assets/Developers/Matteo/Scenes_test/Test_RAM.unity
     guid: 03308621094524176ad7aa0e04b10d81
   - enabled: 1
-    path: Assets/Developers/Matteo/Scenes_test/ScenaTransizione.unity
+    path: Assets/Developers/Matteo/Scenes_test/BUS_HD-RAM.unity
     guid: 6a756f37b576d4d03be4630a96647804
+  - enabled: 1
+    path: Assets/Developers/Matteo/Scenes_test/BUS_RAM-HD.unity
+    guid: 27882b64746724a37be47095a7c99142
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
