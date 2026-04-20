@@ -148,10 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273e8fab824a142a19ed544f0f13c37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BusTubeScene
+  direction: 1
   shipObject: {fileID: 2052331494}
-  shipSpeed: 3
-  travelDistance: 20
-  nextSceneName: Test_RAM
+  shipSpeed: 4
+  travelDistance: 25
+  nextSceneName: Test_HD
   fadeDuration: 0.8
   entryDelay: 0.5
 --- !u!4 &327352424
@@ -383,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c26a365833d41808abdc522d3df16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BitSpawner
+  direction: 0
   bitSprites:
   - {fileID: -3164809056393425246, guid: 8e3fe2025d0b14c40a793af75ac53baa, type: 3}
   - {fileID: -5225540622116197949, guid: cd9b9a6b2badc4aa68ec637bc18c889f, type: 3}
@@ -397,8 +399,6 @@ MonoBehaviour:
   spawnRate: 0.02
   maxBits: 40
   tubeHalfHeight: 1.6
-  spawnX: 20
-  despawnX: -20
   minSpeed: 4
   maxSpeed: 10
   minScale: 0.02
@@ -482,7 +482,7 @@ SpriteRenderer:
   m_SortingLayerID: -286381597
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4130640169021434097, guid: 1d473824d7c574ce0b110ac5e6a0647d, type: 3}
+  m_Sprite: {fileID: 4130640169021434097, guid: aadc11dfb51b64651b4c15853b4e1f12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -502,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 2052331494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.09, y: -0.96648, z: 0}
+  m_LocalPosition: {x: 14.88, y: -0.96648, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
