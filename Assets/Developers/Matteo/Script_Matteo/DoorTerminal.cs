@@ -177,7 +177,7 @@ public class DoorTerminal : MonoBehaviour
     private void UpdateDisplay()
     {
         if (inputDisplay == null) return;
-        inputDisplay.text = "> " + new string('*', _input.Length) + (_cursorVisible ? "_" : " ");
+        inputDisplay.text = "> " + _input + (_cursorVisible ? "_" : " ");
     }
 
     private void CheckPassword()
@@ -235,8 +235,13 @@ public class DoorTerminal : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
-        if (_col != null) _col.enabled = false;
-        _sr.enabled = false;
-        _animating  = false;
+        Collider2D[] allColliders = doorObject.GetComponents<Collider2D>();
+    foreach (var c in allColliders)
+    {
+        c.enabled = false; // Spegne sia il muro che il trigger
+    }
+
+    _sr.enabled = false;
+    _animating = false;
     }
 }
