@@ -12,12 +12,23 @@ public class GlitchText : MonoBehaviour
     private string originalText;
     private bool isGlitching = false;
 
+    // Usiamo Awake per salvare il testo originale UNA SOLA VOLTA all'avvio
+    void Awake()
+    {
+        tmp = GetComponent<TextMeshProUGUI>();
+        originalText = tmp.text; 
+    }
+
     void OnEnable()
-{
-    tmp = GetComponent<TextMeshProUGUI>();
-    originalText = tmp.text;
-    StartCoroutine(GlitchLoop());
-}
+    {
+        // Ogni volta che si riapre l'inventario, ci assicuriamo che parta pulito
+        if (tmp != null && !string.IsNullOrEmpty(originalText))
+        {
+            tmp.text = originalText;
+        }
+        isGlitching = false;
+        StartCoroutine(GlitchLoop());
+    }
 
     IEnumerator GlitchLoop()
     {
@@ -58,7 +69,14 @@ public class GlitchText : MonoBehaviour
     }
 
     void OnDisable()
-{
-    StopAllCoroutines();
-}
+    {
+        StopAllCoroutines();
+        
+        // Se chiudiamo l'inventario a metà glitch, ripristina il testo!
+        if (tmp != null && !string.IsNullOrEmpty(originalText))
+        {
+            tmp.text = originalText;
+            isGlitching = false;
+        }
+    }
 }

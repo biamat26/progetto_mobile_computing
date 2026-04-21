@@ -3,39 +3,42 @@ using UnityEngine;
 public class WorldItem : MonoBehaviour
 {
     public ItemData itemData;
-    [SerializeField] private GameObject pickupPrompt;
+    [SerializeField] private float pickupRange = 1.5f;
+    private GameObject pickupPrompt;
+    private Transform playerTransform;
     private bool playerNearby = false;
 
-    void Start()
+void Start()
+{
+    pickupPrompt = transform.Find("PickUpPrompt")?.gameObject;
+    if (pickupPrompt != null) pickupPrompt.SetActive(false);
+
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    if (player != null) playerTransform = player.transform;
+}
+
+void Update()
+{
+    if (playerTransform == null)
     {
-        if (pickupPrompt != null)
-            pickupPrompt.SetActive(false);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) playerTransform = player.transform;
+        else Debug.Log("Player non trovato!");
+        return;
     }
 
-    void Update()
-    {
-        if (playerNearby && Input.GetKeyDown(KeyCode.E))
-        {
-            bool picked = InventorySystem.Instance.AddItem(itemData);
-            if (picked) Destroy(gameObject);
-        }
-    }
+    float distance = Vector2.Distance(transform.position, playerTransform.position);
+    Debug.Log("Distanza: " + distance + " | pickupRange: " + pickupRange);
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerNearby = true;
-            if (pickupPrompt != null) pickupPrompt.SetActive(true);
-        }
-    }
+    bool inRange = distance <= pickupRange;
+    playerNearby = inRange;
+    if (pickupPrompt != null) pickupPrompt.SetActive(inRange);
 
-    void OnTriggerExit2D(Collider2D other)
+    if (playerNearby && Input.GetKeyDown(KeyCode.E))
     {
-        if (other.CompareTag("Player"))
-        {
-            playerNearby = false;
-            if (pickupPrompt != null) pickupPrompt.SetActive(false);
-        }
+        if (InventorySystem.Instance == null) return;
+        bool picked = InventorySystem.Instance.AddItem(itemData);
+        if (picked) Destroy(gameObject);
     }
+}
 }
