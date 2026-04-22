@@ -1,15 +1,11 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-
-public enum BattleState{START, PLAYERTURN , ENEMYTURN , WON, LOST}
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
-
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
@@ -25,108 +21,189 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
 
+    private int lastEnemySpeechIndex = -1; // evita stessa frase consecutiva
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         state = BattleState.START;
         StartCoroutine(SetUpBattle());
     }
 
-    IEnumerator SetUpBattle(){
-        GameObject playerGO = Instantiate(playerPrefab,playerBattleStation);
+    IEnumerator SetUpBattle()
+    {
+        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
-        
-        GameObject enemyGO = Instantiate(enemyPrefab,enemyBattleStation);
+
+        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         dialogueText.text = "Il cattivo " + enemyUnit.unitName + " si sta avvicinando...";
+        yield return new WaitForSeconds(4f);
+
+        dialogueText.text = "Pensavi di aver ripulito la RAM?";
+        yield return new WaitForSeconds(4f);
+
+        dialogueText.text = "Illuso.";
+        yield return new WaitForSeconds(2f);
+
+        dialogueText.text = "Finché io avrò il controllo della CPU,";
+        yield return new WaitForSeconds(4f);
+
+        dialogueText.text = "tu sarai solo un bit di scarto destinato all'overflow!";
+        yield return new WaitForSeconds(4f);
+
+        dialogueText.text = "[BOSS BATTLE: PROFESSOR BURLONE]";
+        yield return new WaitForSeconds(4f);
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
-        yield return new WaitForSeconds(2f);
-
         state = BattleState.PLAYERTURN;
         PlayerTurn();
-
-
     }
 
-    IEnumerator PlayerAttack(int damageToDeal){
-        
-
+    IEnumerator PlayerAttack(int damageToDeal)
+    {
         bool isDead = enemyUnit.TakeDamage(damageToDeal);
-
         enemyHUD.SetHP(enemyUnit.currentHP);
-        if(damageToDeal > playerUnit.damage){
-            dialogueText.text = "COLPO CRITICOO! " + damageToDeal + " di DANNO!";
-        }
-        else{
-            dialogueText.text = "Attacco formidabile!";
-        }
 
-        yield return new WaitForSeconds(2f);
+        if (damageToDeal > playerUnit.damage)
+            dialogueText.text = "COLPO CRITICO! Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
+        else
+            dialogueText.text = "Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
 
-        if(isDead){
+        yield return new WaitForSeconds(4f);
+
+        if (isDead)
+        {
             state = BattleState.WON;
             EndBattle();
         }
-        else{
+        else
+        {
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
     }
 
-    IEnumerator EnemyTurn(){
+    IEnumerator EnemyTurn()
+    {
+        int speechIndex = GetRandomEnemySpeechIndex();
 
-        dialogueText.text = enemyUnit.unitName + " ti sta attaccando !";
-        yield return new WaitForSeconds(2f);
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+        if (speechIndex == 0)
+        {
+            dialogueText.text = "Pensi davvero di avere un input valido contro di me?!";
+            yield return new WaitForSeconds(4f);
 
+            dialogueText.text = "La tua speranza di vittoria è appena passata per una porta NOT:";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "si è completamente invertita! Ora ti faccio VedeRAID io!";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "💥 ATTACCO: IMPATTO RAID-ZERO! 💥";
+            yield return new WaitForSeconds(4f);
+        }
+        else if (speechIndex == 1)
+        {
+            dialogueText.text = "Ah! Un attacco a sorpresa? Che mossa instabile.";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "Il tuo coraggio fa FLIP, ma ti assicuro che la tua barra della vita farà FLOP!";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "Preparati al reset asincrono!";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "⚡ ATTACCO: RAGGIO FLIP-FLOP J-K! ⚡";
+            yield return new WaitForSeconds(4f);
+        }
+         else
+        {
+            dialogueText.text = "Credi di essere un eroe ";
+            yield return new WaitForSeconds(2f);
+
+            dialogueText.text = "solo perché hai collegato due cavetti colorati su Logisim?!";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "Qui siamo nel silicio vero, ragazzino!";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "Ora ti scompongo in fattori primi...";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "Un BIT alla volta!";
+            yield return new WaitForSeconds(4f);
+
+            dialogueText.text = "🔥 ATTACCO: OVERFLOW ARITMETICO LETALE! 🔥";
+            yield return new WaitForSeconds(4f);
+        }
+
+        int damage = enemyUnit.damage;
+        bool isDead = playerUnit.TakeDamage(damage);
         playerHUD.SetHP(playerUnit.currentHP);
 
-        yield return new WaitForSeconds(2f);
+        dialogueText.text = enemyUnit.unitName + " ti ha tolto " + damage + " HP di vita!";
+        yield return new WaitForSeconds(4f);
 
-        if(isDead){
+        if (isDead)
+        {
             state = BattleState.LOST;
             EndBattle();
         }
-        else{
+        else
+        {
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
     }
 
-    void EndBattle(){
-        if(state == BattleState.WON){
+    int GetRandomEnemySpeechIndex()
+    {
+        int newIndex;
+
+        if (lastEnemySpeechIndex == -1)
+        {
+            newIndex = Random.Range(0, 3);
+        }
+        else
+        {
+            do
+            {
+                newIndex = Random.Range(0, 3);
+            } while (newIndex == lastEnemySpeechIndex);
+        }
+
+        lastEnemySpeechIndex = newIndex;
+        return newIndex;
+    }
+
+    void EndBattle()
+    {
+        if (state == BattleState.WON)
             dialogueText.text = "Congratulazioni! Hai vinto e sconfitto " + enemyUnit.unitName;
-        }
-        else if (state == BattleState.LOST){
+        else if (state == BattleState.LOST)
             dialogueText.text = "Ti hanno spaccato! Hahahahah godo";
-        }
     }
 
-
-    void PlayerTurn(){
+    void PlayerTurn()
+    {
         dialogueText.text = "Seleziona una mossa :";
-
     }
 
-    public void OnAttackButton(){
-        if(state != BattleState.PLAYERTURN){
+    public void OnAttackButton()
+    {
+        if (state != BattleState.PLAYERTURN)
             return;
-        }
 
         StartCoroutine(PlayerAttack(playerUnit.damage));
     }
 
-    public void PlayerSuperAttack(){
-        if(state!=BattleState.PLAYERTURN){
+    public void PlayerSuperAttack()
+    {
+        if (state != BattleState.PLAYERTURN)
             return;
-        }
-        StartCoroutine(PlayerAttack(playerUnit.damage*2));
+
+        StartCoroutine(PlayerAttack(playerUnit.damage * 2));
     }
-
-
 }
