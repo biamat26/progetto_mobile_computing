@@ -7,6 +7,8 @@ public class InventorySystem : MonoBehaviour
     public GameObject[] slots = new GameObject[16];
     private ItemData[] items = new ItemData[16];
 
+    public int GetSelectedSlot() => selectedSlot;
+public ItemData GetItem(int index) => items[index];
     private int selectedSlot = -1;
 
 public void SelectSlot(int index)

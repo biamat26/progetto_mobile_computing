@@ -45,6 +45,13 @@ public class TerminalManager : MonoBehaviour
         MostraAiuto("intro");
     }
 
+    public void MostraMessaggioLibero(string testo)
+{
+    cronologiaMessaggi.Add(testo);
+    if (cronologiaMessaggi.Count > maxMessaggi)
+        cronologiaMessaggi.RemoveAt(0);
+    AggiornaTestoTerminale(testo);
+}
     private void CaricaMessaggi()
     {
         databaseMessaggi.Clear(); 

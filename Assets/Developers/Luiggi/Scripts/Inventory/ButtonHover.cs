@@ -69,9 +69,17 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     public void OnPointerClick(PointerEventData e)
-    {
-        StartCoroutine(ClickFlash());
-    }
+{
+    borderImage.color = Color.white;
+    bgImage.color = hoverBorderColor;
+    Invoke("ResetColors", 0.08f);
+}
+
+private void ResetColors()
+{
+    targetBorder = normalBorderColor;
+    targetBg = normalBgColor;
+}
 
     private System.Collections.IEnumerator ClickFlash()
     {
