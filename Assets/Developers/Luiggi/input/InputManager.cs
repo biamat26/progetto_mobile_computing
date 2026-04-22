@@ -25,19 +25,25 @@ public class InputManager : MonoBehaviour
         playerHealth = FindObjectOfType<PlayerHealth>();
     }
 
-    private void Update()
-    {   
-        if (playerHealth == null || playerHealth.isDead) return;
-        Movement = moveAction.ReadValue<Vector2>();
-        Attack = attackAction.triggered;
-        ToggleInventory = inventoryAction.triggered;
+  private void Update()
+{   
+    if (playerHealth == null || playerHealth.isDead)
+    {
+        // Reset esplicito invece di return secco
+        Movement = Vector2.zero;
+        Attack = false;
+        ToggleInventory = false;
+        return;
+    }
 
-        if (Movement != Vector2.zero || Attack || ToggleInventory)
+    Movement = moveAction.ReadValue<Vector2>();
+    Attack = attackAction.triggered;
+    ToggleInventory = inventoryAction.triggered;
+
+    if (Movement != Vector2.zero || Attack || ToggleInventory)
     {
         if (TerminalManager.Istanza != null)
-        {
             TerminalManager.Istanza.ResetProgressoGiocatore();
-        }
     }
-    }
+}
 }

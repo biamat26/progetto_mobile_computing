@@ -1,32 +1,30 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // <-- Abbiamo aggiunto questa libreria!
+using System.Collections;
 
 public class InventoryToggle : MonoBehaviour
 {
-    public GameObject inventoryPanel;
-    public GameObject customCursor;
+    [SerializeField] private GameObject inventoryCanvas;
 
-    private void Start()
+    void Start()
     {
-        inventoryPanel.SetActive(false); 
-        customCursor.SetActive(false);   
-        Cursor.visible = false;          
+        inventoryCanvas.SetActive(false);
     }
 
-    private void Update()
+    void Update()
     {
-        // Controllo del clic con il NUOVO Input System
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            Cursor.visible = false;
-        }
+            bool opening = !inventoryCanvas.activeSelf;
+            inventoryCanvas.SetActive(opening);
 
-        if (InputManager.ToggleInventory)
-        {
-            bool isOpen = inventoryPanel.activeSelf;
-            
-            inventoryPanel.SetActive(!isOpen);
-            customCursor.SetActive(!isOpen);
+            if (opening)
+                StartCoroutine(RefreshAfterFrame());
         }
+    }
+
+    IEnumerator RefreshAfterFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        InventorySystem.Instance.RefreshUI();
     }
 }
