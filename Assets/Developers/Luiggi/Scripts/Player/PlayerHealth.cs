@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHP = 100;
     public GameoverUI gameOverUI;
+    public HealthBar healthBar;
 
     // L'ho messo public così lo vedi nell'Inspector e capisci se il danno funziona
     public int currentHP; 
@@ -20,6 +21,7 @@ void Awake()
     {
         _isDead = false; // ora non è serializzato, parte sempre false
         currentHP = maxHP;
+        healthBar.SetMaxHealth(maxHP); 
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();   
 
@@ -35,6 +37,7 @@ void Awake()
         if (isInvulnerable || _isDead) return;   
 
         currentHP -= qt;
+        healthBar.SetHealth(currentHP);
         Debug.Log($"Danno ricevuto! HP: {currentHP}");
 
         if (currentHP <= 0)
