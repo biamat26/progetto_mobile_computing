@@ -8,15 +8,14 @@ public class TerminalManager : MonoBehaviour
     [Header("Componenti")]
     public TerminalUI terminalUI;
     public RectTransform terminalRect; 
+    public GameObject bottoneTerminale; // <-- NUOVO: Il riferimento al bottoncino
 
     [Header("Stato e Cronologia")]
     public bool isExpanded = false;
     public int maxMessaggi = 10; // Quanti messaggi ricorda al massimo
 
     [Header("Impostazioni Dimensioni")]
-    public Vector2 sizeMini = new Vector2(150, 150); // Messo quadrato come volevi
     public Vector2 sizeFull = new Vector2(800, 500);
-    public Vector2 offsetMini = new Vector2(-20, 20);
 
     // Database dei messaggi e Memoria storica
     private Dictionary<string, string> databaseMessaggi = new Dictionary<string, string>();
@@ -39,19 +38,23 @@ public class TerminalManager : MonoBehaviour
         
         Time.timeScale = 1f;
         isExpanded = false;
-        AggiornaVisuale();
+        
+        // Nascondi il terminale grande all'avvio
+        terminalRect.gameObject.SetActive(false);
 
-        // Facciamo apparire il primo messaggio all'avvio
-        MostraAiuto("intro");
+        // Carica subito la storia iniziale nella cronologia "dietro le quinte"
+        MostraAiuto("intro"); 
     }
 
     public void MostraMessaggioLibero(string testo)
-{
-    cronologiaMessaggi.Add(testo);
-    if (cronologiaMessaggi.Count > maxMessaggi)
-        cronologiaMessaggi.RemoveAt(0);
-    AggiornaTestoTerminale(testo);
-}
+    {
+        cronologiaMessaggi.Add(testo);
+        if (cronologiaMessaggi.Count > maxMessaggi)
+            cronologiaMessaggi.RemoveAt(0);
+            
+        AggiornaTestoTerminale(testo);
+    }
+
     private void CaricaMessaggi()
     {
         databaseMessaggi.Clear(); 
@@ -80,20 +83,34 @@ public class TerminalManager : MonoBehaviour
     public void ToggleTerminal()
     {
         isExpanded = !isExpanded;
-        AggiornaVisuale();
         
-        // Quando lo apri/chiudi, ricarica il testo corretto
-        if (cronologiaMessaggi.Count > 0)
+        // Accende o spegne il pannello gigante
+        terminalRect.gameObject.SetActive(isExpanded);
+
+        // Spegne il bottoncino se il terminale è aperto, lo riaccende se è chiuso
+        if(bottoneTerminale != null)
         {
-            AggiornaTestoTerminale(cronologiaMessaggi[cronologiaMessaggi.Count - 1]);
+            bottoneTerminale.SetActive(!isExpanded); 
+        }
+
+        AggiornaVisuale();
+
+        if (isExpanded)
+        {
+            // Ricarica il testo corretto
+            if (cronologiaMessaggi.Count > 0)
+            {
+                AggiornaTestoTerminale(cronologiaMessaggi[cronologiaMessaggi.Count - 1]);
+            }
         }
     }
 
     private void AggiornaVisuale()
     {
+        // Visto che l'oggetto si spegne quando non è expanded, 
+        // ci interessa solo settare le impostazioni di quando è aperto!
         if (isExpanded)
         {
-            // STATO GRANDE
             Time.timeScale = 0f; 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None; 
@@ -106,16 +123,9 @@ public class TerminalManager : MonoBehaviour
         }
         else
         {
-            // STATO PICCOLO
+            // Quando si chiude, facciamo solo ripartire il tempo
             Time.timeScale = 1f; 
-            Cursor.visible = true; 
-            Cursor.lockState = CursorLockMode.None; 
-
-            terminalRect.anchorMin = new Vector2(1, 0); 
-            terminalRect.anchorMax = new Vector2(1, 0);
-            terminalRect.pivot = new Vector2(1, 0);
-            terminalRect.anchoredPosition = offsetMini; 
-            terminalRect.sizeDelta = sizeMini;
+            // Cursor.visible = false; // Togli il commento se nascondi il mouse durante il gioco
         }
     }
 
@@ -142,16 +152,11 @@ public class TerminalManager : MonoBehaviour
 
     private void AggiornaTestoTerminale(string ultimoMessaggio)
     {
+        // Compiliamo il testo a schermo solo se il terminale è aperto
         if (isExpanded)
         {
-            // Se è grande, unisce tutti i messaggi della storia e li spara subito a schermo
             string testoCompleto = "> ARCHIVIO SISTEMA:\n\n" + string.Join("\n\n", cronologiaMessaggi);
             terminalUI.ScriviMessaggio(testoCompleto, true); 
-        }
-        else
-        {
-            // Se è piccolo, scrive solo l'ultimo messaggio con l'effetto hacker
-            terminalUI.ScriviMessaggio(ultimoMessaggio, true); 
         }
     }
 

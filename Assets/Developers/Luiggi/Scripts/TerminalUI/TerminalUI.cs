@@ -12,11 +12,18 @@ public class TerminalUI : MonoBehaviour
     [Header("Impostazioni")]
     public float delayLettera = 0.01f;
     [Range(0f, 0.2f)] public float sogliaAutoScroll = 0.1f;
+    public Color coloreTesto = new Color(0.12f, 0.78f, 1f, 1f);
 
     private Coroutine typingCoroutine;
     private float currentDelay;
     private bool isTyping = false;
     private bool utenteHaScrollato = false;
+
+    private void Awake()
+    {
+        if (terminalText != null)
+            terminalText.color = coloreTesto;
+    }
 
     public void ScriviMessaggio(string messaggio, bool usaEffettoHacker)
     {

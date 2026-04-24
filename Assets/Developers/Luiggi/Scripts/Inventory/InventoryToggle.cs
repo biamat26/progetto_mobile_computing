@@ -27,4 +27,9 @@ public class InventoryToggle : MonoBehaviour
         yield return new WaitForEndOfFrame();
         InventorySystem.Instance.RefreshUI();
     }
+
+    public void HideInventory()
+    {
+        inventoryCanvas.SetActive(false);
+    }
 }

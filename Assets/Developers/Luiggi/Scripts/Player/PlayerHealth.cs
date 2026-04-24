@@ -64,6 +64,7 @@ void Awake()
     public void Die()
     {
         healthBar.SetHealth(0);
+        healthBar.gameObject.SetActive(false);
         if (_isDead) return;
         _isDead = true;
         Debug.Log($"[PLAYER DIE] chiamato! _isDead={_isDead}");
@@ -96,6 +97,24 @@ void Awake()
         }
 
         if (GetComponent<Collider2D>()) GetComponent<Collider2D>().enabled = false;
+
+        // Disabilita completamente terminale e inventario
+        if (TerminalManager.Istanza != null)
+        {
+            TerminalManager.Istanza.enabled = false;
+        }
+
+        InventoryToggle invToggle = Object.FindFirstObjectByType<InventoryToggle>();
+        if (invToggle != null)
+        {
+            invToggle.enabled = false;
+        }
+
+        // Nascondi anche gli oggetti UI per sicurezza
+        if (TerminalManager.Istanza != null && TerminalManager.Istanza.terminalRect != null)
+        {
+            TerminalManager.Istanza.terminalRect.gameObject.SetActive(false);
+        }
 
         if (gameOverUI != null)
             StartCoroutine(ShowGameOverDelayed(gameOverUI));
