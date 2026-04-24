@@ -18,7 +18,7 @@ public class HoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public float fadeSpeed = 8f;
     public bool isSelected = false;
 
-    private bool isHovered = false;
+    // ELIMINATA: private bool isHovered = false;
     private Color targetBorder;
     private Color targetBg;
 
@@ -38,14 +38,14 @@ public class HoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData e)
     {
-        isHovered = true;
+        // ELIMINATA: isHovered = true;
         targetBorder = hoverBorderColor;
         targetBg = hoverBgColor;
     }
 
     public void OnPointerExit(PointerEventData e)
     {
-        isHovered = false;
+        // ELIMINATA: isHovered = false;
         if (!isSelected)
         {
             targetBorder = normalBorderColor;
