@@ -143,7 +143,7 @@ MonoBehaviour:
   moveSpeed: 5
   damage: 40
   attackPoint: {fileID: 1517455983734316237}
-  attackRange: 3.5
+  attackRange: 2.8
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHP: 100
   gameOverUI: {fileID: 0}
+  healthBar: {fileID: 0}
   currentHP: -300
   invulnerabilityDuration: 1
 --- !u!50 &7121815946793404927

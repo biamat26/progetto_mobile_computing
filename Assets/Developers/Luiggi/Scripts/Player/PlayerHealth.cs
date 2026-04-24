@@ -63,6 +63,7 @@ void Awake()
 
     public void Die()
     {
+        healthBar.SetHealth(0);
         if (_isDead) return;
         _isDead = true;
         Debug.Log($"[PLAYER DIE] chiamato! _isDead={_isDead}");
