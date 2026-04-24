@@ -6,7 +6,7 @@ public class FloorToggle : MonoBehaviour
     public Sprite onSprite;
 
     private SpriteRenderer sr;
-    private bool isOn = false;
+    public bool isOn = false;
     private bool playerInside = false;
 
     void Start()
