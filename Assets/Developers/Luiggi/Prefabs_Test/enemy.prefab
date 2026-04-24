@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8967457538680774339}
   - component: {fileID: 317245604850168729}
+  - component: {fileID: 3988217816854496522}
   m_Layer: 0
   m_Name: RICCARDO_BURLONE
   m_TagString: Untagged
@@ -90,6 +91,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3988217816854496522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095519843402366808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47d34f52e5f56ef980927d5d5ec18fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffettoVibrazione
+  durataDefault: 0.4
+  intensitaDefault: 0.5
+  velocitaScatto: 0.05
 --- !u!1 &6310730940584877686
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3638889299888650609}
   - component: {fileID: 1654399795553547295}
+  - component: {fileID: 7400569114203788524}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -140,3 +157,18 @@ MonoBehaviour:
   damage: 400
   maxHP: 2000
   currentHP: 1980
+--- !u!114 &7400569114203788524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310730940584877686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47d34f52e5f56ef980927d5d5ec18fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffettoVibrazione
+  durataDefault: 0.6
+  intensitaDefault: 0.5
+  velocitaScatto: 0.05

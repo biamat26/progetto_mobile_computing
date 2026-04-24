@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8348210287083577608}
   - component: {fileID: 6737368117273170140}
+  - component: {fileID: 8401886359699570058}
   m_Layer: 0
   m_Name: mainplayer
   m_TagString: Untagged
@@ -50,6 +51,21 @@ MonoBehaviour:
   damage: 500
   maxHP: 1000
   currentHP: 980
+--- !u!114 &8401886359699570058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740433778598105834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47d34f52e5f56ef980927d5d5ec18fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffettoVibrazione
+  durataDefault: 0.6
+  intensitaDefault: 0.7
+  velocitaScatto: 0.05
 --- !u!1 &7064836942379811372
 GameObject:
   m_ObjectHideFlags: 0
