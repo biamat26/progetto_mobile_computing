@@ -17,4 +17,4 @@ MonoBehaviour:
   contenuto: 
   immagineDocumento: {fileID: 0}
   itemType: 1
-  healAmount: 30
+  healAmount: 50
