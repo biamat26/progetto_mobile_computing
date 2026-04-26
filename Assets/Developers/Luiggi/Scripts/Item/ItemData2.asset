@@ -15,3 +15,6 @@ MonoBehaviour:
   itemName: Item2
   icon: {fileID: -4090029923521412468, guid: fa55903a2fd2b88eebb6aacaa5f9c9fc, type: 3}
   contenuto: "una parte della password \xE8 2001"
+  immagineDocumento: {fileID: -4446275852149928523, guid: 4411c1fa1b13c339d9442a7a77464d35, type: 3}
+  itemType: 0
+  healAmount: 30
