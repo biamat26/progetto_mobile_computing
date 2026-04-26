@@ -2090,8 +2090,9 @@ GameObject:
   - component: {fileID: 7193148981116764228}
   - component: {fileID: 2050676368847752755}
   - component: {fileID: 1750559627711570009}
+  - component: {fileID: 3645738404748542923}
   m_Layer: 5
-  m_Name: UseButton
+  m_Name: HealButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2198,7 +2199,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7193148981116764228}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3645738404748542923}
+        m_TargetAssemblyTypeName: HealButton, Assembly-CSharp
+        m_MethodName: OnHealClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1750559627711570009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2217,6 +2230,19 @@ MonoBehaviour:
   hoverBgColor: {r: 0.05, g: 0.13, b: 0.07, a: 1}
   borderSize: 2
   fadeSpeed: 10
+--- !u!114 &3645738404748542923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472544193278694127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4603ceac6ddb7cb6875081a5d423476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealButton
+  playerHealth: {fileID: 983384802529991273, guid: 57ab0a164ea41ce7eb9415e7fa0d4006, type: 3}
 --- !u!1 &7501752094208515118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2282,7 +2308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: USE
+  m_text: HEAL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cb6aaaa1447bbc5438bc06bde2be87ad, type: 2}
   m_sharedMaterial: {fileID: 397918678853719587, guid: cb6aaaa1447bbc5438bc06bde2be87ad, type: 2}
