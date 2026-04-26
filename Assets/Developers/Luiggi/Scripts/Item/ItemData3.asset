@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ItemData3
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Pillola_Cura
-  icon: {fileID: 2536540770745053131, guid: ba5d4ea2eb048a83b9cf394e40fa0967, type: 3}
+  icon: {fileID: -2745644151286588418, guid: b744e78c7f1cfcb4a9be6f7b16f80948, type: 3}
   contenuto: 
+  immagineDocumento: {fileID: 0}
   itemType: 1
   healAmount: 30

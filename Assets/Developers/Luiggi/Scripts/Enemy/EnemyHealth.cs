@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHP = 50;
@@ -9,6 +9,8 @@ public class EnemyHealth : MonoBehaviour
     private Rigidbody2D rb;
     private bool isDead = false;
 
+    [SerializeField] private float invulnerabilityDuration = 0.5f;
+    private bool isInvulnerable = false;
     void Start()
     {
         currentHP = maxHP;
@@ -17,20 +19,25 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void TakeDamage(int damage)
-    {
-        if (isDead) return;
+{
+    if (isDead || isInvulnerable) return;
 
-        currentHP -= damage;
-        Debug.Log(gameObject.name + " HP: " + currentHP);
+    currentHP -= damage;
+    Debug.Log(gameObject.name + " HP: " + currentHP);
 
-        if (currentHP <= 0)
-        {
-            Die();
-        }
-        else{
-            PlayHurtAnimation();
-        }
-    }
+    if (currentHP <= 0)
+        Die();
+    else
+        StartCoroutine(BecomeInvulnerable());
+}
+
+private IEnumerator BecomeInvulnerable()
+{
+    PlayHurtAnimation();
+    isInvulnerable = true;
+    yield return new WaitForSeconds(invulnerabilityDuration);
+    isInvulnerable = false;
+}
 
     private void PlayHurtAnimation(){
         if(anim!=null){

@@ -8,23 +8,32 @@ public class GlitchText : MonoBehaviour
     [SerializeField] private float glitchDuration = 0.1f;
     [SerializeField] private string glitchChars = "!@#$%<>?/|[]{}01";
 
+    [Header("Opzioni extra (Game Over)")]
+    [SerializeField] private bool useColorGlitch = false;
+    [SerializeField] private bool useOffsetGlitch = false;
+    [SerializeField] private float maxOffset = 6f;
+
     private TextMeshProUGUI tmp;
     private string originalText;
+    private Color originalColor;
+    private Vector3 originalPosition;
     private bool isGlitching = false;
 
-    // Usiamo Awake per salvare il testo originale UNA SOLA VOLTA all'avvio
     void Awake()
     {
         tmp = GetComponent<TextMeshProUGUI>();
-        originalText = tmp.text; 
+        originalText = tmp.text;
+        originalColor = tmp.color;
+        originalPosition = tmp.rectTransform.anchoredPosition3D;
     }
 
     void OnEnable()
     {
-        // Ogni volta che si riapre l'inventario, ci assicuriamo che parta pulito
         if (tmp != null && !string.IsNullOrEmpty(originalText))
         {
             tmp.text = originalText;
+            tmp.color = originalColor;
+            tmp.rectTransform.anchoredPosition3D = originalPosition;
         }
         isGlitching = false;
         StartCoroutine(GlitchLoop());
@@ -45,12 +54,11 @@ public class GlitchText : MonoBehaviour
         isGlitching = true;
 
         int numGlitches = Random.Range(1, 4);
-        
+
         for (int g = 0; g < numGlitches; g++)
         {
             char[] chars = originalText.ToCharArray();
-            
-            // glitcha 1-3 lettere contemporaneamente
+
             int count = Random.Range(1, 3);
             for (int i = 0; i < count; i++)
             {
@@ -58,10 +66,30 @@ public class GlitchText : MonoBehaviour
                 if (chars[index] != ' ' && chars[index] != '[' && chars[index] != ']')
                     chars[index] = glitchChars[Random.Range(0, glitchChars.Length)];
             }
-            
+
             tmp.text = new string(chars);
+
+            // Color glitch
+            if (useColorGlitch)
+            {
+                Color[] glitchColors = { Color.red, Color.cyan, Color.white, new Color(1f, 0.2f, 0.2f) };
+                tmp.color = glitchColors[Random.Range(0, glitchColors.Length)];
+            }
+
+            // Offset glitch
+            if (useOffsetGlitch)
+            {
+                float ox = Random.Range(-maxOffset, maxOffset);
+                float oy = Random.Range(-maxOffset * 0.4f, maxOffset * 0.4f);
+                tmp.rectTransform.anchoredPosition3D = originalPosition + new Vector3(ox, oy, 0f);
+            }
+
             yield return new WaitForSeconds(glitchDuration);
+
             tmp.text = originalText;
+            if (useColorGlitch) tmp.color = originalColor;
+            if (useOffsetGlitch) tmp.rectTransform.anchoredPosition3D = originalPosition;
+
             yield return new WaitForSeconds(0.04f);
         }
 
@@ -71,11 +99,12 @@ public class GlitchText : MonoBehaviour
     void OnDisable()
     {
         StopAllCoroutines();
-        
-        // Se chiudiamo l'inventario a metà glitch, ripristina il testo!
+
         if (tmp != null && !string.IsNullOrEmpty(originalText))
         {
             tmp.text = originalText;
+            tmp.color = originalColor;
+            tmp.rectTransform.anchoredPosition3D = originalPosition;
             isGlitching = false;
         }
     }
