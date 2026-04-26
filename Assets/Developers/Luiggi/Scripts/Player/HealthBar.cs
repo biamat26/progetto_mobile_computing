@@ -9,10 +9,12 @@ public class HealthBar : MonoBehaviour
     {
         slider.maxValue = max;
         slider.value = max;
+        Canvas.ForceUpdateCanvases();
     }
 
     public void SetHealth(int hp)
     {
-        slider.value = hp;
+        slider.value = Mathf.Clamp(hp, 0, (int)slider.maxValue);
+        Canvas.ForceUpdateCanvases();
     }
 }

@@ -31,6 +31,12 @@ void Awake()
         gameOverUI = Object.FindFirstObjectByType<GameoverUI>();
     }
     }
+public void Heal(int amount)
+{
+    if (_isDead) return;
+    currentHP = Mathf.Min(currentHP + amount, maxHP);
+    healthBar.SetHealth(currentHP);
+}
 
     public void TakeDamage(int qt)
     {

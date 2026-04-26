@@ -49,6 +49,17 @@ public void DropSelected(GameObject dropPrefab, Vector3 playerPosition)
     selectedSlot = -1;
 }
 
+
+public void RemoveItem(int index)
+{
+    items[index] = null;
+    Transform slot = slots[index].transform;
+    Transform parent = slot.Find("SlotBG");
+    if (parent == null) parent = slot;
+    Transform icon = parent.Find("Icon");
+    if (icon != null) Destroy(icon.gameObject);
+    selectedSlot = -1;
+}
     void Awake() { Instance = this; }
 
 public bool AddItem(ItemData item)
