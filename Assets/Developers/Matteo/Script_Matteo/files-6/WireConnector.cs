@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class WireConnector : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class WireConnector : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public enum Side { Left, Right }
 
@@ -35,6 +35,7 @@ public class WireConnector : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     // IPointerDownHandler serve a Unity per "preparare" il drag
     public void OnPointerDown(PointerEventData e)
     {
+          Debug.Log("ENTER " + gameObject.name);
         // deve esserci ma può essere vuoto
     }
 
@@ -60,6 +61,7 @@ public class WireConnector : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnDrop(PointerEventData e)
     {
+        Debug.Log("OnDrop su " + gameObject.name + " side=" + side);
         if (side != Side.Right || isConnected) return;
         manager.TryConnect(this);
     }
@@ -70,4 +72,9 @@ public class WireConnector : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         if (connectorImage != null)
             connectorImage.color = connected ? Color.gray : GetColorForWire(wireColor);
     }
+
+    public void OnPointerEnter(PointerEventData e)
+{
+    Debug.Log("ENTER " + gameObject.name);
+}
 }

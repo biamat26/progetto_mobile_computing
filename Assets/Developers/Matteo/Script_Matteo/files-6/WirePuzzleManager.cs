@@ -23,6 +23,7 @@ public class WirePuzzleManager : MonoBehaviour
 
     [Header("Canvas")]
     public GameObject puzzleCanvas;
+    public Canvas canvas; // trascina qui il Canvas del puzzle
 
     private WireConnector draggingFrom = null;
     private int connectedCount = 0;
@@ -45,8 +46,6 @@ public class WirePuzzleManager : MonoBehaviour
 
         if (dragLine != null) dragLine.gameObject.SetActive(false);
         if (successPanel != null) successPanel.SetActive(false);
-
-        ShuffleRightConnectors();
     }
 
     void InitConnectors()
@@ -60,21 +59,7 @@ public class WirePuzzleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) ClosePuzzle();
     }
 
-    void ShuffleRightConnectors()
-    {
-        var rects = new List<RectTransform>();
-        foreach (var c in rightConnectors)
-            rects.Add(c.GetComponent<RectTransform>());
-
-        for (int i = rects.Count - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            Vector2 tmp = rects[i].anchoredPosition;
-            rects[i].anchoredPosition = rects[j].anchoredPosition;
-            rects[j].anchoredPosition = tmp;
-        }
-    }
-
+    // ── Drag ─────────────────────────────────────────────
     public void BeginDrag(WireConnector from, PointerEventData e)
     {
         draggingFrom = from;
@@ -94,12 +79,39 @@ public class WirePuzzleManager : MonoBehaviour
     public void EndDrag(PointerEventData e)
     {
         if (dragLine != null) dragLine.gameObject.SetActive(false);
+
+        if (draggingFrom != null)
+        {
+            // trova manualmente quale connettore destro è sotto il mouse
+            WireConnector target = GetRightConnectorUnderMouse(e.position);
+            if (target != null)
+                TryConnect(target);
+        }
+
         draggingFrom = null;
     }
 
+    WireConnector GetRightConnectorUnderMouse(Vector2 screenPos)
+    {
+        foreach (var c in rightConnectors)
+        {
+            if (c.isConnected) continue;
+            RectTransform rt = c.GetComponent<RectTransform>();
+            if (RectTransformUtility.RectangleContainsScreenPoint(rt, screenPos, canvas != null ? canvas.worldCamera : null))
+            {
+                Debug.Log("Trovato target: " + c.gameObject.name);
+                return c;
+            }
+        }
+        return null;
+    }
+
+    // ── Connessione ───────────────────────────────────────
     public void TryConnect(WireConnector target)
     {
         if (draggingFrom == null || puzzleSolved) return;
+Debug.Log("TryConnect: from=" + draggingFrom.gameObject.name + " to=" + target.gameObject.name);
+        Debug.Log("TryConnect: from=" + draggingFrom.wireColor + " to=" + target.wireColor);
 
         if (draggingFrom.wireColor == target.wireColor)
         {
@@ -124,10 +136,10 @@ public class WirePuzzleManager : MonoBehaviour
             StartCoroutine(FlashError(target));
         }
 
-        if (dragLine != null) dragLine.gameObject.SetActive(false);
         draggingFrom = null;
     }
 
+    // ── Linee visive ─────────────────────────────────────
     void UpdateDragLine(Vector2 worldStart, Vector2 worldEnd)
     {
         if (dragLine == null) return;
@@ -187,7 +199,6 @@ public class WirePuzzleManager : MonoBehaviour
     public void OpenPuzzle()
     {
         if (puzzleSolved) return;
-        
         if (puzzleCanvas != null) puzzleCanvas.SetActive(true);
         InitConnectors();
         if (successPanel != null) successPanel.SetActive(false);
@@ -196,7 +207,6 @@ public class WirePuzzleManager : MonoBehaviour
 
     public void ClosePuzzle()
     {
-        
         if (puzzleCanvas != null) puzzleCanvas.SetActive(false);
     }
 
