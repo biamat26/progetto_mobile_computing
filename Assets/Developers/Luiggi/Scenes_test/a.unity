@@ -408,6 +408,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: healthBarPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3274531070328272121, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274531070328272121, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5067633772026014189, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -489,8 +497,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5913427461930619026, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913427461930619026, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
       propertyPath: m_FillAmount
       value: 0.805
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913427461930619026, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913427461930619026, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_FillOrigin
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6486362254595441951, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
       propertyPath: m_AnchorMax.x
@@ -498,6 +518,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6486362254595441951, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486362254595441951, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -143.8185
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486362254595441951, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 28.8908
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617091202386314815, guid: 6ada4591d8183d69aa2f3410e591bb20, type: 3}
+      propertyPath: m_Transition
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -925,6 +957,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8727100644461566301, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: maxHP
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 8758092963831612514, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
       propertyPath: m_Name
       value: EVIL-VIRUS
@@ -1304,6 +1340,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6047191707122866544, guid: 05c82e16d0b0b9f88b2a63a8717e594a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6256125749086024572, guid: 05c82e16d0b0b9f88b2a63a8717e594a, type: 3}
       propertyPath: itemData
       value: 
@@ -1525,6 +1565,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 235309325}
+    - target: {fileID: 2731756718689011672, guid: a417fd489d41bb0748e268c997974c55, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 164
+      objectReference: {fileID: 0}
+    - target: {fileID: 2731756718689011672, guid: a417fd489d41bb0748e268c997974c55, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -63
+      objectReference: {fileID: 0}
     - target: {fileID: 2975214845120814911, guid: a417fd489d41bb0748e268c997974c55, type: 3}
       propertyPath: m_text
       value: HEAL
