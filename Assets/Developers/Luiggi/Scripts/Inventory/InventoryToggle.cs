@@ -23,11 +23,11 @@ public class InventoryToggle : MonoBehaviour
     }
 
     IEnumerator RefreshAfterFrame()
-    {
-        yield return new WaitForEndOfFrame();
+{
+    yield return new WaitForEndOfFrame();
+    if (InventorySystem.Instance != null)
         InventorySystem.Instance.RefreshUI();
-    }
-
+}
     public void HideInventory()
     {
         inventoryCanvas.SetActive(false);
