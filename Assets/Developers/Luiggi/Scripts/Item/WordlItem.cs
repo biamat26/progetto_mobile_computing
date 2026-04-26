@@ -34,11 +34,17 @@ void Update()
     playerNearby = inRange;
     if (pickupPrompt != null) pickupPrompt.SetActive(inRange);
 
-    if (playerNearby && Input.GetKeyDown(KeyCode.E))
+    if (playerNearby)
+{
+    Debug.Log("B premuto: " + Input.GetKeyDown(KeyCode.E));
+    if (Input.GetKeyDown(KeyCode.E))
     {
         if (InventorySystem.Instance == null) return;
         bool picked = InventorySystem.Instance.AddItem(itemData);
         if (picked) Destroy(gameObject);
     }
+}
+
+    
 }
 }
