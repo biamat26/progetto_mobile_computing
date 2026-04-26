@@ -15,6 +15,7 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
+    
     Unit playerUnit;
     Unit enemyUnit;
     public TMP_Text dialogueText;
@@ -22,6 +23,8 @@ public class BattleSystem : MonoBehaviour
     public BattleState state;
 
     private int lastEnemySpeechIndex = -1; // evita stessa frase consecutiva
+
+    private bool isProcessing = false;
 
     void Start()
     {
@@ -62,32 +65,31 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
-    IEnumerator PlayerAttack(int damageToDeal)
+IEnumerator PlayerAttack(int damageToDeal)
+{
+    bool isDead = enemyUnit.TakeDamage(damageToDeal);
+    enemyHUD.SetHP(enemyUnit.currentHP);
+    enemyUnit.GetComponent<EffettoVibrazione>()?.IniziaVibrazione();
+
+    if (damageToDeal > playerUnit.damage)
+        dialogueText.text = "COLPO CRITICO! Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
+    else
+        dialogueText.text = "Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
+
+    yield return new WaitForSeconds(3f);
+    isProcessing = false; // ← solo qui, dopo l'attesa
+
+    if (isDead)
     {
-        bool isDead = enemyUnit.TakeDamage(damageToDeal);
-        enemyHUD.SetHP(enemyUnit.currentHP);
-
-        // --- NUOVA RIGA: FAI VIBRARE IL PROFESSORE ---
-        enemyUnit.GetComponent<EffettoVibrazione>()?.IniziaVibrazione();
-
-        if (damageToDeal > playerUnit.damage)
-            dialogueText.text = "COLPO CRITICO! Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
-        else
-            dialogueText.text = "Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
-
-        yield return new WaitForSeconds(3f);
-
-        if (isDead)
-        {
-            state = BattleState.WON;
-            EndBattle();
-        }
-        else
-        {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
+        state = BattleState.WON;
+        EndBattle();
     }
+    else
+    {
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+}
 
     IEnumerator EnemyTurn()
     {
@@ -208,19 +210,18 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "Seleziona una mossa :";
     }
 
-    public void OnAttackButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        StartCoroutine(PlayerAttack(playerUnit.damage));
-    }
+    
+public void OnAttackButton()
+{
+    if (state != BattleState.PLAYERTURN || isProcessing) return;
+    isProcessing = true;
+    StartCoroutine(PlayerAttack(playerUnit.damage));
+}
 
     public void PlayerSuperAttack()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        StartCoroutine(PlayerAttack(playerUnit.damage * 2));
-    }
+{
+    if (state != BattleState.PLAYERTURN || isProcessing) return;
+    isProcessing = true;
+    StartCoroutine(PlayerAttack(playerUnit.damage * 2));
+}
 }
