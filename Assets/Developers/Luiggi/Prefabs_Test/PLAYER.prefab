@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062c3169bf9ad5f73b42ed3957e5ff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
+  moveSpeed: 10
   damage: 40
   attackPoint: {fileID: 1517455983734316237}
   attackRange: 2.8
