@@ -947,6 +947,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7960961265893478949, guid: a417fd489d41bb0748e268c997974c55, type: 3}
   m_PrefabInstance: {fileID: 8346998000568920053}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1004798127
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.0434775
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2491105
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446708298762240603, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758092963831612514, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
+      propertyPath: m_Name
+      value: EVIL-VIRUS
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 93b7c7c20c2b806bf94ade20dd39b2d5, type: 3}
 --- !u!1 &1152124500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4918430716424038285, guid: a417fd489d41bb0748e268c997974c55, type: 3}
@@ -2245,3 +2302,4 @@ SceneRoots:
   - {fileID: 1842774490}
   - {fileID: 687867051}
   - {fileID: 269470522}
+  - {fileID: 1004798127}

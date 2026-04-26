@@ -49,15 +49,17 @@ public class GameoverUI : MonoBehaviour
         rebootButton.colors = colors;
     }
 
-    public void Show()
-    {
-        overlay.SetActive(true);
-        panel.SetActive(true);
-        bodyText = "";
-        terminalText.text = "";
-        StopAllCoroutines();
-        StartCoroutine(TypeLines());
-    }
+public void Show()
+{
+    overlay.SetActive(true);
+    panel.SetActive(true);
+    
+    // Nascondi il bottone terminale durante il game over
+    if (TerminalManager.Istanza != null && TerminalManager.Istanza.bottoneTerminale != null)
+        TerminalManager.Istanza.bottoneTerminale.SetActive(false);
+
+    StartCoroutine(TypeLines());
+}
 
     private IEnumerator TypeLines()
     {

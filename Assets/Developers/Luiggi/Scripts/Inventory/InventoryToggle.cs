@@ -17,6 +17,8 @@ public class InventoryToggle : MonoBehaviour
             bool opening = !inventoryCanvas.activeSelf;
             inventoryCanvas.SetActive(opening);
 
+            Time.timeScale = opening ? 0f : 1f;  // ← aggiunta
+
             if (opening)
                 StartCoroutine(RefreshAfterFrame());
         }

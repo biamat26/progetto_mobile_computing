@@ -51,11 +51,11 @@ public class InventorySlotBorder : MonoBehaviour, IPointerEnterHandler, IPointer
     targetBg = normalBgColor;
 }
 
-    void Update()
-    {
-        if (borderImage) borderImage.color = Color.Lerp(borderImage.color, targetBorder, Time.deltaTime * fadeSpeed);
-        if (bgImage) bgImage.color = Color.Lerp(bgImage.color, targetBg, Time.deltaTime * fadeSpeed);
-    }
+void Update()
+{
+    if (borderImage) borderImage.color = Color.Lerp(borderImage.color, targetBorder, Time.unscaledDeltaTime * fadeSpeed);
+    if (bgImage) bgImage.color = Color.Lerp(bgImage.color, targetBg, Time.unscaledDeltaTime * fadeSpeed);
+}
 
     public void OnPointerEnter(PointerEventData e)
     {

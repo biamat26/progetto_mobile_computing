@@ -50,11 +50,11 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     targetBg = normalBgColor;
 }
 
-    void Update()
-    {
-        if (borderImage) borderImage.color = Color.Lerp(borderImage.color, targetBorder, Time.deltaTime * fadeSpeed);
-        if (bgImage) bgImage.color = Color.Lerp(bgImage.color, targetBg, Time.deltaTime * fadeSpeed);
-    }
+  void Update()
+{
+    if (borderImage) borderImage.color = Color.Lerp(borderImage.color, targetBorder, Time.unscaledDeltaTime * fadeSpeed);
+    if (bgImage) bgImage.color = Color.Lerp(bgImage.color, targetBg, Time.unscaledDeltaTime * fadeSpeed);
+}
 
     public void OnPointerEnter(PointerEventData e)
     {
@@ -68,11 +68,18 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         targetBg = normalBgColor;
     }
 
-    public void OnPointerClick(PointerEventData e)
+ public void OnPointerClick(PointerEventData e)
 {
     borderImage.color = Color.white;
     bgImage.color = hoverBorderColor;
-    Invoke("ResetColors", 0.08f);
+    StartCoroutine(ResetAfterClick());
+}
+
+private System.Collections.IEnumerator ResetAfterClick()
+{
+    yield return new WaitForSecondsRealtime(0.08f);
+    targetBorder = normalBorderColor;
+    targetBg = normalBgColor;
 }
 
 private void ResetColors()

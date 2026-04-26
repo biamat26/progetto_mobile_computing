@@ -729,3 +729,6 @@ MonoBehaviour:
   terminalText: {fileID: 1118992493183815593}
   rebootButton: {fileID: 5374685356964543722}
   overlay: {fileID: 767841115134300986}
+  glitchInterval: 0.8
+  glitchDuration: 0.07
+  glitchBurst: 3
