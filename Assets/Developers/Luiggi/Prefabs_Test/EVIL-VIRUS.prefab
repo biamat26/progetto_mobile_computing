@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1551039340385448322, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: maxHP
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1551039340385448322, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: invulnerabilityDuration
@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298494732892501847, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 9118f2bd21f158eef9b930b83ef31d21, type: 2}
+    - target: {fileID: 4298494732892501847, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
@@ -86,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7511353824993513781, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: engageDistance
-      value: 13
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8039523489551172821, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: m_Controller
