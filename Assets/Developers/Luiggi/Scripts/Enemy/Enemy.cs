@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
     public float attackCoolDown = 1.5f;
     public int damage = 20;
 
+    // NUOVA VARIABILE: Serve per dire al radar cosa considerare "Ostacolo/Muro"
+    [Header("Pathfinding")]
+    public LayerMask obstacleLayer; 
+
     private float nextAttackTime = 0f;
     private Rigidbody2D rb2;
     private Animator animator;
@@ -42,17 +46,14 @@ public class Enemy : MonoBehaviour
                 player = playerObject.transform;
         }
 
-        // Cache del PlayerHealth al posto di cercarlo ogni frame
         if (player != null)
             playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
-        // Morto = fermo
         if (enemyHealth != null && enemyHealth.currentHP <= 0) return;
 
-        // Controlla isDead invece di SpriteRenderer.enabled
         if (player == null || playerHealth == null || playerHealth.isDead)
         {
             movement = Vector2.zero;
@@ -60,7 +61,6 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        // Mentre attacca, NESSUN calcolo di movimento
         if (isAttacking) return;
 
         bool canEngage = IsPlayerInsideEngageDistance();
@@ -76,23 +76,36 @@ public class Enemy : MonoBehaviour
 
         if (distance < attackRange && Time.time >= nextAttackTime)
         {
-            // FIX: reset movimento PRIMA di entrare nella coroutine
             movement = Vector2.zero;
             rb2.linearVelocity = Vector2.zero;
-
-            // FIX: imposta nextAttackTime PRIMA di lanciare la coroutine
-            // così non può partire una seconda coroutine nel mezzo
             nextAttackTime = Time.time + attackCoolDown;
             StartCoroutine(PerformAttack());
         }
         else if (distance >= attackRange)
         {
-            // Si muove SOLO se è fuori range — niente drifting residuo
+            // --- SISTEMA ANTI-INCASTRO (RADAR) ---
+            // Creiamo un cerchio invisibile davanti al nemico per rilevare i muri
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.4f, direction, 0.5f, obstacleLayer);
+
+            if (hit.collider != null)
+            {
+                // Se stiamo per sbattere, calcoliamo la direzione parallela al muro (tangente)
+                Vector2 slideDirection = new Vector2(-hit.normal.y, hit.normal.x);
+
+                // Assicuriamoci di scivolare verso il player e non di allontanarci
+                if (Vector2.Dot(slideDirection, direction) < 0)
+                {
+                    slideDirection = -slideDirection;
+                }
+
+                // Sostituiamo la direzione verso il player con la direzione lungo il muro
+                direction = slideDirection.normalized;
+            }
+
             movement = direction;
         }
         else
         {
-            // In range ma cooldown non ancora scaduto: aspetta fermo
             movement = Vector2.zero;
         }
 
@@ -123,7 +136,6 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
-    // Chiamato dall'Animation Event
     public void HitPlayer()
     {
         if (playerHealth == null || playerHealth.isDead) return;
@@ -133,7 +145,6 @@ public class Enemy : MonoBehaviour
         if (distance <= attackRange + 0.5f)
         {
             playerHealth.TakeDamage(damage);
-            Debug.Log("Danno inflitto con successo dal Virus!");
         }
     }
 
