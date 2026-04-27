@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: engageDistance
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7511353824993513781, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 8039523489551172821, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: m_Controller
       value: 
