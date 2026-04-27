@@ -1,28 +1,29 @@
 using UnityEngine;
 
-/// <summary>
-/// Mettilo sulla porta senza corrente.
-/// Si apre quando WirePuzzleManager chiama PowerRestored().
-/// </summary>
 public class DoorPowerManager : MonoBehaviour
 {
-    [Header("Sprites")]
-    [SerializeField] private Sprite spriteSpenta;   // porta senza corrente (scura)
-    [SerializeField] private Sprite spriteAperta;   // porta aperta / con corrente
+    [Header("Sprites Top")]
+    [SerializeField] private SpriteRenderer topRenderer;
+    [SerializeField] private Sprite spriteTopClosed;
+    [SerializeField] private Sprite spriteTopOpen;
+
+    [Header("Sprites Bottom")]
+    [SerializeField] private SpriteRenderer bottomRenderer;
+    [SerializeField] private Sprite spriteBottomClosed;
+    [SerializeField] private Sprite spriteBottomOpen;
 
     [Header("Collider da disabilitare quando si apre")]
     [SerializeField] private Collider2D doorCollider;
 
-    [Header("Tooltip interagisci (opzionale)")]
-    [SerializeField] private GameObject tooltipNoCurrent; // es. "Nessuna alimentazione"
+    [Header("Tooltip nessuna corrente (opzionale)")]
+    [SerializeField] private GameObject tooltipNoCurrent;
 
-    private SpriteRenderer sr;
     private bool powered = false;
 
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        if (sr && spriteSpenta) sr.sprite = spriteSpenta;
+        if (topRenderer && spriteTopClosed) topRenderer.sprite = spriteTopClosed;
+        if (bottomRenderer && spriteBottomClosed) bottomRenderer.sprite = spriteBottomClosed;
         if (tooltipNoCurrent) tooltipNoCurrent.SetActive(false);
     }
 
@@ -38,15 +39,15 @@ public class DoorPowerManager : MonoBehaviour
         if (tooltipNoCurrent) tooltipNoCurrent.SetActive(false);
     }
 
-    /// <summary>
-    /// Chiamato da WirePuzzleManager quando tutti i fili sono collegati.
-    /// </summary>
     public void PowerRestored()
     {
         powered = true;
-        if (sr && spriteAperta) sr.sprite = spriteAperta;
+        if (topRenderer && spriteTopOpen) topRenderer.sprite = spriteTopOpen;
+        if (bottomRenderer && spriteBottomOpen) bottomRenderer.sprite = spriteBottomOpen;
         if (doorCollider) doorCollider.enabled = false;
         if (tooltipNoCurrent) tooltipNoCurrent.SetActive(false);
-        Debug.Log("[DoorPowerManager] Porta aperta — alimentazione ripristinata.");
+        Debug.Log("[DoorPowerManager] Porta aperta.");
     }
+
+    public bool IsOpen() => powered;
 }
