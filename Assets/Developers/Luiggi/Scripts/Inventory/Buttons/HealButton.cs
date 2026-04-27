@@ -16,7 +16,10 @@ public class HealButton : MonoBehaviour
 
         if (item.itemType != ItemType.Heal) { Debug.Log("Non è una cura!"); return; }
 
+        // Curalo
         playerHealth.Heal(item.healAmount);
+        
+        // Rimuove l'oggetto e spegne in automatico il quadratino verde!
         inv.RemoveItem(slot);
     }
 }

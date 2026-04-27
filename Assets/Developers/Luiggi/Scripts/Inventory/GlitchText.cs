@@ -43,7 +43,9 @@ public class GlitchText : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(glitchInterval, glitchInterval * 2f));
+            // USIAMO REALTIME COSÌ FUNZIONA ANCHE IN PAUSA!
+            yield return new WaitForSecondsRealtime(Random.Range(glitchInterval, glitchInterval * 2f));
+            
             if (!isGlitching)
                 StartCoroutine(GlitchOnce());
         }
@@ -51,13 +53,27 @@ public class GlitchText : MonoBehaviour
 
     IEnumerator GlitchOnce()
     {
-        isGlitching = true;
+        // Se il testo è stato cambiato da altri script (es. Terminale), aggiorniamo l'originalText
+        if (tmp.text != originalText && !isGlitching) 
+        {
+            originalText = tmp.text;
+        }
 
+        // Se il testo è vuoto, non possiamo "glitcharlo", quindi ci fermiamo
+        if (string.IsNullOrEmpty(originalText))
+        {
+            yield break; 
+        }
+
+        isGlitching = true;
         int numGlitches = Random.Range(1, 4);
 
         for (int g = 0; g < numGlitches; g++)
         {
             char[] chars = originalText.ToCharArray();
+
+            // Sicura extra: se per qualche motivo non ci sono caratteri, usciamo
+            if (chars.Length == 0) break;
 
             int count = Random.Range(1, 3);
             for (int i = 0; i < count; i++)
@@ -84,13 +100,15 @@ public class GlitchText : MonoBehaviour
                 tmp.rectTransform.anchoredPosition3D = originalPosition + new Vector3(ox, oy, 0f);
             }
 
-            yield return new WaitForSeconds(glitchDuration);
+            // USIAMO REALTIME
+            yield return new WaitForSecondsRealtime(glitchDuration);
 
             tmp.text = originalText;
             if (useColorGlitch) tmp.color = originalColor;
             if (useOffsetGlitch) tmp.rectTransform.anchoredPosition3D = originalPosition;
 
-            yield return new WaitForSeconds(0.04f);
+            // USIAMO REALTIME
+            yield return new WaitForSecondsRealtime(0.04f);
         }
 
         isGlitching = false;

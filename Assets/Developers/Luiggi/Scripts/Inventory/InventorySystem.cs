@@ -8,108 +8,123 @@ public class InventorySystem : MonoBehaviour
     private ItemData[] items = new ItemData[16];
 
     public int GetSelectedSlot() => selectedSlot;
-public ItemData GetItem(int index) => items[index];
+    public ItemData GetItem(int index) => items[index];
     private int selectedSlot = -1;
 
-public void SelectSlot(int index)
-{
-    selectedSlot = index;
-}
-
-public void DropSelected(GameObject dropPrefab, Vector3 playerPosition)
-{
-    if (selectedSlot == -1 || items[selectedSlot] == null) return;
-
-    ItemData itemToDrop = items[selectedSlot];
-
-    GameObject dropped = Instantiate(dropPrefab, playerPosition + Vector3.right, Quaternion.identity);
-    
-    // assegna l'itemData
-    WorldItem wi = dropped.GetComponent<WorldItem>();
-    if (wi != null) wi.itemData = itemToDrop;
-    
-    // assegna lo sprite corretto
-    SpriteRenderer sr = dropped.GetComponent<SpriteRenderer>();
-    if (sr != null) sr.sprite = itemToDrop.icon;
-
-    // rimuovi dall'inventario
-    items[selectedSlot] = null;
-    Transform slot = slots[selectedSlot].transform;
-    Transform parent = slot.Find("SlotBG");
-    if (parent == null) parent = slot;
-    Transform icon = parent.Find("Icon");
-    if (icon != null) Destroy(icon.gameObject);
-
-    
-    if (selectedSlot != -1 && selectedSlot < slots.Length && slots[selectedSlot] != null)
-{
-    InventorySlotBorder slotBorder = slots[selectedSlot].GetComponent<InventorySlotBorder>();
-    if (slotBorder != null) slotBorder.Deselect();
-}
-    selectedSlot = -1;
-}
-
-
-public void RemoveItem(int index)
-{
-    items[index] = null;
-    Transform slot = slots[index].transform;
-    Transform parent = slot.Find("SlotBG");
-    if (parent == null) parent = slot;
-    Transform icon = parent.Find("Icon");
-    if (icon != null) Destroy(icon.gameObject);
-    selectedSlot = -1;
-}
     void Awake() { Instance = this; }
 
-public bool AddItem(ItemData item)
-{
-    for (int i = 0; i < items.Length; i++)
+    public void SelectSlot(int index)
     {
-        if (items[i] == null)
+        selectedSlot = index;
+    }
+
+    // NUOVO METODO: Spegne il bordo verde e resetta la memoria
+    public void DeselectCurrentSlot()
+    {
+        if (selectedSlot != -1 && selectedSlot < slots.Length && slots[selectedSlot] != null)
         {
-            items[i] = item;
-            // spawna icona solo se il canvas è attivo
-            if (slots[i] != null && slots[i].activeInHierarchy)
-                SpawnIcon(i, item);
-            return true;
+            InventorySlotBorder slotBorder = slots[selectedSlot].GetComponent<InventorySlotBorder>();
+            if (slotBorder != null) slotBorder.Deselect();
+        }
+        selectedSlot = -1;
+    }
+
+    public void DropSelected(GameObject dropPrefab, Vector3 playerPosition)
+    {
+        if (selectedSlot == -1 || items[selectedSlot] == null) return;
+
+        ItemData itemToDrop = items[selectedSlot];
+
+        GameObject dropped = Instantiate(dropPrefab, playerPosition + Vector3.right, Quaternion.identity);
+        
+        // assegna l'itemData
+        WorldItem wi = dropped.GetComponent<WorldItem>();
+        if (wi != null) wi.itemData = itemToDrop;
+        
+        // assegna lo sprite corretto
+        SpriteRenderer sr = dropped.GetComponent<SpriteRenderer>();
+        if (sr != null) sr.sprite = itemToDrop.icon;
+
+        // rimuovi dall'inventario
+        items[selectedSlot] = null;
+        Transform slot = slots[selectedSlot].transform;
+        Transform parent = slot.Find("SlotBG");
+        if (parent == null) parent = slot;
+        Transform icon = parent.Find("Icon");
+        if (icon != null) Destroy(icon.gameObject);
+
+        // Ora usiamo il nostro nuovo metodo per pulire la grafica!
+        DeselectCurrentSlot();
+    }
+
+    public void RemoveItem(int index)
+    {
+        items[index] = null;
+        Transform slot = slots[index].transform;
+        Transform parent = slot.Find("SlotBG");
+        if (parent == null) parent = slot;
+        Transform icon = parent.Find("Icon");
+        if (icon != null) Destroy(icon.gameObject);
+        
+        // Se stiamo rimuovendo proprio l'oggetto selezionato, togliamo il bordo verde
+        if (selectedSlot == index) 
+        {
+            DeselectCurrentSlot();
+        }
+        else 
+        {
+            selectedSlot = -1;
         }
     }
-    Debug.Log("Inventario pieno!");
-    return false;
-}
-public void RefreshUI()
-{
-    for (int i = 0; i < items.Length; i++)
+
+    public bool AddItem(ItemData item)
     {
-        if (items[i] != null)
-            SpawnIcon(i, items[i]);
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == null)
+            {
+                items[i] = item;
+                // spawna icona solo se il canvas è attivo
+                if (slots[i] != null && slots[i].activeInHierarchy)
+                    SpawnIcon(i, item);
+                return true;
+            }
+        }
+        Debug.Log("Inventario pieno!");
+        return false;
     }
-}
 
-   void SpawnIcon(int index, ItemData item)
-{
-    if (slots[index] == null) return;
-    
-    Transform slot = slots[index].transform;
-    Transform parent = slot.Find("SlotBG");
-    if (parent == null) parent = slot;
+    public void RefreshUI()
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != null)
+                SpawnIcon(i, items[i]);
+        }
+    }
 
-    Transform old = parent.Find("Icon");
-    if (old != null) Destroy(old.gameObject);
+    void SpawnIcon(int index, ItemData item)
+    {
+        if (slots[index] == null) return;
+        
+        Transform slot = slots[index].transform;
+        Transform parent = slot.Find("SlotBG");
+        if (parent == null) parent = slot;
 
-    GameObject iconGO = new GameObject("Icon");
-    iconGO.transform.SetParent(parent, false);
+        Transform old = parent.Find("Icon");
+        if (old != null) Destroy(old.gameObject);
 
-    RectTransform rt = iconGO.AddComponent<RectTransform>();
-    rt.anchorMin = Vector2.zero;
-    rt.anchorMax = Vector2.one;
-    rt.offsetMin = new Vector2(4, 4);
-    rt.offsetMax = new Vector2(-4, -4);
+        GameObject iconGO = new GameObject("Icon");
+        iconGO.transform.SetParent(parent, false);
 
-    Image img = iconGO.AddComponent<Image>();
-    img.sprite = item.icon;
-    img.preserveAspect = true;
-}
+        RectTransform rt = iconGO.AddComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = new Vector2(4, 4);
+        rt.offsetMax = new Vector2(-4, -4);
 
+        Image img = iconGO.AddComponent<Image>();
+        img.sprite = item.icon;
+        img.preserveAspect = true;
+    }
 }

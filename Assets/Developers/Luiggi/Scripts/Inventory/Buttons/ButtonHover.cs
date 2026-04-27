@@ -18,43 +18,43 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private Color targetBg;
 
     void Start()
-{
-    // evita duplicati se Start() viene chiamato più volte
-    Transform existing = transform.Find("BtnBG");
-    if (existing != null)
     {
-        bgImage = existing.GetComponent<Image>();
+        // evita duplicati se Start() viene chiamato più volte
+        Transform existing = transform.Find("BtnBG");
+        if (existing != null)
+        {
+            bgImage = existing.GetComponent<Image>();
+            borderImage = GetComponent<Image>();
+            borderImage.color = normalBorderColor;
+            targetBorder = normalBorderColor;
+            targetBg = normalBgColor;
+            return;
+        }
+
         borderImage = GetComponent<Image>();
         borderImage.color = normalBorderColor;
         targetBorder = normalBorderColor;
+
+        GameObject inner = new GameObject("BtnBG");
+        inner.transform.SetParent(transform, false);
+        inner.transform.SetAsFirstSibling();
+
+        RectTransform rt = inner.AddComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = new Vector2(borderSize, borderSize);
+        rt.offsetMax = new Vector2(-borderSize, -borderSize);
+
+        bgImage = inner.AddComponent<Image>();
+        bgImage.color = normalBgColor;
         targetBg = normalBgColor;
-        return;
     }
 
-    borderImage = GetComponent<Image>();
-    borderImage.color = normalBorderColor;
-    targetBorder = normalBorderColor;
-
-    GameObject inner = new GameObject("BtnBG");
-    inner.transform.SetParent(transform, false);
-    inner.transform.SetAsFirstSibling();
-
-    RectTransform rt = inner.AddComponent<RectTransform>();
-    rt.anchorMin = Vector2.zero;
-    rt.anchorMax = Vector2.one;
-    rt.offsetMin = new Vector2(borderSize, borderSize);
-    rt.offsetMax = new Vector2(-borderSize, -borderSize);
-
-    bgImage = inner.AddComponent<Image>();
-    bgImage.color = normalBgColor;
-    targetBg = normalBgColor;
-}
-
-  void Update()
-{
-    if (borderImage) borderImage.color = Color.Lerp(borderImage.color, targetBorder, Time.unscaledDeltaTime * fadeSpeed);
-    if (bgImage) bgImage.color = Color.Lerp(bgImage.color, targetBg, Time.unscaledDeltaTime * fadeSpeed);
-}
+    void Update()
+    {
+        if (borderImage) borderImage.color = Color.Lerp(borderImage.color, targetBorder, Time.unscaledDeltaTime * fadeSpeed);
+        if (bgImage) bgImage.color = Color.Lerp(bgImage.color, targetBg, Time.unscaledDeltaTime * fadeSpeed);
+    }
 
     public void OnPointerEnter(PointerEventData e)
     {
@@ -68,25 +68,31 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         targetBg = normalBgColor;
     }
 
- public void OnPointerClick(PointerEventData e)
-{
-    borderImage.color = Color.white;
-    bgImage.color = hoverBorderColor;
-    StartCoroutine(ResetAfterClick());
-}
+    public void OnPointerClick(PointerEventData e)
+    {
+        borderImage.color = Color.white;
+        bgImage.color = hoverBorderColor;
 
-private System.Collections.IEnumerator ResetAfterClick()
-{
-    yield return new WaitForSecondsRealtime(0.08f);
-    targetBorder = normalBorderColor;
-    targetBg = normalBgColor;
-}
+        // ---> ECCO LA NOSTRA SICURA! <---
+        // Se l'inventario si è appena chiuso e ha spento questo bottone, 
+        // usciamo dalla funzione senza far partire la Coroutine, evitando l'errore.
+        if (!gameObject.activeInHierarchy) return;
 
-private void ResetColors()
-{
-    targetBorder = normalBorderColor;
-    targetBg = normalBgColor;
-}
+        StartCoroutine(ResetAfterClick());
+    }
+
+    private System.Collections.IEnumerator ResetAfterClick()
+    {
+        yield return new WaitForSecondsRealtime(0.08f);
+        targetBorder = normalBorderColor;
+        targetBg = normalBgColor;
+    }
+
+    private void ResetColors()
+    {
+        targetBorder = normalBorderColor;
+        targetBg = normalBgColor;
+    }
 
     private System.Collections.IEnumerator ClickFlash()
     {
