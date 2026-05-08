@@ -7,7 +7,7 @@ using TMPro;
 public class TerminalLoginUI : MonoBehaviour
 {
     [Header("Terminal Audio")]
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] public AudioSource audioSource;
     [SerializeField] private AudioClip keyPressSound;
     [SerializeField] private AudioClip errorSound;
     [SerializeField] private AudioClip successSound;
