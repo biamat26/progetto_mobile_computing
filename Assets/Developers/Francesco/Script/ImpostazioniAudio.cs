@@ -11,40 +11,49 @@ public class ImpostazioniAudio : MonoBehaviour
 
     private void Start()
     {
-        // 1. All'avvio, controlliamo la "Memory Card". Se non c'è un salvataggio, mettiamo 100 di default.
-        float volumeMusicaSalvato = PlayerPrefs.GetFloat("VolMusica", 100f);
-        float volumeEffettiSalvato = PlayerPrefs.GetFloat("VolEffetti", 100f);
+        float volumeMusicaSalvato = PlayerPrefs.GetFloat("VolMusica", 30f);
+        float volumeEffettiSalvato = PlayerPrefs.GetFloat("VolEffetti", 30f);
 
-        // 2. Spostiamo fisicamente le levette degli slider su questi numeri
-        if (sliderMusica != null) sliderMusica.value = volumeMusicaSalvato;
-        if (sliderEffetti != null) sliderEffetti.value = volumeEffettiSalvato;
+        // 1. Diciamo allo script di prendere il controllo dello slider Musica
+        if (sliderMusica != null) 
+        {
+            sliderMusica.value = volumeMusicaSalvato;
+            // LA SUPER-COLLA: colleghiamo la funzione via codice, così non si stacca più!
+            sliderMusica.onValueChanged.AddListener(ImpostaVolumeMusica);
+        }
+        
+        // 2. Diciamo allo script di prendere il controllo dello slider Effetti
+        if (sliderEffetti != null) 
+        {
+            sliderEffetti.value = volumeEffettiSalvato;
+            sliderEffetti.onValueChanged.AddListener(ImpostaVolumeEffetti);
+        }
 
-        // 3. Applichiamo i volumi al Mixer per essere sicuri che si sentano giusti da subito
         ApplicaVolumeMusicaAlMixer(volumeMusicaSalvato);
         ApplicaVolumeEffettiAlMixer(volumeEffettiSalvato);
     }
 
-    // Questa viene chiamata quando muovi lo Slider della Musica
     public void ImpostaVolumeMusica(float valoreSlider)
     {
-        ApplicaVolumeMusicaAlMixer(valoreSlider);
+        float valoreNormalizzato = Mathf.Clamp(valoreSlider / 100f, 0.0001f, 1f);
+        float decibel = Mathf.Log10(valoreNormalizzato) * 20f;
+        mainMixer.SetFloat("MusicaVol", decibel);
         
-        // SALVA IL DATO: così se chiudi il gioco se lo ricorderà!
+        Debug.Log("SUCCESSO: Slider agganciato! Musica a " + decibel + " dB");
+        
         PlayerPrefs.SetFloat("VolMusica", valoreSlider);
         PlayerPrefs.Save();
     }
 
-    // Questa viene chiamata quando muovi lo Slider degli Effetti
     public void ImpostaVolumeEffetti(float valoreSlider)
     {
-        ApplicaVolumeEffettiAlMixer(valoreSlider);
+        float valoreNormalizzato = Mathf.Clamp(valoreSlider / 100f, 0.0001f, 1f);
+        float decibel = Mathf.Log10(valoreNormalizzato) * 20f;
+        mainMixer.SetFloat("EffettiVol", decibel);
         
-        // SALVA IL DATO
         PlayerPrefs.SetFloat("VolEffetti", valoreSlider);
         PlayerPrefs.Save();
     }
-
-    // --- FUNZIONI INTERNE PER LA MATEMATICA DEL MIXER ---
 
     private void ApplicaVolumeMusicaAlMixer(float valore)
     {
