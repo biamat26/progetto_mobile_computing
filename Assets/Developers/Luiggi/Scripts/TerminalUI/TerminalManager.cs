@@ -20,6 +20,8 @@ public class TerminalManager : MonoBehaviour
     // Database dei messaggi e Memoria storica
     private Dictionary<string, string> databaseMessaggi = new Dictionary<string, string>();
     private List<string> cronologiaMessaggi = new List<string>();
+    private string ultimoMessaggio = "";
+    private bool primaVolta = false;
 
     void Awake()
     {
@@ -60,24 +62,46 @@ public class TerminalManager : MonoBehaviour
         databaseMessaggi.Clear(); 
         
         // --- LA NUOVA INTRO DEL GIOCO CON SPIEGAZIONE E MISSIONI ---
-        string testoIntro = "> CONNESSIONE AL SISTEMA STABILITA...\n" +
-                            "> STATO UTENTE: Digitalizzato.\n\n" +
-                            "> BENVENUTO, ALUNNO.\n" +
-                            "> Sei stato intrappolato all'interno della struttura hardware di un computer.\n" +
-                            "> Attualmente ti trovi fisicamente sui circuiti della scheda madre.\n" +
-                            "> Il sistema è gravemente infetto e ha bisogno del tuo intervento manuale.\n\n" +
-                            "> DIRETTIVE DI MISSIONE:\n" +
-                            "> 1. Esplora i componenti fisici del PC (CPU, RAM, Hard Disk).\n" +
-                            "> 2. Utilizza i BUS di sistema per viaggiare tra i vari settori.\n" +
-                            "> 3. Combatti ed elimina le minacce Virus che incontri.\n" +
-                            "> 4. Sconfiggi il Boss finale (Rootkit) per riparare il PC e fuggire.\n\n" +
-                            "> Buona fortuna. Avvio del sistema in corso...";
+        string testoIntro = 
+    "> CONNESSIONE AL SISTEMA STABILITA...\n" +
+    "> STATO UTENTE: Digitalizzato.\n\n" +
+    "> BENVENUTO, ALUNNO.\n" +
+    "> Sei stato intrappolato all'interno di un PC gravemente infetto da Virus.\n" +
+    "> La tua posizione attuale: HARD DISK — settore di archiviazione dati.\n\n" +
+    "> SITUAZIONE CRITICA:\n" +
+    "> I Virus stanno corrompendo i dati del sistema.\n" +
+    "> Devi muoverti rapidamente prima che il danno sia irreversibile.\n\n" +
+    "> OBIETTIVO IMMEDIATO:\n" +
+    "> Raggiungi la RAM attraverso il BUS di sistema.\n" +
+    "> La RAM è il prossimo settore — è lì che inizia la vera battaglia.\n\n" +
+    "> Buona fortuna. Il sistema dipende da te.";
 
-        databaseMessaggi.Add("intro", testoIntro);
+        databaseMessaggi.Add("Intro", testoIntro);
 
-        // Altri messaggi esistenti
-        databaseMessaggi.Add("virus_alert", "> ATTENZIONE!\n> Rilevata minaccia virale.");
-        databaseMessaggi.Add("hint_generico", "> ANALISI AMBIENTALE:\n> Esplora l'area circostante.");
+        string passwordPortaPrincipale = "> PASSWORD RICHIESTA: Porta Principale\n>" + 
+        "Inserisci la password per accedere al settore successivo.";
+        string portaNumeroBinario = "> ATTENZIONE: Porta rilevata nel settore.\n" +
+    "> Per sbloccarla dovrai parlare come un computer.\n\n" +
+    "> I computer non capiscono i numeri come li conosci tu.\n" +
+    "> Usano solo due stati: SPENTO (0) e ACCESO (1).\n" +
+    "> Questa è la base del sistema BINARIO.\n\n" +
+    "> COME FUNZIONA LA CONVERSIONE:\n" +
+    "> Ogni blocco rappresenta una potenza di 2, da destra verso sinistra.\n" +
+    "> Blocco 1 (dx)  = 2^0 =  1\n" +
+    "> Blocco 2       = 2^1 =  2\n" +
+    "> Blocco 3       = 2^2 =  4\n" +
+    "> Blocco 4       = 2^3 =  8\n" +
+    "> Blocco 5 (sx)  = 2^4 = 16\n" +
+    "> Somma i valori dei blocchi ACCESI per ottenere il numero decimale.\n" +
+    "> Esempio: 0 1 0 1 0 = 2 + 8 = 10\n\n" +
+    "> ISTRUZIONI:\n" +
+    "> Salta sui blocchi per attivarli.\n" +
+    "> Blocco AZZURRO = 1 (acceso).\n" +
+    "> Blocco BLU SCURO  = 0 (spento).\n" +
+    "> Forma il numero corretto per sbloccare la porta.\n\n" +
+    "> Il sistema attende il tuo input...";
+        databaseMessaggi.Add("PortaBit", portaNumeroBinario);
+        databaseMessaggi.Add("PasswordPorta", passwordPortaPrincipale);
     }
 
     public void ToggleTerminal()
@@ -96,13 +120,20 @@ public class TerminalManager : MonoBehaviour
         AggiornaVisuale();
 
         if (isExpanded)
+{
+    if (cronologiaMessaggi.Count > 0)
+    {
+        if (primaVolta)
         {
-            // Ricarica il testo corretto
-            if (cronologiaMessaggi.Count > 0)
-            {
-                AggiornaTestoTerminale(cronologiaMessaggi[cronologiaMessaggi.Count - 1]);
-            }
+            primaVolta = false;
+            terminalUI.ScriviMessaggio(ultimoMessaggio, true); // con effetto
         }
+        else
+        {
+            terminalUI.ScriviMessaggio(ultimoMessaggio, false); // senza effetto
+        }
+    }
+}
     }
 
     private void AggiornaVisuale()
@@ -129,35 +160,32 @@ public class TerminalManager : MonoBehaviour
         }
     }
 
-    public void MostraAiuto(string idMessaggio)
+   public void MostraAiuto(string idMessaggio)
+{
+    if (databaseMessaggi.ContainsKey(idMessaggio))
     {
-        if (databaseMessaggi.ContainsKey(idMessaggio))
-        {
-            string nuovoMessaggio = databaseMessaggi[idMessaggio];
-            
-            // Aggiunge alla cronologia e cancella i vecchi se sono troppi
-            cronologiaMessaggi.Add(nuovoMessaggio);
-            if (cronologiaMessaggi.Count > maxMessaggi)
-            {
-                cronologiaMessaggi.RemoveAt(0);
-            }
+        string nuovoMessaggio = databaseMessaggi[idMessaggio];
+        
+        cronologiaMessaggi.Add(nuovoMessaggio);
+        if (cronologiaMessaggi.Count > maxMessaggi)
+            cronologiaMessaggi.RemoveAt(0);
 
-            AggiornaTestoTerminale(nuovoMessaggio);
-        }
-        else
-        {
-            Debug.LogWarning("Messaggio non trovato: " + idMessaggio);
-        }
+        ultimoMessaggio = nuovoMessaggio;
+        primaVolta = true; // la prima apertura userà l'effetto
     }
+    else
+    {
+        Debug.LogWarning("Messaggio non trovato: " + idMessaggio);
+    }
+}
 
     private void AggiornaTestoTerminale(string ultimoMessaggio)
     {
         // Compiliamo il testo a schermo solo se il terminale è aperto
-        if (isExpanded)
-        {
-            string testoCompleto = "> ARCHIVIO SISTEMA:\n\n" + string.Join("\n\n", cronologiaMessaggi);
-            terminalUI.ScriviMessaggio(testoCompleto, true); 
-        }
+       if (isExpanded)
+    {
+        terminalUI.ScriviMessaggio(ultimoMessaggio, true);
+    }
     }
 
     public void ResetProgressoGiocatore()
