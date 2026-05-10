@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/CharacterSelectScene.unity
     guid: cc31a5232981645e2a9f755f4072528d
   - enabled: 1
+    path: Assets/Developers/Francesco/Scenes_test/Login Scene.unity
+    guid: 0e3b713b13aff4bc9b92af49518b75f5
+  - enabled: 1
     path: Assets/Developers/Francesco/Scenes_test/Main Menu.unity
     guid: 9af6291ddcc8240c79408e7e2d1ac5ba
   - enabled: 1
