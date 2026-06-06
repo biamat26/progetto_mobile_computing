@@ -11,9 +11,14 @@ public class Enemy : MonoBehaviour
     public float attackCoolDown = 1.5f;
     public int damage = 20;
 
-    // NUOVA VARIABILE: Serve per dire al radar cosa considerare "Ostacolo/Muro"
     [Header("Pathfinding")]
     public LayerMask obstacleLayer; 
+
+    // --- VARIABILI AUDIO ---
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip attackSound;
+    // -----------------------
 
     private float nextAttackTime = 0f;
     private Rigidbody2D rb2;
@@ -83,22 +88,17 @@ public class Enemy : MonoBehaviour
         }
         else if (distance >= attackRange)
         {
-            // --- SISTEMA ANTI-INCASTRO (RADAR) ---
-            // Creiamo un cerchio invisibile davanti al nemico per rilevare i muri
             RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.4f, direction, 0.5f, obstacleLayer);
 
             if (hit.collider != null)
             {
-                // Se stiamo per sbattere, calcoliamo la direzione parallela al muro (tangente)
                 Vector2 slideDirection = new Vector2(-hit.normal.y, hit.normal.x);
 
-                // Assicuriamoci di scivolare verso il player e non di allontanarci
                 if (Vector2.Dot(slideDirection, direction) < 0)
                 {
                     slideDirection = -slideDirection;
                 }
 
-                // Sostituiamo la direzione verso il player con la direzione lungo il muro
                 direction = slideDirection.normalized;
             }
 
@@ -142,8 +142,17 @@ public class Enemy : MonoBehaviour
         if (!IsPlayerInsideEngageDistance()) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
+        
+        // Se il giocatore è nel raggio d'azione, prende danno
         if (distance <= attackRange + 0.5f)
         {
+            // --- AUDIO SPOSTATO QUI: ORA SUONA SOLO SE COLPSICE DAVVERO ---
+            if (audioSource != null && attackSound != null)
+            {
+                audioSource.PlayOneShot(attackSound);
+            }
+            // --------------------------------------------------------------
+            
             playerHealth.TakeDamage(damage);
         }
     }

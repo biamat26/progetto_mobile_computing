@@ -17,6 +17,12 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask enemyLayers;
     private bool isAttacking = false;
 
+    // --- NUOVE VARIABILI AUDIO ---
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip swordAttackSound;
+    // -----------------------------
+
     private const string attack = "Attack";
     private const string horizontal = "Horizontal";
     private const string vertical = "Vertical";
@@ -37,40 +43,47 @@ public class PlayerMovement : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         
         foreach (Collider2D enemy in hitEnemies)
-    {
-        // Dobbiamo cercare lo script dove sta effettivamente TakeDamage
-        EnemyHealth eh = enemy.GetComponent<EnemyHealth>(); 
-        
-        if (eh != null)
         {
-            Debug.Log("COLPITO: " + enemy.name + " - Script EnemyHealth trovato!");
-            eh.TakeDamage(damage);
+            // Dobbiamo cercare lo script dove sta effettivamente TakeDamage
+            EnemyHealth eh = enemy.GetComponent<EnemyHealth>(); 
+            
+            if (eh != null)
+            {
+                Debug.Log("COLPITO: " + enemy.name + " - Script EnemyHealth trovato!");
+                eh.TakeDamage(damage);
+            }
+            else 
+            {
+                // Se finisci qui, significa che il Virus ha il collider ma ti sei dimenticato
+                // di trascinargli sopra lo script EnemyHealth nell'Inspector
+                Debug.Log("Ho colpito " + enemy.name + " ma NON ha lo script EnemyHealth!");
+            }
         }
-        else 
-        {
-            // Se finisci qui, significa che il Virus ha il collider ma ti sei dimenticato
-            // di trascinargli sopra lo script EnemyHealth nell'Inspector
-            Debug.Log("Ho colpito " + enemy.name + " ma NON ha lo script EnemyHealth!");
-        }
-    }
     }
 
     private IEnumerator PerformAttack()
-{
-    isAttacking = true;
+    {
+        isAttacking = true;
 
-    // Spara l'animazione
-    animator.SetTrigger(attack);
+        // --- NUOVA RIGA: RIPRODUCI L'AUDIO DELLA SPADA ---
+        if (audioSource != null && swordAttackSound != null)
+        {
+            audioSource.PlayOneShot(swordAttackSound);
+        }
+        // --------------------------------------------------
 
-    // ASPETTA: qui il tempo deve essere quasi uguale alla durata della tua clip
-    // Se la clip dura 0.5 secondi, aspetta 0.45
-    yield return new WaitForSeconds(0.45f); 
+        // Spara l'animazione
+        animator.SetTrigger(attack);
 
-    // RESET: puliamo il trigger a mano prima di finire, così Any State non lo rivede
-    animator.ResetTrigger(attack);
-    
-    isAttacking = false;
-}
+        // ASPETTA: qui il tempo deve essere quasi uguale alla durata della tua clip
+        // Se la clip dura 0.5 secondi, aspetta 0.45
+        yield return new WaitForSeconds(0.45f); 
+
+        // RESET: puliamo il trigger a mano prima di finire, così Any State non lo rivede
+        animator.ResetTrigger(attack);
+        
+        isAttacking = false;
+    }
 
     private void Update()
     {
@@ -104,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-// Questa funzione sposta l'AttackPoint in base alla direzione
+    // Questa funzione sposta l'AttackPoint in base alla direzione
     private void UpdateAttackPoint(float x, float y)
     {
         if (attackPoint == null) return;
