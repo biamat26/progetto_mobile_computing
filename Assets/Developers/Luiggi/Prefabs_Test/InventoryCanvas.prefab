@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 6301053200358707520}
   - component: {fileID: 1709843111634260113}
   - component: {fileID: 7171917073518656437}
+  - component: {fileID: 695335877013041847}
   m_Layer: 5
   m_Name: CatButton
   m_TagString: Untagged
@@ -373,6 +374,19 @@ MonoBehaviour:
   hoverBgColor: {r: 0.05, g: 0.13, b: 0.07, a: 1}
   borderSize: 2
   fadeSpeed: 10
+--- !u!114 &695335877013041847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679905934928174190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b392b43e3a2f4469f8e9846deaae38cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
+  clickSound: {fileID: 8300000, guid: b4917387e3b823644a106299799d9a36, type: 3}
 --- !u!1 &1869423162140094822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,6 +1748,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2731756718689011672}
+  - {fileID: 6614029196137904208}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2091,6 +2106,7 @@ GameObject:
   - component: {fileID: 2050676368847752755}
   - component: {fileID: 1750559627711570009}
   - component: {fileID: 3645738404748542923}
+  - component: {fileID: 7331046864252162229}
   m_Layer: 5
   m_Name: HealButton
   m_TagString: Untagged
@@ -2212,6 +2228,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7331046864252162229}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: RiproduciSuonoClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1750559627711570009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2243,6 +2271,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealButton
   playerHealth: {fileID: 983384802529991273, guid: 57ab0a164ea41ce7eb9415e7fa0d4006, type: 3}
+--- !u!114 &7331046864252162229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472544193278694127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b392b43e3a2f4469f8e9846deaae38cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
+  clickSound: {fileID: 8300000, guid: b4917387e3b823644a106299799d9a36, type: 3}
 --- !u!1 &7501752094208515118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,6 +2763,7 @@ GameObject:
   - component: {fileID: 7117077045802602396}
   - component: {fileID: 2487540387109351103}
   - component: {fileID: 3992613860518706745}
+  - component: {fileID: 3940308508934770258}
   m_Layer: 5
   m_Name: DropButton
   m_TagString: Untagged
@@ -2861,6 +2903,19 @@ MonoBehaviour:
   hoverBgColor: {r: 0.101960786, g: 0.03137255, b: 0.03137255, a: 1}
   borderSize: 2
   fadeSpeed: 10
+--- !u!114 &3940308508934770258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576204923435234176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b392b43e3a2f4469f8e9846deaae38cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
+  clickSound: {fileID: 8300000, guid: b4917387e3b823644a106299799d9a36, type: 3}
 --- !u!1 &8604152963952881106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,3 +3207,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &112965659567848491
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7529175870422069925}
+    m_Modifications:
+    - target: {fileID: 6391496357952921748, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_Name
+      value: Audio Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+--- !u!4 &6614029196137904208 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6510117268373324923, guid: 70be4c8272aea407ba326f44f2c9f6e6, type: 3}
+  m_PrefabInstance: {fileID: 112965659567848491}
+  m_PrefabAsset: {fileID: 0}

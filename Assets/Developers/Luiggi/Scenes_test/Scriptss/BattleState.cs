@@ -15,7 +15,6 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
-    
     Unit playerUnit;
     Unit enemyUnit;
     public TMP_Text dialogueText;
@@ -25,6 +24,11 @@ public class BattleSystem : MonoBehaviour
     private int lastEnemySpeechIndex = -1; // evita stessa frase consecutiva
 
     private bool isProcessing = false;
+
+    // --- VARIABILI AUDIO ---
+    public AudioSource audioSource;
+    public AudioClip attackSound;
+    // -----------------------
 
     void Start()
     {
@@ -65,31 +69,38 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
-IEnumerator PlayerAttack(int damageToDeal)
-{
-    bool isDead = enemyUnit.TakeDamage(damageToDeal);
-    enemyHUD.SetHP(enemyUnit.currentHP);
-    enemyUnit.GetComponent<EffettoVibrazione>()?.IniziaVibrazione();
-
-    if (damageToDeal > playerUnit.damage)
-        dialogueText.text = "COLPO CRITICO! Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
-    else
-        dialogueText.text = "Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
-
-    yield return new WaitForSeconds(3f);
-    isProcessing = false; // ← solo qui, dopo l'attesa
-
-    if (isDead)
+    IEnumerator PlayerAttack(int damageToDeal)
     {
-        state = BattleState.WON;
-        EndBattle();
+        // --- AUDIO ATTACCO GIOCATORE ---
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
+        // -------------------------------
+
+        bool isDead = enemyUnit.TakeDamage(damageToDeal);
+        enemyHUD.SetHP(enemyUnit.currentHP);
+        enemyUnit.GetComponent<EffettoVibrazione>()?.IniziaVibrazione();
+
+        if (damageToDeal > playerUnit.damage)
+            dialogueText.text = "COLPO CRITICO! Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
+        else
+            dialogueText.text = "Hai tolto " + damageToDeal + " HP di vita al " + enemyUnit.unitName + "!";
+
+        yield return new WaitForSeconds(3f);
+        isProcessing = false;
+
+        if (isDead)
+        {
+            state = BattleState.WON;
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
     }
-    else
-    {
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
-    }
-}
 
     IEnumerator EnemyTurn()
     {
@@ -144,11 +155,18 @@ IEnumerator PlayerAttack(int damageToDeal)
             yield return new WaitForSeconds(3f);
         }
 
+        // --- AUDIO ATTACCO NEMICO AGGIUNTO QUI ---
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
+        // -----------------------------------------
+
         int damage = enemyUnit.damage;
         bool isDead = playerUnit.TakeDamage(damage);
         playerHUD.SetHP(playerUnit.currentHP);
 
-        // --- NUOVA RIGA: FAI VIBRARE IL GIOCATORE ---
+        // --- VIBRAZIONE DEL GIOCATORE ---
         playerUnit.GetComponent<EffettoVibrazione>()?.IniziaVibrazione();
 
         dialogueText.text = enemyUnit.unitName + " ti ha tolto " + damage + " HP di vita!";
@@ -210,18 +228,17 @@ IEnumerator PlayerAttack(int damageToDeal)
         dialogueText.text = "Seleziona una mossa :";
     }
 
-    
-public void OnAttackButton()
-{
-    if (state != BattleState.PLAYERTURN || isProcessing) return;
-    isProcessing = true;
-    StartCoroutine(PlayerAttack(playerUnit.damage));
-}
+    public void OnAttackButton()
+    {
+        if (state != BattleState.PLAYERTURN || isProcessing) return;
+        isProcessing = true;
+        StartCoroutine(PlayerAttack(playerUnit.damage));
+    }
 
     public void PlayerSuperAttack()
-{
-    if (state != BattleState.PLAYERTURN || isProcessing) return;
-    isProcessing = true;
-    StartCoroutine(PlayerAttack(playerUnit.damage * 2));
-}
+    {
+        if (state != BattleState.PLAYERTURN || isProcessing) return;
+        isProcessing = true;
+        StartCoroutine(PlayerAttack(playerUnit.damage * 2));
+    }
 }
