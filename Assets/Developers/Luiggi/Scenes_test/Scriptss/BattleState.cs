@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement; // --- AGGIUNTO: Necessario per cambiare scena ---
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -25,13 +26,33 @@ public class BattleSystem : MonoBehaviour
 
     private bool isProcessing = false;
 
-    // --- VARIABILI AUDIO ---
+    // --- VARIABILI AUDIO EFFETTI ---
     public AudioSource audioSource;
     public AudioClip attackSound;
-    // -----------------------
+
+    // --- VARIABILI GESTIONE MUSICA E VITTORIA ---
+    [Header("Gestione Audio Battaglia")]
+    [Tooltip("L'AudioSource dedicato alla musica (deve essere diverso da quello degli effetti)")]
+    public AudioSource musicSource; 
+    
+    [Tooltip("La canzone di sottofondo della battaglia")]
+    public AudioClip battleMusic;
+    
+    [Tooltip("Il suono da riprodurre quando vinci")]
+    public AudioClip victorySound;  
+    // ------------------------------------------------
 
     void Start()
     {
+        // --- AVVIO MUSICA DI SOTTOFONDO ---
+        if (musicSource != null && battleMusic != null)
+        {
+            musicSource.clip = battleMusic;
+            musicSource.loop = true; // Fa riniziare la canzone automaticamente quando finisce!
+            musicSource.Play();
+        }
+        // ----------------------------------
+
         state = BattleState.START;
         StartCoroutine(SetUpBattle());
     }
@@ -71,12 +92,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack(int damageToDeal)
     {
-        // --- AUDIO ATTACCO GIOCATORE ---
         if (audioSource != null && attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
         }
-        // -------------------------------
 
         bool isDead = enemyUnit.TakeDamage(damageToDeal);
         enemyHUD.SetHP(enemyUnit.currentHP);
@@ -155,18 +174,15 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(3f);
         }
 
-        // --- AUDIO ATTACCO NEMICO AGGIUNTO QUI ---
         if (audioSource != null && attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
         }
-        // -----------------------------------------
 
         int damage = enemyUnit.damage;
         bool isDead = playerUnit.TakeDamage(damage);
         playerHUD.SetHP(playerUnit.currentHP);
 
-        // --- VIBRAZIONE DEL GIOCATORE ---
         playerUnit.GetComponent<EffettoVibrazione>()?.IniziaVibrazione();
 
         dialogueText.text = enemyUnit.unitName + " ti ha tolto " + damage + " HP di vita!";
@@ -207,10 +223,38 @@ public class BattleSystem : MonoBehaviour
     void EndBattle()
     {
         if (state == BattleState.WON)
+        {
+            // 1. Spegniamo la musica di battaglia
+            if (musicSource != null)
+            {
+                musicSource.Stop(); 
+            }
+            
+            // 2. Riproduciamo il suono di vittoria
+            if (audioSource != null && victorySound != null)
+            {
+                audioSource.PlayOneShot(victorySound);
+            }
+
             dialogueText.text = "Congratulazioni! Hai vinto e sconfitto " + enemyUnit.unitName;
+
+            // 3. Facciamo partire il timer per cambiare scena
+            StartCoroutine(RitornaAlMenu());
+        }
         else if (state == BattleState.LOST)
             StartCoroutine(ShowLostMessageSequence());
     }
+
+    // --- COROUTINE PER CAMBIO SCENA ---
+    IEnumerator RitornaAlMenu()
+    {
+        // Aspetta esattamente 5 secondi
+        yield return new WaitForSeconds(5f);
+        
+        // Carica la scena numero 1 (assicurati che sia nei Build Settings!)
+        SceneManager.LoadScene(1); 
+    }
+    // ----------------------------------
 
     IEnumerator ShowLostMessageSequence()
     {

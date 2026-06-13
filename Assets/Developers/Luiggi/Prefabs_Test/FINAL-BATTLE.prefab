@@ -2516,6 +2516,9 @@ MonoBehaviour:
   state: 0
   audioSource: {fileID: 6147932445804279826}
   attackSound: {fileID: 8300000, guid: d2551a9ae57130c409d44a8ddec40ee2, type: 3}
+  musicSource: {fileID: 6147932445804279826}
+  battleMusic: {fileID: 8300000, guid: 77dc4732fe1ac8040827da3ba15e613b, type: 3}
+  victorySound: {fileID: 8300000, guid: f4d80df7ce246462b8453b7852b5d5e2, type: 3}
 --- !u!82 &6147932445804279826
 AudioSource:
   m_ObjectHideFlags: 0

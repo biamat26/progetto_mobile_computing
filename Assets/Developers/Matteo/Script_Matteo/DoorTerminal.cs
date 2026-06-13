@@ -41,6 +41,12 @@ public class DoorTerminal : MonoBehaviour
     [Header("Player")]
     [SerializeField] private MonoBehaviour playerMovementScript;
 
+    // --- NUOVE VARIABILI AUDIO AGGIUNTE QUI ---
+    [Header("Audio Porta")]
+    [SerializeField] private AudioSource doorAudioSource;
+    [SerializeField] private AudioClip disintegrateSound;
+    // -----------------------------------------
+
     private bool   _playerInRange = false;
     private bool   _terminalOpen  = false;
     private bool   _doorOpen      = false;
@@ -223,6 +229,14 @@ public class DoorTerminal : MonoBehaviour
         _animating = true;
         _doorOpen  = true;
 
+        // --- AVVIA AUDIO DISSOLVENZA ---
+        if (doorAudioSource != null && disintegrateSound != null)
+        {
+            doorAudioSource.clip = disintegrateSound;
+            doorAudioSource.Play();
+        }
+        // -------------------------------
+
         _sr.color = new Color(0.5f, 1f, 1f, 1f);
         yield return new WaitForSeconds(0.08f);
         _sr.color = Color.white;
@@ -243,5 +257,12 @@ public class DoorTerminal : MonoBehaviour
 
     _sr.enabled = false;
     _animating = false;
+
+        // --- FERMA AUDIO DISSOLVENZA ---
+        if (doorAudioSource != null)
+        {
+            doorAudioSource.Stop();
+        }
+        // -------------------------------
     }
 }

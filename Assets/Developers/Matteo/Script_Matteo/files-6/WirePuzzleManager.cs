@@ -25,6 +25,12 @@ public class WirePuzzleManager : MonoBehaviour
     public GameObject puzzleCanvas;
     public Canvas canvas; // trascina qui il Canvas del puzzle
 
+    // --- NUOVE VARIABILI AUDIO AGGIUNTE ---
+    [Header("Audio Puzzle")]
+    public AudioSource puzzleAudioSource;
+    public AudioClip successSound;
+    // --------------------------------------
+
     private WireConnector draggingFrom = null;
     private int connectedCount = 0;
     private bool puzzleSolved = false;
@@ -186,6 +192,13 @@ Debug.Log("TryConnect: from=" + draggingFrom.gameObject.name + " to=" + target.g
         puzzleSolved = true;
         if (statusText != null) statusText.text = "ALIMENTAZIONE RIPRISTINATA";
         if (successPanel != null) successPanel.SetActive(true);
+
+        // --- AVVIO SUONO DI VITTORIA ---
+        if (puzzleAudioSource != null && successSound != null)
+        {
+            puzzleAudioSource.PlayOneShot(successSound);
+        }
+        // -------------------------------
 
         yield return new WaitForSecondsRealtime(1.5f);
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; // Aggiunto: necessario per usare le Coroutine
 
 public class SceneAudioController : MonoBehaviour
 {
@@ -19,8 +20,35 @@ public class SceneAudioController : MonoBehaviour
 
         if (AudioManager.instance != null)
         {
-            // Invece di scrivere 0f o 40f, passiamo la variabile!
+            // Invece di chiamare direttamente l'audio, avviamo la Coroutine
+            StartCoroutine(GestisciLoopAudio());
+        }
+    }
+
+    // La Coroutine che si occupa di riprodurre l'audio, aspettare e rimetterlo in play
+    private IEnumerator GestisciLoopAudio()
+    {
+        // Un ciclo infinito che continuerà a girare finché questo oggetto/scena è attivo
+        while (true)
+        {
+            // 1. Facciamo partire la musica
             AudioManager.instance.PlayMusic(musicaScena, secondoDiPartenza, 0f);
+
+            // 2. Calcoliamo quanto tempo la canzone suonerà effettivamente
+            // (Lunghezza totale della canzone meno il secondo da cui parte)
+            float tempoDiRiproduzione = musicaScena.length - secondoDiPartenza;
+
+            // Sicurezza: se per sbaglio metti un secondo di partenza maggiore della canzone,
+            // evitiamo che il tempo sia negativo (causerebbe un errore)
+            if (tempoDiRiproduzione < 0f) 
+            {
+                tempoDiRiproduzione = 0f;
+            }
+
+            // 3. Diciamo a Unity di aspettare che la canzone finisca + 2 secondi di pausa
+            yield return new WaitForSeconds(tempoDiRiproduzione + 2f);
+            
+            // Finito il tempo di attesa, il ciclo "while" ricomincia dall'inizio!
         }
     }
 }
