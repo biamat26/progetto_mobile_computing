@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b202ad6d4a4490a39a6a2b2ca893cc5d, type: 3}
-  m_Name: Chiave_Viola
+  m_Name: Prima_Parte_Pass
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Item
-  icon: {fileID: -1515430536178712388, guid: 51ed2b4b382274198ac0ef32ecd227e7, type: 3}
-  contenuto: 
-  keyColor: 1
-  immagineDocumento: {fileID: 0}
-  itemType: 2
+  itemName: Item2
+  icon: {fileID: -4090029923521412468, guid: fa55903a2fd2b88eebb6aacaa5f9c9fc, type: 3}
+  contenuto: "una parte della password \xE8 2001"
+  keyColor: 0
+  immagineDocumento: {fileID: -4446275852149928523, guid: 4411c1fa1b13c339d9442a7a77464d35, type: 3}
+  itemType: 0
   healAmount: 0

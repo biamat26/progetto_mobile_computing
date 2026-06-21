@@ -18,4 +18,4 @@ MonoBehaviour:
   keyColor: 2
   immagineDocumento: {fileID: 0}
   itemType: 2
-  healAmount: 30
+  healAmount: 0
