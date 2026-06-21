@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b202ad6d4a4490a39a6a2b2ca893cc5d, type: 3}
+  m_Name: Quarta_Parte_Pass 2
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: Item2
+  icon: {fileID: -4090029923521412468, guid: fa55903a2fd2b88eebb6aacaa5f9c9fc, type: 3}
+  contenuto: "una parte della password \xE8 2001"
+  keyColor: 0
+  immagineDocumento: {fileID: -4343623125809872839, guid: e93f3a606fd73577d9fea4a6c7b984fe, type: 3}
+  itemType: 0
+  healAmount: 0

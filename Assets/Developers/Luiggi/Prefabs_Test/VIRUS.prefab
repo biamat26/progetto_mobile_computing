@@ -82,8 +82,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -528230611
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -3263309154711798340, guid: 2ec8320b9e9d05e0c8b47071d1b398a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   player: {fileID: 0}
   moveSpeed: 2
-  engageDistance: 8
+  engageDistance: 5
   attackRange: 2
   attackCoolDown: 1.3
   damage: 20
