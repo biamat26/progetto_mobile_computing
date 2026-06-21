@@ -32,9 +32,11 @@ public class CatButtonHandler : MonoBehaviour
         }
 
         string testo = "> cat " + item.itemName + "\n\n> Contenuto del documento:\n" + item.contenuto;
+
+        // Se il terminale è chiuso, aprilo
+        if (!TerminalManager.Istanza.isExpanded)
+            TerminalManager.Istanza.ToggleTerminal();
+
         TerminalManager.Istanza.MostraMessaggioLibero(testo);
-        TerminalManager.Istanza.isExpanded = true;
-        TerminalManager.Istanza.ToggleTerminal();
-        TerminalManager.Istanza.ToggleTerminal();
     }
 }

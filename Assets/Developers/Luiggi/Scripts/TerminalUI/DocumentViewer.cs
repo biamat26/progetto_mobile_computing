@@ -24,7 +24,7 @@ public class DocumentViewer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Q))
             Chiudi();
     }
 

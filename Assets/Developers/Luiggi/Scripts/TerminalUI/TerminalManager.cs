@@ -45,7 +45,7 @@ public class TerminalManager : MonoBehaviour
         terminalRect.gameObject.SetActive(false);
 
         // Carica subito la storia iniziale nella cronologia "dietro le quinte"
-        MostraAiuto("intro"); 
+        MostraAiuto("Intro"); 
     }
 
     public void MostraMessaggioLibero(string testo)
@@ -100,8 +100,10 @@ public class TerminalManager : MonoBehaviour
     "> Blocco BLU SCURO  = 0 (spento).\n" +
     "> Forma il numero corretto per sbloccare la porta.\n\n" +
     "> Il sistema attende il tuo input...";
+    string portaChiave = "> ATTENZIONE: Questa porta è serrata! Trova la chiave per aprirla!\n>";
         databaseMessaggi.Add("PortaBit", portaNumeroBinario);
         databaseMessaggi.Add("PasswordPorta", passwordPortaPrincipale);
+        databaseMessaggi.Add("PortaChiave", portaChiave);
     }
 
     public void ToggleTerminal()

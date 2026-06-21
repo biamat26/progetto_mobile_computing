@@ -11,18 +11,21 @@ public class InventoryToggle : MonoBehaviour
     }
 
     void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Q))
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            bool opening = !inventoryCanvas.activeSelf;
-            inventoryCanvas.SetActive(opening);
+        // Se il documento è aperto, lascialo gestire a DocumentViewer (sopra) e non toccare l'inventario
+        if (DocumentViewer.Istanza != null && DocumentViewer.Istanza.gameObject.activeSelf)
+            return;
 
-            Time.timeScale = opening ? 0f : 1f;  // ← aggiunta
+        bool opening = !inventoryCanvas.activeSelf;
+        inventoryCanvas.SetActive(opening);
+        Time.timeScale = opening ? 0f : 1f;
 
-            if (opening)
-                StartCoroutine(RefreshAfterFrame());
-        }
+        if (opening)
+            StartCoroutine(RefreshAfterFrame());
     }
+}
 
     IEnumerator RefreshAfterFrame()
 {
