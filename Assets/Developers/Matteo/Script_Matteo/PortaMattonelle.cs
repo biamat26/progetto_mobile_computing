@@ -44,11 +44,13 @@ public class GestorePortaPuzzle : MonoBehaviour
     }
 
     void ApriPorta()
-    {
-        portaAperta = true;
-        Debug.Log("Combinazione esatta! La porta si apre.");
-        
-        // Disattiva il GameObject della porta per far passare il giocatore
-        gameObject.SetActive(false); 
-    }
+{
+    portaAperta = true;
+    // Notifica TerminalPanel che la porta è aperta
+    TerminalPanel tp = GetComponentInParent<TerminalPanel>();
+    if (tp == null) tp = FindObjectOfType<TerminalPanel>();
+    if (tp != null) tp.NotifyDoorOpen();
+    
+    gameObject.SetActive(false);
+}
 }
