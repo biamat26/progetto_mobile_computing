@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PowerDoorTerminal : MonoBehaviour
 {
     [Header("Canvas terminale")]
     [SerializeField] private GameObject terminalCanvas;
-    [SerializeField] private Button exitButton;
-
     [Header("Tooltip")]
     [SerializeField] private GameObject tooltip;
-
     [Header("Riferimento porta")]
     [SerializeField] private DoorPowerManager door;
 
@@ -20,21 +18,15 @@ public class PowerDoorTerminal : MonoBehaviour
     {
         if (terminalCanvas) terminalCanvas.SetActive(false);
         if (tooltip) tooltip.SetActive(false);
-        if (exitButton) exitButton.onClick.AddListener(ChiudiTerminale);
     }
 
     void Update()
     {
-        // non mostrare tooltip o terminale se la porta è già aperta
         if (door != null && door.IsOpen()) return;
-
         if (playerVicino && Input.GetKeyDown(KeyCode.E))
         {
             if (!terminalAperto) ApriTerminale();
         }
-
-        if (terminalAperto && Input.GetKeyDown(KeyCode.Escape))
-            ChiudiTerminale();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -50,7 +42,6 @@ public class PowerDoorTerminal : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         playerVicino = false;
         if (tooltip) tooltip.SetActive(false);
-        ChiudiTerminale();
     }
 
     void ApriTerminale()
@@ -59,14 +50,19 @@ public class PowerDoorTerminal : MonoBehaviour
         if (tooltip) tooltip.SetActive(false);
         if (terminalCanvas) terminalCanvas.SetActive(true);
         Time.timeScale = 0f;
+        StartCoroutine(ChiudiAutomaticamente());
     }
 
     void ChiudiTerminale()
     {
         terminalAperto = false;
         if (terminalCanvas) terminalCanvas.SetActive(false);
-        if (playerVicino && tooltip && (door == null || !door.IsOpen()))
-            tooltip.SetActive(true);
         Time.timeScale = 1f;
+    }
+
+    IEnumerator ChiudiAutomaticamente()
+    {
+        yield return new WaitForSecondsRealtime(4f);
+        ChiudiTerminale();
     }
 }

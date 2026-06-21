@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 98f0c60b5654e45139b57c374f34b348
+guid: b44a4dcb1140c41b384a40bb1752fb0e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6452080626550845111
-    second: terminale_panel_0
+      213: -5388656439332807327
+    second: door_blue_open_384_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: terminale_panel_0
+      name: door_blue_open_384_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 400
-        height: 300
+        y: 192
+        width: 384
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 941d140dada9576a0800000000000000
-      internalID: -6452080626550845111
+      spriteID: 16d52fcc485a735b0800000000000000
+      internalID: -5388656439332807327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_blue_open_384_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 384
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7a320eeaa1e3445d9351683d9e0505e
+      internalID: 737168892
       vertices: []
       indices: 
       edges: []
@@ -151,7 +173,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d2d63c1c755ba454cbe5eefa6ffcb91e
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +181,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":2.0},"gridSpriteSize":{"x":384.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      terminale_panel_0: -6452080626550845111
+      door_blue_open_384_0: -5388656439332807327
+      door_blue_open_384_1: 737168892
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

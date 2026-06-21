@@ -2,33 +2,30 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-/// <summary>
-/// Gestisce il pannello terminale che appare quando il giocatore preme E vicino alla porta.
-/// Attacca questo script a un GameObject vuoto nella scena (es. "DoorManager").
-/// </summary>
 public class TerminalPanel : MonoBehaviour
 {
     [Header("Riferimenti UI (assegna dall'Inspector)")]
-    public GameObject terminalPanel;       // Il Canvas Panel del terminale
-    public GameObject tooltipPanel;        // Il tooltip "Interagisci" con tasto E
+    public GameObject terminalPanel;
+    public GameObject tooltipPanel;
 
     [Header("Impostazioni")]
-    public float interactionDistance = 3f; // Distanza massima per interagire
-    public Transform door;                 // Transform della porta
-    public Transform player;              // Transform del giocatore
+    public float interactionDistance = 3f;
+    public Transform door;
+    public Transform player;
 
     private bool isNearDoor = false;
     private bool isTerminalOpen = false;
+    private bool isDoorOpen = false;
 
     void Start()
     {
-        // Assicurati che entrambi i pannelli siano nascosti all'avvio
         if (terminalPanel != null) terminalPanel.SetActive(false);
-        if (tooltipPanel != null)  tooltipPanel.SetActive(false);
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
     }
 
     void Update()
     {
+        if (isDoorOpen) return;
         CheckProximity();
         HandleInput();
     }
@@ -36,11 +33,8 @@ public class TerminalPanel : MonoBehaviour
     void CheckProximity()
     {
         if (player == null || door == null) return;
-
         float dist = Vector2.Distance(player.position, door.position);
         isNearDoor = dist <= interactionDistance;
-
-        // Mostra tooltip solo se vicino e terminale chiuso
         if (tooltipPanel != null)
             tooltipPanel.SetActive(isNearDoor && !isTerminalOpen);
     }
@@ -48,7 +42,6 @@ public class TerminalPanel : MonoBehaviour
     void HandleInput()
     {
         if (!isNearDoor) return;
-
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!isTerminalOpen)
@@ -56,8 +49,6 @@ public class TerminalPanel : MonoBehaviour
             else
                 CloseTerminal();
         }
-
-        // Chiudi con Escape
         if (isTerminalOpen && Input.GetKeyDown(KeyCode.Escape))
             CloseTerminal();
     }
@@ -66,15 +57,20 @@ public class TerminalPanel : MonoBehaviour
     {
         isTerminalOpen = true;
         if (terminalPanel != null) terminalPanel.SetActive(true);
-        if (tooltipPanel != null)  tooltipPanel.SetActive(false);
-
-        // Opzionale: ferma il gioco / blocca il movimento del player qui
-        // Time.timeScale = 0f;
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
     }
 
     public void CloseTerminal()
     {
         isTerminalOpen = false;
+        if (terminalPanel != null) terminalPanel.SetActive(false);
+    }
+
+    public void NotifyDoorOpen()
+    {
+        isDoorOpen = true;
+        isNearDoor = false;
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
         if (terminalPanel != null) terminalPanel.SetActive(false);
     }
 }

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b202ad6d4a4490a39a6a2b2ca893cc5d, type: 3}
-  m_Name: ItemData2
+  m_Name: Seconda_Parte_Pass
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Item2
   icon: {fileID: -4090029923521412468, guid: fa55903a2fd2b88eebb6aacaa5f9c9fc, type: 3}
   contenuto: "una parte della password \xE8 2001"
-  immagineDocumento: {fileID: -4446275852149928523, guid: 4411c1fa1b13c339d9442a7a77464d35, type: 3}
+  keyColor: 0
+  immagineDocumento: {fileID: -1862659592480336195, guid: 1fd0d0cacf5059cabafd93138843624e, type: 3}
   itemType: 0
-  healAmount: 30
+  healAmount: 0
