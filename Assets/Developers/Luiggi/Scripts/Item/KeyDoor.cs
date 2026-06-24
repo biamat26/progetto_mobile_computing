@@ -23,8 +23,12 @@ public class KeyDoor : MonoBehaviour
     private float errorTimer = 0f;
 
     [Header("Porta aperta")]
-public GameObject portaSuperiore;
-public GameObject portaInferiore;
+    public GameObject portaSuperiore;
+    public GameObject portaInferiore;
+
+    [Header("Audio Porta")]
+    public AudioSource audioSource;
+    public AudioClip openSound;
 
     void Start()
     {
@@ -81,20 +85,30 @@ public GameObject portaInferiore;
 
     void ShowError()
     {
-            Debug.Log("ShowError chiamato | errorPanel null? " + (errorPanel == null));
-    if (errorPanel == null) return;
-    errorPanel.SetActive(true);
-    errorTimer = 2f;
+        Debug.Log("ShowError chiamato | errorPanel null? " + (errorPanel == null));
+        if (errorPanel == null) return;
+        errorPanel.SetActive(true);
+        errorTimer = 2f;
     }
 
-void OpenDoor()
-{
-    isOpen = true;
-    GetComponent<SpriteRenderer>().enabled = false; // nasconde porta chiusa
-    if (portaSuperiore != null) portaSuperiore.SetActive(true);
-    if (portaInferiore != null) portaInferiore.SetActive(true);
-    if (physicalCollider != null) physicalCollider.enabled = false;
-    if (tooltipPanel != null) tooltipPanel.SetActive(false);
-    if (errorPanel != null) errorPanel.SetActive(false);
-}
+    void OpenDoor()
+    {
+        isOpen = true;
+        GetComponent<SpriteRenderer>().enabled = false; // nasconde porta chiusa
+        if (portaSuperiore != null) portaSuperiore.SetActive(true);
+        if (portaInferiore != null) portaInferiore.SetActive(true);
+        if (physicalCollider != null) physicalCollider.enabled = false;
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
+        if (errorPanel != null) errorPanel.SetActive(false);
+
+        PlayDoorSound();
+    }
+
+    void PlayDoorSound()
+    {
+        if (audioSource != null && openSound != null)
+        {
+            audioSource.PlayOneShot(openSound);
+        }
+    }
 }
