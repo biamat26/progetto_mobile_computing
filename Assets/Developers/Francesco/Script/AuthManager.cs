@@ -25,12 +25,15 @@ public class AuthManager : MonoBehaviour
     // URL Firebase REST API
     private const string REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
     private const string LOGIN_URL    = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
+    private const string SEND_VERIFICATION_URL = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=";
+    private const string GET_USER_DATA_URL     = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=";
 
     // Dati utente loggato (accessibili da altri script)
     public string UserEmail    { get; private set; }
     public string UserId       { get; private set; }
     public string UserToken    { get; private set; }
     public bool   IsLoggedIn   { get; private set; }
+    public bool IsEmailVerified { get; private set; }
 
     // -------------------------------------------------------
     // Singleton: AuthManager persiste tra le scene
@@ -201,15 +204,23 @@ public class AuthManager : MonoBehaviour
         IsLoggedIn = true;
     }
 
-    // Estrae un valore da una stringa JSON senza JsonUtility
+    // Estrae un valore da una stringa JSON ignorando la formattazione degli spazi
     private string ExtractJsonValue(string json, string key)
     {
-        string search = $"\"{key}\":\"";
-        int start = json.IndexOf(search);
-        if (start < 0) return "";
-        start += search.Length;
-        int end = json.IndexOf("\"", start);
-        return end < 0 ? "" : json.Substring(start, end - start);
+        string searchKey = $"\"{key}\"";
+        int keyIndex = json.IndexOf(searchKey);
+        if (keyIndex < 0) return "";
+
+        int colonIndex = json.IndexOf(":", keyIndex);
+        if (colonIndex < 0) return "";
+
+        int startQuote = json.IndexOf("\"", colonIndex);
+        if (startQuote < 0) return "";
+
+        int endQuote = json.IndexOf("\"", startQuote + 1);
+        if (endQuote < 0) return "";
+
+        return json.Substring(startQuote + 1, endQuote - startQuote - 1);
     }
 
     // Traduce gli errori Firebase in messaggi leggibili
@@ -224,5 +235,133 @@ public class AuthManager : MonoBehaviour
         if (json.Contains("USER_DISABLED"))        return "Account disabilitato.";
         if (json.Contains("INVALID_LOGIN_CREDENTIALS")) return "Credenziali non valide.";
         return "Errore di connessione. Controlla la rete.";
+    }
+
+    // ================================================================
+    // VERIFICA EMAIL
+    // ================================================================
+
+    // 1. Invia l'email con il link di verifica
+    public void SendEmailVerification(Action onSuccess, Action<string> onError)
+    {
+        StartCoroutine(SendEmailVerificationCoroutine(onSuccess, onError));
+    }
+
+    private IEnumerator SendEmailVerificationCoroutine(Action onSuccess, Action<string> onError)
+    {
+        if (string.IsNullOrEmpty(UserToken))
+        {
+            onError?.Invoke("Utente non loggato. Impossibile inviare l'email di verifica.");
+            yield break;
+        }
+
+        string jsonBody = $"{{\"requestType\":\"VERIFY_EMAIL\",\"idToken\":\"{UserToken}\"}}";
+        byte[] bodyRaw  = Encoding.UTF8.GetBytes(jsonBody);
+
+        using (UnityWebRequest request = new UnityWebRequest(SEND_VERIFICATION_URL + firebaseApiKey, "POST"))
+        {
+            request.uploadHandler   = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("[AuthManager] Email di verifica inviata con successo.");
+                onSuccess?.Invoke();
+            }
+            else
+            {
+                string errorMsg = ParseFirebaseError(request.downloadHandler.text);
+                Debug.LogWarning($"[AuthManager] Errore invio verifica: {errorMsg}");
+                onError?.Invoke(errorMsg);
+            }
+        }
+    }
+
+    // 2. Controlla se l'utente ha cliccato il link nell'email
+    public void CheckEmailVerificationStatus(Action<bool> onComplete, Action<string> onError)
+    {
+        StartCoroutine(CheckEmailVerificationStatusCoroutine(onComplete, onError));
+    }
+
+    private IEnumerator CheckEmailVerificationStatusCoroutine(Action<bool> onComplete, Action<string> onError)
+    {
+        if (string.IsNullOrEmpty(UserToken))
+        {
+            onError?.Invoke("Nessun token utente disponibile.");
+            yield break;
+        }
+
+        string jsonBody = $"{{\"idToken\":\"{UserToken}\"}}";
+        byte[] bodyRaw  = Encoding.UTF8.GetBytes(jsonBody);
+
+        using (UnityWebRequest request = new UnityWebRequest(GET_USER_DATA_URL + firebaseApiKey, "POST"))
+        {
+            request.uploadHandler   = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string responseText = request.downloadHandler.text;
+                // Piccolo trucco per leggere il booleano senza librerie esterne complesse
+                IsEmailVerified = responseText.Contains("\"emailVerified\": true") || responseText.Contains("\"emailVerified\":true");
+                
+                Debug.Log($"[AuthManager] Stato verifica email: {IsEmailVerified}");
+                onComplete?.Invoke(IsEmailVerified);
+            }
+            else
+            {
+                string errorMsg = ParseFirebaseError(request.downloadHandler.text);
+                Debug.LogWarning($"[AuthManager] Errore controllo email: {errorMsg}");
+                onError?.Invoke(errorMsg);
+            }
+        }
+    }
+
+    // ================================================================
+    // RECUPERO PASSWORD
+    // ================================================================
+    public void ResetPassword(string email, Action onSuccess, Action<string> onError)
+    {
+        StartCoroutine(ResetPasswordCoroutine(email, onSuccess, onError));
+    }
+
+    private IEnumerator ResetPasswordCoroutine(string email, Action onSuccess, Action<string> onError)
+    {
+        if (string.IsNullOrEmpty(email))
+        {
+            onError?.Invoke("Inserisci un'email valida.");
+            yield break;
+        }
+
+        // Il payload cambia: specifichiamo PASSWORD_RESET e passiamo l'email
+        string jsonBody = $"{{\"requestType\":\"PASSWORD_RESET\",\"email\":\"{email}\"}}";
+        byte[] bodyRaw  = Encoding.UTF8.GetBytes(jsonBody);
+
+        using (UnityWebRequest request = new UnityWebRequest(SEND_VERIFICATION_URL + firebaseApiKey, "POST"))
+        {
+            request.uploadHandler   = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("[AuthManager] Email di reset password inviata.");
+                onSuccess?.Invoke();
+            }
+            else
+            {
+                string errorMsg = ParseFirebaseError(request.downloadHandler.text);
+                Debug.LogWarning($"[AuthManager] Errore reset password: {errorMsg}");
+                onError?.Invoke(errorMsg);
+            }
+        }
     }
 }
