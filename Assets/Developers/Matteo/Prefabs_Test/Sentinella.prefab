@@ -112,6 +112,7 @@ MonoBehaviour:
     m_Bits: 0
   coneColor: {r: 1, g: 0.2, b: 0.1, a: 0.35}
   gameOverPanel: {fileID: 0}
+  sentinellaAudio: {fileID: 365796867653531263}
 --- !u!33 &3790924371590081917
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SentinellaAudio
   suonoMovimento: {fileID: 8300000, guid: a5cec586761ab3049b5a70653830b577, type: 3}
   suonoCattura: {fileID: 8300000, guid: 26d1850f0acc9384a9d16964acde0948, type: 3}
-  gameOverPanel: {fileID: 1668994611154943456}
+  gruppoSFX: {fileID: 0}
   distanzaMassima: 10
 --- !u!1 &6497494591455813012
 GameObject:

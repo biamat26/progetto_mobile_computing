@@ -20,6 +20,11 @@ public class VisionCone : MonoBehaviour
     [Header("UI")]
     public GameObject gameOverPanel;  // trascina il Panel qui dall'Inspector
 
+    // --- NUOVA VARIABILE AGGIUNTA ---
+    [Header("Audio")]
+    public SentinellaAudio sentinellaAudio; // Collegamento allo script audio
+    // --------------------------------
+
     private Mesh         _mesh;
     private MeshFilter   _mf;
     private MeshRenderer _mr;
@@ -38,6 +43,11 @@ public class VisionCone : MonoBehaviour
 
         _mesh = new Mesh { name = "VisionConeMesh" };
         _mf.mesh = _mesh;
+
+        // --- NUOVA RIGA AGGIUNTA ---
+        // Se dimentichi di trascinare lo script nell'Inspector, prova a cercarlo da solo!
+        if (sentinellaAudio == null) sentinellaAudio = GetComponentInParent<SentinellaAudio>();
+        // ---------------------------
     }
 
     void LateUpdate()
@@ -73,6 +83,14 @@ public class VisionCone : MonoBehaviour
 
     void ShowGameOver()
     {
+        // --- NUOVA RIGA AGGIUNTA ---
+        // Diciamo alla sentinella di suonare la cattura ORA!
+        if (sentinellaAudio != null)
+        {
+            sentinellaAudio.AttivaSuonoCattura();
+        }
+        // ---------------------------
+
         // Ferma il tempo di gioco
         Time.timeScale = 0f;
 

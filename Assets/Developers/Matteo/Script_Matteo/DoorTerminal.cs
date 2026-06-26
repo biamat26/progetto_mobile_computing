@@ -41,11 +41,17 @@ public class DoorTerminal : MonoBehaviour
     [Header("Player")]
     [SerializeField] private MonoBehaviour playerMovementScript;
 
-    // --- NUOVE VARIABILI AUDIO AGGIUNTE QUI ---
     [Header("Audio Porta")]
     [SerializeField] private AudioSource doorAudioSource;
     [SerializeField] private AudioClip disintegrateSound;
-    // -----------------------------------------
+    
+    // --- NUOVE VARIABILI AUDIO TERMINALE AGGIUNTE QUI ---
+    [Header("Audio Terminale")]
+    [SerializeField] private AudioSource terminalAudioSource; // L'AudioSource per i beep
+    [SerializeField] private AudioClip keyPressSound;         // Suono pressione tasto
+    [SerializeField] private AudioClip accessGrantedSound;    // Suono password corretta
+    [SerializeField] private AudioClip accessDeniedSound;     // Suono password errata
+    // ----------------------------------------------------
 
     private bool   _playerInRange = false;
     private bool   _terminalOpen  = false;
@@ -161,6 +167,9 @@ public class DoorTerminal : MonoBehaviour
     {
         if (_inputLocked || _input.Length >= maxDigits) return;
         _input += digit;
+        
+        PlayKeyPressSound();
+        
         if (statusText) statusText.text = "";
         UpdateDisplay();
         if (_input.Length == maxDigits) CheckPassword();
@@ -170,6 +179,9 @@ public class DoorTerminal : MonoBehaviour
     {
         if (_inputLocked || _input.Length == 0) return;
         _input = _input.Substring(0, _input.Length - 1);
+        
+        PlayKeyPressSound();
+        
         if (statusText) statusText.text = "";
         UpdateDisplay();
     }
@@ -192,11 +204,17 @@ public class DoorTerminal : MonoBehaviour
         {
             _inputLocked = true;
             if (statusText) { statusText.color = successColor; statusText.text = "> ACCESSO CONSENTITO\n> Apertura in corso..."; }
+            
+            PlayResultSound(true);
+            
             StartCoroutine(GrantAccess());
         }
         else
         {
             if (statusText) { statusText.color = errorColor; statusText.text = "> CODICE ERRATO. Riprova."; }
+            
+            PlayResultSound(false);
+            
             StartCoroutine(ClearAfterDelay(1.2f));
         }
     }
@@ -229,13 +247,11 @@ public class DoorTerminal : MonoBehaviour
         _animating = true;
         _doorOpen  = true;
 
-        // --- AVVIA AUDIO DISSOLVENZA ---
         if (doorAudioSource != null && disintegrateSound != null)
         {
             doorAudioSource.clip = disintegrateSound;
             doorAudioSource.Play();
         }
-        // -------------------------------
 
         _sr.color = new Color(0.5f, 1f, 1f, 1f);
         yield return new WaitForSeconds(0.08f);
@@ -250,19 +266,44 @@ public class DoorTerminal : MonoBehaviour
         }
 
         Collider2D[] allColliders = doorObject.GetComponents<Collider2D>();
-    foreach (var c in allColliders)
-    {
-        c.enabled = false; // Spegne sia il muro che il trigger
-    }
+        foreach (var c in allColliders)
+        {
+            c.enabled = false;
+        }
 
-    _sr.enabled = false;
-    _animating = false;
+        _sr.enabled = false;
+        _animating = false;
 
-        // --- FERMA AUDIO DISSOLVENZA ---
         if (doorAudioSource != null)
         {
             doorAudioSource.Stop();
         }
-        // -------------------------------
     }
+
+    // --- NUOVE FUNZIONI AUDIO AGGIUNTE ---
+    
+    private void PlayKeyPressSound()
+    {
+        if (terminalAudioSource != null && keyPressSound != null)
+        {
+            // Usiamo PlayOneShot per poter premere i tasti velocemente senza interrompere il suono precedente
+            terminalAudioSource.PlayOneShot(keyPressSound);
+        }
+    }
+
+    private void PlayResultSound(bool isSuccess)
+    {
+        if (terminalAudioSource != null)
+        {
+            if (isSuccess && accessGrantedSound != null)
+            {
+                terminalAudioSource.PlayOneShot(accessGrantedSound);
+            }
+            else if (!isSuccess && accessDeniedSound != null)
+            {
+                terminalAudioSource.PlayOneShot(accessDeniedSound);
+            }
+        }
+    }
+    // --------------------------------------
 }

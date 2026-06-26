@@ -62729,6 +62729,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: keyPressSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d4f9e3571e3cebf4da99fb101ee1fd85, type: 3}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: accessDeniedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 37352df82d984c04badfc21627561a26, type: 3}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: accessGrantedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a9250880fe98df47943749d47988f39, type: 3}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: terminalAudioSource
+      value: 
+      objectReference: {fileID: 2286834707996266370}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
       propertyPath: playerMovementScript
       value: 
       objectReference: {fileID: 1356270406}
@@ -63021,6 +63037,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f793181ce3544200918f00947c12481, type: 3}
+--- !u!82 &2286834707996266370 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9033494296736388822, guid: 6f793181ce3544200918f00947c12481, type: 3}
+  m_PrefabInstance: {fileID: 2286834707996266369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3041804932907443426
 PrefabInstance:
   m_ObjectHideFlags: 0

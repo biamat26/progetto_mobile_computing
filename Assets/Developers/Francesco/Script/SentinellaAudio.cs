@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Audio; // <-- Necessario per usare l'Audio Mixer
+using UnityEngine.Audio;
 
 public class SentinellaAudio : MonoBehaviour
 {
@@ -28,7 +28,6 @@ public class SentinellaAudio : MonoBehaviour
         audioMovimento.playOnAwake = true;
         audioMovimento.volume = 0f;
         
-        // Collega il movimento al canale SFX
         if (gruppoSFX != null) audioMovimento.outputAudioMixerGroup = gruppoSFX;
         
         audioMovimento.Play();
@@ -39,10 +38,8 @@ public class SentinellaAudio : MonoBehaviour
         audioCattura.loop = false;
         audioCattura.playOnAwake = false;
         
-        // Collega la cattura al canale SFX
         if (gruppoSFX != null) audioCattura.outputAudioMixerGroup = gruppoSFX;
         
-        // IL TRUCCO: Abbassiamo il volume base della cattura al 20% in modo fisso!
         audioCattura.volume = 0.2f; 
         audioCattura.ignoreListenerPause = true;
 
@@ -55,24 +52,31 @@ public class SentinellaAudio : MonoBehaviour
 
     void Update()
     {
-        if (Time.unscaledTime > 0.5f && Time.timeScale == 0f && !giocatoreCatturato)
-        {
-            giocatoreCatturato = true; 
-            audioMovimento.Stop(); 
-
-            if (suonoCattura != null)
-            {
-                audioCattura.Play(); 
-            }
-        }
+        // Abbiamo rimosso il controllo inaffidabile sul Time.timeScale!
+        // Ora qui gestiamo solo il rumore di fondo del movimento.
 
         if (player != null && !giocatoreCatturato && Time.timeScale > 0f)
         {
             float distanza = Vector2.Distance(transform.position, player.position);
             float volume = 1f - Mathf.Clamp01(distanza / distanzaMassima);
-            
-            // Limita il volume massimo del movimento a metà (0.5f) per renderlo un rumore di sottofondo
             audioMovimento.volume = volume * 0.5f; 
+        }
+    }
+
+    // Il cono di visione chiamerà questa funzione nel momento ESATTO della cattura
+    public void AttivaSuonoCattura()
+    {
+        if (!giocatoreCatturato)
+        {
+            giocatoreCatturato = true; 
+            
+            if (audioMovimento != null) 
+                audioMovimento.Stop(); 
+
+            if (audioCattura != null && suonoCattura != null)
+            {
+                audioCattura.Play(); 
+            }
         }
     }
 }
