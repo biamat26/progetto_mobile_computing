@@ -531,11 +531,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.848
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.933
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.z
@@ -573,6 +573,10 @@ PrefabInstance:
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 789489643}
+    - target: {fileID: 9030989860826143278, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
+      propertyPath: startDirection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -616,10 +620,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 789489644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -129}
+  m_SizeDelta: {x: 360, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &121883117
 MonoBehaviour:
@@ -650,7 +654,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282664191
   m_fontColor: {r: 1, g: 0.26666668, b: 0.26666668, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -663,7 +667,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1153,10 +1157,10 @@ RectTransform:
   - {fileID: 1445004712}
   m_Father: {fileID: 789489644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -243}
+  m_SizeDelta: {x: 360, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276629699
 MonoBehaviour:
@@ -1374,7 +1378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1979,7 +1983,7 @@ Transform:
   m_GameObject: {fileID: 504270652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.36322, y: 20.61455, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2427,6 +2431,12 @@ MonoBehaviour:
   canvasGroup: {fileID: 789489648}
   messageText: {fileID: 1719409267}
   fadeDuration: 1.2
+  _baseMessage: 'Il Garbage Collector ti ha processato!
+
+    Oggetto non referenziato.
+
+    Processo
+    terminato'
 --- !u!225 &789489648
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -31186,11 +31196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.85
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.96
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31228,6 +31238,10 @@ PrefabInstance:
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 789489643}
+    - target: {fileID: 9030989860826143278, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
+      propertyPath: startDirection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31600,11 +31614,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.43
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.92
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31657,6 +31671,10 @@ PrefabInstance:
     - target: {fileID: 8839646835158509761, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_Constraints
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030989860826143278, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
+      propertyPath: startDirection
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31755,13 +31773,13 @@ MonoBehaviour:
   m_text: '[ RIPROVA ]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fcf4d4e3d801a4df2b471cf749562b58, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2104543723671841847, guid: fcf4d4e3d801a4df2b471cf749562b58, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -31820,7 +31838,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1445004714
@@ -31990,11 +32008,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.153
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.928
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
       propertyPath: m_LocalPosition.z
@@ -32032,6 +32050,10 @@ PrefabInstance:
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 789489643}
+    - target: {fileID: 9030989860826143278, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
+      propertyPath: startDirection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32815,10 +32837,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 789489644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -191}
+  m_SizeDelta: {x: 360, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1719409267
 MonoBehaviour:
@@ -32840,21 +32862,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Il Garbage Collector ti ha preso!
+  m_text: 'Deallocazione completata.
 
-    Oggetto non referenziato.
-
-    Processo
-    terminato _'
+    Processo terminato.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fcf4d4e3d801a4df2b471cf749562b58, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2104543723671841847, guid: fcf4d4e3d801a4df2b471cf749562b58, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282515200
   m_fontColor: {r: 0, g: 1, b: 0.25490198, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -32913,7 +32932,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1719409268
@@ -34886,6 +34905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1871717263}
   - component: {fileID: 1871717262}
+  - component: {fileID: 1871717264}
   m_Layer: 0
   m_Name: Freccia_CPU (1)
   m_TagString: Untagged
@@ -34966,6 +34986,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1871717264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871717261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 2
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000ad3a036dc3be16abe52b22242dd783e0e329eeee
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &1872026447
 GameObject:
   m_ObjectHideFlags: 0
@@ -60074,10 +60146,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 789489644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -67}
+  m_SizeDelta: {x: 360, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090941027
 MonoBehaviour:
@@ -60108,7 +60180,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 1010958080
   m_fontColor: {r: 0, g: 1, b: 0.25490198, a: 0.23529412}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -60121,7 +60193,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -60208,6 +60280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124272827}
   - component: {fileID: 2124272826}
+  - component: {fileID: 2124272828}
   m_Layer: 0
   m_Name: Freccia_CPU
   m_TagString: Untagged
@@ -60288,6 +60361,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2124272828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124272825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 2
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000ad3a036dc3be16abe52b22242dd783e0e329eeee
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1001 &8298539309151423518
 PrefabInstance:
   m_ObjectHideFlags: 0

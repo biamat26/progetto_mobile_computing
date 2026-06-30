@@ -17,29 +17,52 @@ public class GCSentinelController : MonoBehaviour
     };
 
     void Start()
-    {
-        _anim = GetComponentInChildren<Animator>();
-        _visionCone = transform.Find("VisionCone");
-        _anim.SetInteger("dir", startDirection);
+{
+    _anim = GetComponentInChildren<Animator>();
+    _visionCone = transform.Find("VisionCone");
 
-        Vector2 dir = DirFromInt(startDirection);
-        RotateVisionCone(dir); 
+    // Calcola direzione iniziale dal primo waypoint invece di usare un default fisso
+    if (waypoints.Length > 0)
+    {
+        Vector2 dir = (waypoints[0].position - transform.position).normalized;
+        UpdateAnimation(dir);
+        RotateVisionCone(dir);
     }
+    else
+    {
+        // Fallback solo se non ci sono waypoint
+        Vector2 dir = DirFromInt(startDirection);
+        _anim.SetInteger("dir", startDirection);
+        RotateVisionCone(dir);
+    }
+}
 
     void Update()
-    {
-        if (waypoints.Length == 0) return;
+{
+    if (waypoints.Length == 0) return;
 
-        Transform target = waypoints[_currentWP];
+    Transform target = waypoints[_currentWP];
+    
+    // 1. Calcoliamo la distanza dal target
+    float distance = Vector2.Distance(transform.position, target.position);
+
+    // 2. Muoviamo e aggiorniamo solo se NON siamo ancora arrivati al waypoint
+    if (distance > waypointRadius)
+    {
         Vector2 dir = (target.position - transform.position).normalized;
 
         transform.Translate(dir * speed * Time.deltaTime);
+        
+        // Aggiorna la direzione solo mentre cammina!
         UpdateAnimation(dir);
         RotateVisionCone(dir);
-
-        if (Vector2.Distance(transform.position, target.position) < waypointRadius)
-            _currentWP = (_currentWP + 1) % waypoints.Length;
     }
+    else
+    {
+        // 3. Se siamo vicini, passiamo al prossimo waypoint
+        _currentWP = (_currentWP + 1) % waypoints.Length;
+    }
+}
 
     void UpdateAnimation(Vector2 dir)
     {

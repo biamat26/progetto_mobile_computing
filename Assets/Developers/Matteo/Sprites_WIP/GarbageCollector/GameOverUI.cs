@@ -9,7 +9,7 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private TMP_Text messageText;  // trascina MessageText qui
     [SerializeField] private float fadeDuration = 1.2f;
 
-    private string _baseMessage = "Il Garbage Collector ti ha preso!\nOggetto non referenziato.\nProcesso terminato";
+    private string _baseMessage = "[GC] Oggetto intercettato.\nDeallocazione completata.\nProcesso terminato";
 
     void OnEnable()
     {
