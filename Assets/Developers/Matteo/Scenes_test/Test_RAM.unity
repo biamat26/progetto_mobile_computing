@@ -2431,12 +2431,6 @@ MonoBehaviour:
   canvasGroup: {fileID: 789489648}
   messageText: {fileID: 1719409267}
   fadeDuration: 1.2
-  _baseMessage: 'Il Garbage Collector ti ha processato!
-
-    Oggetto non referenziato.
-
-    Processo
-    terminato'
 --- !u!225 &789489648
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -32320,9 +32314,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: keyPressSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d4f9e3571e3cebf4da99fb101ee1fd85, type: 3}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
       propertyPath: correctPassword
       value: 09072006
       objectReference: {fileID: 0}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: accessDeniedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 37352df82d984c04badfc21627561a26, type: 3}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: accessGrantedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a9250880fe98df47943749d47988f39, type: 3}
+    - target: {fileID: 2580826795627726678, guid: 6f793181ce3544200918f00947c12481, type: 3}
+      propertyPath: terminalAudioSource
+      value: 
+      objectReference: {fileID: 1625498900}
     - target: {fileID: 2756884112876770438, guid: 6f793181ce3544200918f00947c12481, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -32624,6 +32634,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f793181ce3544200918f00947c12481, type: 3}
+--- !u!82 &1625498900 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9033494296736388822, guid: 6f793181ce3544200918f00947c12481, type: 3}
+  m_PrefabInstance: {fileID: 1625498899}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1635868010
 GameObject:
   m_ObjectHideFlags: 0
