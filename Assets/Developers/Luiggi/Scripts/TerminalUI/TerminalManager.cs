@@ -8,7 +8,7 @@ public class TerminalManager : MonoBehaviour
     [Header("Componenti")]
     public TerminalUI terminalUI;
     public RectTransform terminalRect; 
-    public GameObject bottoneTerminale; // <-- NUOVO: Il riferimento al bottoncino
+    public GameObject bottoneTerminale;
 
     [Header("Stato e Cronologia")]
     public bool isExpanded = false;
@@ -17,6 +17,8 @@ public class TerminalManager : MonoBehaviour
     [Header("Impostazioni Dimensioni")]
     public Vector2 sizeFull = new Vector2(800, 500);
 
+    [Header("Notifica")]
+    public GameObject iconaNotifica; // l'oggetto lampeggiante, lo assegni tu nell'Inspector
     // Database dei messaggi e Memoria storica
     private Dictionary<string, string> databaseMessaggi = new Dictionary<string, string>();
     private List<string> cronologiaMessaggi = new List<string>();
@@ -128,7 +130,8 @@ public class TerminalManager : MonoBehaviour
         if (primaVolta)
         {
             primaVolta = false;
-            terminalUI.ScriviMessaggio(ultimoMessaggio, true); // con effetto
+            terminalUI.ScriviMessaggio(ultimoMessaggio, true);
+            AggiornaNotifica();
         }
         else
         {
@@ -162,7 +165,7 @@ public class TerminalManager : MonoBehaviour
         }
     }
 
-   public void MostraAiuto(string idMessaggio)
+public void MostraAiuto(string idMessaggio)
 {
     if (databaseMessaggi.ContainsKey(idMessaggio))
     {
@@ -173,12 +176,20 @@ public class TerminalManager : MonoBehaviour
             cronologiaMessaggi.RemoveAt(0);
 
         ultimoMessaggio = nuovoMessaggio;
-        primaVolta = true; // la prima apertura userà l'effetto
+        primaVolta = true;
+
+        AggiornaNotifica(); // <-- NUOVO
     }
     else
     {
         Debug.LogWarning("Messaggio non trovato: " + idMessaggio);
     }
+}
+
+private void AggiornaNotifica()
+{
+    if (iconaNotifica != null)
+        iconaNotifica.SetActive(primaVolta && !isExpanded);
 }
 
     private void AggiornaTestoTerminale(string ultimoMessaggio)
@@ -194,4 +205,31 @@ public class TerminalManager : MonoBehaviour
     {
         if (!isExpanded) { }
     }
+
+    public void ApriTerminale()
+{
+    if (isExpanded) return; // già aperto, non fare nulla
+
+    isExpanded = true;
+    terminalRect.gameObject.SetActive(true);
+
+    if (bottoneTerminale != null)
+        bottoneTerminale.SetActive(false);
+
+    AggiornaVisuale();
+
+    if (cronologiaMessaggi.Count > 0)
+    {
+        if (primaVolta)
+        {
+            primaVolta = false;
+            terminalUI.ScriviMessaggio(ultimoMessaggio, true);
+            AggiornaNotifica(); // <-- NUOVO
+        }
+        else
+        {
+            terminalUI.ScriviMessaggio(ultimoMessaggio, false);
+        }
+    }
+}
 }

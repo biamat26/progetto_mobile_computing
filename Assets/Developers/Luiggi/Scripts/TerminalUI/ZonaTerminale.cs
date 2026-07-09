@@ -5,6 +5,7 @@ public class ZonaTerminale : MonoBehaviour
     [Header("Configurazione")]
     public string idMessaggio;
     public bool mostraSoloUnaVolta = true;
+    public bool apriTerminaleAutomaticamente = false; // <-- NUOVO
 
     private bool giàMostrato = false;
 
@@ -15,5 +16,8 @@ public class ZonaTerminale : MonoBehaviour
 
         giàMostrato = true;
         TerminalManager.Istanza.MostraAiuto(idMessaggio);
+
+        if (apriTerminaleAutomaticamente)
+            TerminalManager.Istanza.ApriTerminale();
     }
 }
