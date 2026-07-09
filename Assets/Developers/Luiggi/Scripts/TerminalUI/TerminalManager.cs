@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class TerminalManager : MonoBehaviour
@@ -10,6 +11,10 @@ public class TerminalManager : MonoBehaviour
     public RectTransform terminalRect; 
     public GameObject bottoneTerminale;
 
+    [Header("Visibilità per Scena")]
+    public string[] sceneDiGioco; // nomi esatti delle scene dove il terminale deve essere visibile
+    public GameObject terminalRoot; // il genitore che contiene bottone + icona + pannello (es. "Terminal" o "ButtonTerminale")
+
     [Header("Stato e Cronologia")]
     public bool isExpanded = false;
     public int maxMessaggi = 10; // Quanti messaggi ricorda al massimo
@@ -19,21 +24,38 @@ public class TerminalManager : MonoBehaviour
 
     [Header("Notifica")]
     public GameObject iconaNotifica; // l'oggetto lampeggiante, lo assegni tu nell'Inspector
+    public AudioSource audioSource; // <-- NUOVO
+    public AudioClip suonoNotifica; // <-- NUOVO
     // Database dei messaggi e Memoria storica
     private Dictionary<string, string> databaseMessaggi = new Dictionary<string, string>();
     private List<string> cronologiaMessaggi = new List<string>();
     private string ultimoMessaggio = "";
     private bool primaVolta = false;
 
-    void Awake()
+  void Awake()
+{
+    if (Istanza != null && Istanza != this) 
+    { 
+        Destroy(gameObject); 
+        return; 
+    }
+    Istanza = this;
+    DontDestroyOnLoad(gameObject);
+
+    SceneManager.sceneLoaded += OnSceneLoaded; // <-- NUOVO
+}
+
+    void OnDestroy()
     {
-        if (Istanza != null && Istanza != this) 
-        { 
-            Destroy(gameObject); 
-            return; 
-        }
-        Istanza = this;
-        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded -= OnSceneLoaded; // <-- NUOVO
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool èSceneDiGioco = System.Array.Exists(sceneDiGioco, nome => nome == scene.name);
+        
+        if (terminalRoot != null)
+            terminalRoot.SetActive(èSceneDiGioco);
     }
 
     void Start()
@@ -43,11 +65,10 @@ public class TerminalManager : MonoBehaviour
         Time.timeScale = 1f;
         isExpanded = false;
         
-        // Nascondi il terminale grande all'avvio
         terminalRect.gameObject.SetActive(false);
 
-        // Carica subito la storia iniziale nella cronologia "dietro le quinte"
-        MostraAiuto("Intro"); 
+        // Precarica l'intro SENZA accendere la notifica: si apre da sola allo spawn
+        MostraAiuto("Intro", false); // <-- false invece di lasciare il default
     }
 
     public void MostraMessaggioLibero(string testo)
@@ -165,7 +186,7 @@ public class TerminalManager : MonoBehaviour
         }
     }
 
-public void MostraAiuto(string idMessaggio)
+public void MostraAiuto(string idMessaggio, bool mostraNotifica = true)
 {
     if (databaseMessaggi.ContainsKey(idMessaggio))
     {
@@ -178,7 +199,8 @@ public void MostraAiuto(string idMessaggio)
         ultimoMessaggio = nuovoMessaggio;
         primaVolta = true;
 
-        AggiornaNotifica(); // <-- NUOVO
+        if (mostraNotifica)
+            AggiornaNotifica();
     }
     else
     {
@@ -188,8 +210,24 @@ public void MostraAiuto(string idMessaggio)
 
 private void AggiornaNotifica()
 {
+    bool nuovoStato = primaVolta && !isExpanded;
+
+    // Suona solo se la notifica sta passando da spenta ad accesa
     if (iconaNotifica != null)
-        iconaNotifica.SetActive(primaVolta && !isExpanded);
+    {
+        bool eraGiaAttiva = iconaNotifica.activeSelf;
+        
+        if (nuovoStato && !eraGiaAttiva)
+            RiproduciSuonoNotifica();
+
+        iconaNotifica.SetActive(nuovoStato);
+    }
+}
+
+private void RiproduciSuonoNotifica()
+{
+    if (audioSource != null && suonoNotifica != null)
+        audioSource.PlayOneShot(suonoNotifica);
 }
 
     private void AggiornaTestoTerminale(string ultimoMessaggio)

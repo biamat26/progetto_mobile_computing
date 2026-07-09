@@ -208,10 +208,12 @@ MonoBehaviour:
   terminalUI: {fileID: 2384776988708979642}
   terminalRect: {fileID: 2119464399579873996}
   bottoneTerminale: {fileID: 2886173215212417522}
+  sceneDiGioco: []
+  terminalRoot: {fileID: 0}
   isExpanded: 0
   maxMessaggi: 10
   sizeFull: {x: 500, y: 250}
-  iconaNotifica: {fileID: 0}
+  iconaNotifica: {fileID: 2332284208714308334}
 --- !u!114 &2384776988708979642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,8 +328,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27.1, y: 22.2}
-  m_SizeDelta: {x: 30.1293, y: 29.0266}
+  m_AnchoredPosition: {x: -23.1, y: 21.4}
+  m_SizeDelta: {x: 18.0634, y: 18.3901}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4444764983925386053
 CanvasRenderer:
@@ -357,7 +359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3164809056393425246, guid: 8e3fe2025d0b14c40a793af75ac53baa, type: 3}
+  m_Sprite: {fileID: -6457276686420646342, guid: 5460873560eef467cb6a379fc66154e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -540,7 +542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 328.9, y: -154.31}
+  m_AnchoredPosition: {x: 131.8, y: -38.951}
   m_SizeDelta: {x: 109.5727, y: 77.9023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7227654693965565982

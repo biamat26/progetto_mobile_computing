@@ -1671,107 +1671,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1001 &686185146
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 948726760933358688, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_Name
-      value: Terminal
-      objectReference: {fileID: 0}
-    - target: {fileID: 948726760933358688, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136094643658024518, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
 --- !u!1 &849056080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,11 +2394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
   clickSound: {fileID: 8300000, guid: b4917387e3b823644a106299799d9a36, type: 3}
---- !u!1 &1156776259 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 948726760933358688, guid: 5f9a40b7c305d56d2b4b5a8aab04cd00, type: 3}
-  m_PrefabInstance: {fileID: 686185146}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1186694843
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,7 +2907,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1156776259}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -3196,7 +3090,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1156776259}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4117,7 +4011,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1156776259}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4683,7 +4577,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1156776259}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4765,6 +4659,5 @@ SceneRoots:
   - {fileID: 546172929}
   - {fileID: 58138572}
   - {fileID: 20932055}
-  - {fileID: 686185146}
   - {fileID: 1684727911}
   - {fileID: 1258451960}
