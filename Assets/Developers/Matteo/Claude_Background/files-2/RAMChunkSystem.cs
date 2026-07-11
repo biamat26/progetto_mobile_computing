@@ -214,20 +214,20 @@ public class RAMChunkSystem : MonoBehaviour
         for (int i = 0; i < chunk.Tiles.Length; i++)
         {
             // BASE GO
-            var gb = new GameObject("B");
-            gb.transform.SetParent(transform, false);
-            var srb = gb.AddComponent<SpriteRenderer>();
-            // Scala il GO invece di usare drawMode — funziona con qualsiasi PPU
-            gb.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
-            gb.SetActive(false);
+var gb = new GameObject("B");
+gb.transform.SetParent(transform, false);
+var srb = gb.AddComponent<SpriteRenderer>();
+srb.material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")); // sempre visibile
+gb.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
+gb.SetActive(false);
 
-            // FANCY GO
-            var gf = new GameObject("F");
-            gf.transform.SetParent(transform, false);
-            var srf = gf.AddComponent<SpriteRenderer>();
-            gf.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
-            gf.SetActive(false);
-
+// FANCY GO
+var gf = new GameObject("F");
+gf.transform.SetParent(transform, false);
+var srf = gf.AddComponent<SpriteRenderer>();
+// nessun materiale custom — usa il default Lit, oscurato dalla luce globale
+gf.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
+gf.SetActive(false);
             chunk.Tiles[i] = new TileGO
             {
                 BaseGO  = gb, BaseSR  = srb,

@@ -41,7 +41,6 @@ public class KeyDoor : MonoBehaviour
     {
         CheckProximity();
         HandleInput();
-        HandleErrorTimer();
     }
 
     void CheckProximity()
@@ -85,10 +84,8 @@ public class KeyDoor : MonoBehaviour
 
     void ShowError()
     {
-        Debug.Log("ShowError chiamato | errorPanel null? " + (errorPanel == null));
         if (errorPanel == null) return;
         errorPanel.SetActive(true);
-        errorTimer = 2f;
     }
 
     void OpenDoor()

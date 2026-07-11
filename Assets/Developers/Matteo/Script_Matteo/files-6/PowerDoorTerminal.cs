@@ -50,7 +50,7 @@ public class PowerDoorTerminal : MonoBehaviour
         if (tooltip) tooltip.SetActive(false);
         if (terminalCanvas) terminalCanvas.SetActive(true);
         Time.timeScale = 0f;
-        StartCoroutine(ChiudiAutomaticamente());
+        
     }
 
     void ChiudiTerminale()
@@ -58,11 +58,5 @@ public class PowerDoorTerminal : MonoBehaviour
         terminalAperto = false;
         if (terminalCanvas) terminalCanvas.SetActive(false);
         Time.timeScale = 1f;
-    }
-
-    IEnumerator ChiudiAutomaticamente()
-    {
-        yield return new WaitForSecondsRealtime(4f);
-        ChiudiTerminale();
     }
 }
