@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHP = 100;
+    public int maxHP = 4; // coincide con il numero di cuoricini
     public GameoverUI gameOverUI;
     public HealthBar healthBar;
+    public BarraVitaCuori barraVita;
 
     // L'ho messo public così lo vedi nell'Inspector e capisci se il danno funziona
     public int currentHP; 
@@ -17,26 +18,28 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead => _isDead; // gli altri script possono leggerlo
     private Animator anim;
 
-void Awake() 
+    void Awake() 
     {
-        _isDead = false; // ora non è serializzato, parte sempre false
+        _isDead = false;
         currentHP = maxHP;
         healthBar.SetMaxHealth(maxHP); 
+        if (barraVita != null) barraVita.SetVita(currentHP);
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();   
 
-        // Se non lo hai assegnato a mano, cercalo nella scena
-    if (gameOverUI == null)
+        if (gameOverUI == null)
+        {
+            gameOverUI = Object.FindFirstObjectByType<GameoverUI>();
+        }
+    }
+
+    public void Heal(int amount)
     {
-        gameOverUI = Object.FindFirstObjectByType<GameoverUI>();
+        if (_isDead) return;
+        currentHP = Mathf.Min(currentHP + amount, maxHP);
+        healthBar.SetHealth(currentHP);
+        if (barraVita != null) barraVita.SetVita(currentHP);
     }
-    }
-public void Heal(int amount)
-{
-    if (_isDead) return;
-    currentHP = Mathf.Min(currentHP + amount, maxHP);
-    healthBar.SetHealth(currentHP);
-}
 
     public void TakeDamage(int qt)
     {
@@ -44,6 +47,7 @@ public void Heal(int amount)
 
         currentHP -= qt;
         healthBar.SetHealth(currentHP);
+        if (barraVita != null) barraVita.SetVita(currentHP);
         Debug.Log($"Danno ricevuto! HP: {currentHP}");
 
         if (currentHP <= 0)
@@ -71,10 +75,10 @@ public void Heal(int amount)
     {
         healthBar.SetHealth(0);
         healthBar.gameObject.SetActive(false);
+        if (barraVita != null) barraVita.SetVita(0);
         if (_isDead) return;
         _isDead = true;
         Debug.Log($"[PLAYER DIE] chiamato! _isDead={_isDead}");
-    // stack trace per capire chi lo chiama
         Debug.Log(System.Environment.StackTrace);
         Debug.Log("GAME OVER");
 

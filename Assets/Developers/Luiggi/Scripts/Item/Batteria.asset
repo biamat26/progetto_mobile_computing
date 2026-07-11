@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Pillola_Cura
   icon: {fileID: -2745644151286588418, guid: b744e78c7f1cfcb4a9be6f7b16f80948, type: 3}
   contenuto: 
+  keyColor: 0
   immagineDocumento: {fileID: 0}
   itemType: 1
-  healAmount: 50
+  healAmount: 1
