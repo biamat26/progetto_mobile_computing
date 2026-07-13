@@ -245,16 +245,13 @@ public class BattleSystem : MonoBehaviour
             StartCoroutine(ShowLostMessageSequence());
     }
 
-    // --- COROUTINE PER CAMBIO SCENA ---
     IEnumerator RitornaAlMenu()
     {
         // Aspetta esattamente 5 secondi
         yield return new WaitForSeconds(5f);
         
-        // Carica la scena numero 1 (assicurati che sia nei Build Settings!)
-        SceneManager.LoadScene(1); 
+        SceneManager.LoadScene("TitoliDiCoda"); 
     }
-    // ----------------------------------
 
     IEnumerator ShowLostMessageSequence()
     {
@@ -265,6 +262,8 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         dialogueText.text = "Addio, processo inutile.";
+
+        SceneManager.LoadScene("GameOver");
     }
 
     void PlayerTurn()

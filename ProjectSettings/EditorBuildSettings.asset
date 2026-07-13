@@ -32,6 +32,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Developers/Matteo/Scenes_test/BUS_RAM-HD.unity
     guid: 27882b64746724a37be47095a7c99142
+  - enabled: 1
+    path: Assets/Developers/Matteo/Scenes_test/Test_CPU.unity
+    guid: 14c59d66c04db4e1a886d472edf0337a
+  - enabled: 1
+    path: Assets/Developers/Francesco/Scenes_test/Combattimento Finale.unity
+    guid: 96b31d110f87e4501aeb5e3325a5a372
+  - enabled: 1
+    path: Assets/Developers/Francesco/Scenes_test/TitoliDiCoda.unity
+    guid: c67f5602129df4f7b922b0b42ce6820d
+  - enabled: 1
+    path: Assets/Developers/Francesco/Scenes_test/GameOver.unity
+    guid: 3a205a1c19f184372ad242e45938ef09
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
