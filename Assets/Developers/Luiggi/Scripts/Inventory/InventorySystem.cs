@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -7,18 +8,52 @@ public class InventorySystem : MonoBehaviour
     public GameObject[] slots = new GameObject[16];
     private ItemData[] items = new ItemData[16];
 
+    [Header("Visibilità per Scena")]
+    public string[] sceneDiGioco;
+    public GameObject inventoryRoot;
+
     public int GetSelectedSlot() => selectedSlot;
     public ItemData GetItem(int index) => items[index];
     private int selectedSlot = -1;
 
-    void Awake() { Instance = this; }
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool èSceneDiGioco = System.Array.Exists(sceneDiGioco, nome => nome == scene.name);
+
+        if (èSceneDiGioco)
+            RefreshUI();
+
+        // Il pannello riparte sempre chiuso al cambio scena
+        if (inventoryRoot != null)
+            inventoryRoot.SetActive(false);
+    }
 
     public void SelectSlot(int index)
     {
         selectedSlot = index;
     }
 
-    // NUOVO METODO: Spegne il bordo verde e resetta la memoria
     public void DeselectCurrentSlot()
     {
         if (selectedSlot != -1 && selectedSlot < slots.Length && slots[selectedSlot] != null)
@@ -36,16 +71,13 @@ public class InventorySystem : MonoBehaviour
         ItemData itemToDrop = items[selectedSlot];
 
         GameObject dropped = Instantiate(dropPrefab, playerPosition + Vector3.right, Quaternion.identity);
-        
-        // assegna l'itemData
+
         WorldItem wi = dropped.GetComponent<WorldItem>();
         if (wi != null) wi.itemData = itemToDrop;
-        
-        // assegna lo sprite corretto
+
         SpriteRenderer sr = dropped.GetComponent<SpriteRenderer>();
         if (sr != null) sr.sprite = itemToDrop.icon;
 
-        // rimuovi dall'inventario
         items[selectedSlot] = null;
         Transform slot = slots[selectedSlot].transform;
         Transform parent = slot.Find("SlotBG");
@@ -53,7 +85,6 @@ public class InventorySystem : MonoBehaviour
         Transform icon = parent.Find("Icon");
         if (icon != null) Destroy(icon.gameObject);
 
-        // Ora usiamo il nostro nuovo metodo per pulire la grafica!
         DeselectCurrentSlot();
     }
 
@@ -65,13 +96,12 @@ public class InventorySystem : MonoBehaviour
         if (parent == null) parent = slot;
         Transform icon = parent.Find("Icon");
         if (icon != null) Destroy(icon.gameObject);
-        
-        // Se stiamo rimuovendo proprio l'oggetto selezionato, togliamo il bordo verde
-        if (selectedSlot == index) 
+
+        if (selectedSlot == index)
         {
             DeselectCurrentSlot();
         }
-        else 
+        else
         {
             selectedSlot = -1;
         }
@@ -84,7 +114,6 @@ public class InventorySystem : MonoBehaviour
             if (items[i] == null)
             {
                 items[i] = item;
-                // spawna icona solo se il canvas è attivo
                 if (slots[i] != null && slots[i].activeInHierarchy)
                     SpawnIcon(i, item);
                 return true;
@@ -106,7 +135,7 @@ public class InventorySystem : MonoBehaviour
     void SpawnIcon(int index, ItemData item)
     {
         if (slots[index] == null) return;
-        
+
         Transform slot = slots[index].transform;
         Transform parent = slot.Find("SlotBG");
         if (parent == null) parent = slot;

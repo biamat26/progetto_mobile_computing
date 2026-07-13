@@ -3,38 +3,53 @@ using System.Collections;
 
 public class InventoryToggle : MonoBehaviour
 {
-    [SerializeField] private GameObject inventoryCanvas;
+    private GameObject inventoryCanvas;
 
     void Start()
     {
-        inventoryCanvas.SetActive(false);
+        AggiornaRiferimento();
+        if (inventoryCanvas != null)
+            inventoryCanvas.SetActive(false);
     }
 
     void Update()
-{
-    if (Input.GetKeyDown(KeyCode.Q))
     {
-        // Se il documento è aperto, lascialo gestire a DocumentViewer (sopra) e non toccare l'inventario
-        if (DocumentViewer.Istanza != null && DocumentViewer.Istanza.gameObject.activeSelf)
-            return;
+        if (inventoryCanvas == null)
+        {
+            AggiornaRiferimento();
+            if (inventoryCanvas == null) return;
+        }
 
-        bool opening = !inventoryCanvas.activeSelf;
-        inventoryCanvas.SetActive(opening);
-        Time.timeScale = opening ? 0f : 1f;
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (DocumentViewer.Istanza != null && DocumentViewer.Istanza.gameObject.activeSelf)
+                return;
 
-        if (opening)
-            StartCoroutine(RefreshAfterFrame());
+            bool opening = !inventoryCanvas.activeSelf;
+            inventoryCanvas.SetActive(opening);
+            Time.timeScale = opening ? 0f : 1f;
+
+            if (opening)
+                StartCoroutine(RefreshAfterFrame());
+        }
     }
-}
+
+    private void AggiornaRiferimento()
+    {
+        if (InventorySystem.Instance != null)
+            inventoryCanvas = InventorySystem.Instance.inventoryRoot;
+    }
 
     IEnumerator RefreshAfterFrame()
-{
-    yield return new WaitForEndOfFrame();
-    if (InventorySystem.Instance != null)
-        InventorySystem.Instance.RefreshUI();
-}
+    {
+        yield return new WaitForEndOfFrame();
+        if (InventorySystem.Instance != null)
+            InventorySystem.Instance.RefreshUI();
+    }
+
     public void HideInventory()
     {
-        inventoryCanvas.SetActive(false);
+        if (inventoryCanvas != null)
+            inventoryCanvas.SetActive(false);
     }
 }

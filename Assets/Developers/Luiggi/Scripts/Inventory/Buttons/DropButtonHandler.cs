@@ -7,25 +7,24 @@ public class DropButtonHandler : MonoBehaviour
     // Rimuoviamo il [SerializeField] perché lo troveremo via codice
     private Transform playerTransform; 
 
-    public void OnDrop()
+   public void OnDrop()
+{
+    Debug.Log("[DROP] OnDrop chiamato dopo reboot!");
+    
+    if (playerTransform == null)
     {
-        // 1. Cerchiamo il Player dinamicamente se non lo abbiamo ancora trovato
-        if (playerTransform == null)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log("[DROP] Player trovato? " + (player != null ? player.name : "NULL"));
+        
+        if (player != null)
+            playerTransform = player.transform;
+        else
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            
-            if (player != null)
-            {
-                playerTransform = player.transform;
-            }
-            else
-            {
-                Debug.LogError("Player non trovato! Assicurati che l'oggetto Player abbia il tag 'Player'.");
-                return; // Interrompiamo la funzione per evitare errori
-            }
+            Debug.LogError("Player non trovato! Assicurati che l'oggetto Player abbia il tag 'Player'.");
+            return;
         }
-
-        // 2. Ora che siamo sicuri di avere il Player, procediamo con il Drop
-        InventorySystem.Instance.DropSelected(itemPrefab, playerTransform.position);
     }
+
+    InventorySystem.Instance.DropSelected(itemPrefab, playerTransform.position);
+}
 }

@@ -32,7 +32,7 @@ public class TerminalManager : MonoBehaviour
     private string ultimoMessaggio = "";
     private bool primaVolta = false;
 
-  void Awake()
+void Awake()
 {
     if (Istanza != null && Istanza != this) 
     { 
@@ -40,9 +40,11 @@ public class TerminalManager : MonoBehaviour
         return; 
     }
     Istanza = this;
+    
+    transform.SetParent(null); // <-- NUOVO: ora che è fuori da TUTTO_PLAYER, questo lo rende root prima di renderlo persistente
     DontDestroyOnLoad(gameObject);
 
-    SceneManager.sceneLoaded += OnSceneLoaded; // <-- NUOVO
+    SceneManager.sceneLoaded += OnSceneLoaded;
 }
 
     void OnDestroy()
@@ -124,9 +126,13 @@ public class TerminalManager : MonoBehaviour
     "> Forma il numero corretto per sbloccare la porta.\n\n" +
     "> Il sistema attende il tuo input...";
     string portaChiave = "> ATTENZIONE: Questa porta è serrata! Trova la chiave per aprirla!\n>";
+    string fili = "Occhio!In questa stanza c'è un computer!";
+    string filiPorta = "Questa porta è bloccata. Sembra ci sia un corto circuito, esplora la mappa e prova a sistemarlo!";
         databaseMessaggi.Add("PortaBit", portaNumeroBinario);
         databaseMessaggi.Add("PasswordPorta", passwordPortaPrincipale);
         databaseMessaggi.Add("PortaChiave", portaChiave);
+        databaseMessaggi.Add("FiliPorta",filiPorta);
+        databaseMessaggi.Add("Fili",fili);
     }
 
     public void ToggleTerminal()
