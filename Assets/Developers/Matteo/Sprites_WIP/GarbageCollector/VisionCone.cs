@@ -82,22 +82,21 @@ public class VisionCone : MonoBehaviour
     }
 
     void ShowGameOver()
+{
+    if (sentinellaAudio != null)
     {
-        // --- NUOVA RIGA AGGIUNTA ---
-        // Diciamo alla sentinella di suonare la cattura ORA!
-        if (sentinellaAudio != null)
-        {
-            sentinellaAudio.AttivaSuonoCattura();
-        }
-        // ---------------------------
-
-        // Ferma il tempo di gioco
-        Time.timeScale = 0f;
-
-        // Mostra il pannello
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
+        sentinellaAudio.AttivaSuonoCattura();
     }
+
+    // NUOVO: svuota l'inventario anche quando cattura la sentinella
+    if (InventorySystem.Instance != null)
+        InventorySystem.Instance.ClearInventory();
+
+    Time.timeScale = 0f;
+
+    if (gameOverPanel != null)
+        gameOverPanel.SetActive(true);
+}
 
     // Chiama questo dal bottone "Riprova"
     public void RestartLevel()
