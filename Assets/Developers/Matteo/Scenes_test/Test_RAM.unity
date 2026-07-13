@@ -66770,6 +66770,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 185264131}
     m_Modifications:
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_LocalBounds.m_Center.y
+      value: -0.00000011920929
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.x
+      value: 0.9985302
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.y
+      value: 0.99853027
+      objectReference: {fileID: 0}
     - target: {fileID: 2024837612546578146, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
       propertyPath: speed
       value: 8
@@ -67319,6 +67335,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 185264131}
     m_Modifications:
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_LocalBounds.m_Center.y
+      value: -0.00000011920929
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.x
+      value: 0.9985302
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384224692815868368, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.y
+      value: 0.99853027
+      objectReference: {fileID: 0}
     - target: {fileID: 2024837612546578146, guid: 7c40e0c7457764a3eb857726e00ea9ed, type: 3}
       propertyPath: speed
       value: 17
