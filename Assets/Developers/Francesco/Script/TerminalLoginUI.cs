@@ -297,4 +297,37 @@ public class TerminalLoginUI : MonoBehaviour
             }
         );
     }
+
+    // ================================================================
+    // LOGICA ACCESSO OSPITE
+    // ================================================================
+    public void ExecuteGuestLogin()
+    {
+        if (isProcessing) return;
+        isProcessing = true;
+
+        PlaySound(successSound);
+        
+        // Puoi usare PrintToLoginConsole o PrintToSystemConsole a seconda di dove vuoi il testo
+        PrintToSystemConsole("> ACCESSO OSPITE CONSENTITO. BENVENUTO."); 
+
+        // 1. Assicuriamoci di non avere vecchi account in memoria
+        if (AuthManager.Instance != null)
+        {
+            AuthManager.Instance.Logout();
+        }
+        
+        if (UserSession.Instance != null)
+        {
+            UserSession.Instance.ClearSession(); 
+        }
+
+        // 2. Passiamo al Main Menu dopo 1.5 secondi (per far leggere il testo)
+        Invoke(nameof(LoadMainMenuScene), 1.5f);
+    }
+
+    private void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
 }

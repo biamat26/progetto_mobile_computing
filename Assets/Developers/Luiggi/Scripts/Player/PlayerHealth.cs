@@ -23,7 +23,10 @@ public class PlayerHealth : MonoBehaviour
         _isDead = false;
         currentHP = maxHP;
         healthBar.SetMaxHealth(maxHP); 
-        if (barraVita != null) barraVita.SetVita(currentHP);
+        if (barraVita != null) {
+            barraVita.gameObject.SetActive(true);
+            barraVita.SetVita(currentHP);
+        }
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();   
 
@@ -75,7 +78,10 @@ public class PlayerHealth : MonoBehaviour
     {
         healthBar.SetHealth(0);
         healthBar.gameObject.SetActive(false);
-        if (barraVita != null) barraVita.SetVita(0);
+        if (barraVita != null){
+            barraVita.SetVita(0);
+            barraVita.gameObject.SetActive(false); // <-- NUOVO: nasconde i cuoricini
+        }
         if (_isDead) return;
         _isDead = true;
         Debug.Log($"[PLAYER DIE] chiamato! _isDead={_isDead}");

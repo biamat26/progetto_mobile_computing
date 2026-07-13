@@ -14,7 +14,6 @@ public class MainMenu : MonoBehaviour
     [Tooltip("La scena da cui parte una Nuova Partita")]
     public int indicePrimaScena = 2; 
 
-    // --- FUNZIONE PER RECUPERARE LA MAIL ---
     private string GetChiaveSalvataggio()
     {
         string emailUtente = "Ospite"; 
@@ -27,6 +26,15 @@ public class MainMenu : MonoBehaviour
         return "ScenaSalvata_" + emailUtente;
     }
 
+    private string GetNomeGiocatore()
+    {
+        if (UserSession.Instance != null && !string.IsNullOrEmpty(UserSession.Instance.Username))
+        {
+            return UserSession.Instance.Username;
+        }
+        return "Ospite"; 
+    }
+
     public void ApriPannelloGioca() 
     {
         pannelloScelta.SetActive(true);
@@ -35,24 +43,39 @@ public class MainMenu : MonoBehaviour
 
     public void NuovaPartita() 
     {
-        if (testoMessaggio != null) testoMessaggio.text = "Accesso a nuova partita...";
+        if (testoMessaggio != null) 
+        {
+            string nome = GetNomeGiocatore();
+            testoMessaggio.text = "Accesso a nuova partita... Benvenuto, " + nome + "!";
+        }
         
-        string chiave = GetChiaveSalvataggio();
-        
-        // Cancella SOLO il salvataggio di questa specifica email
-        PlayerPrefs.DeleteKey(chiave); 
+        // Se non è un ospite, cancella il salvataggio precedente per ricominciare da zero
+        if (GetNomeGiocatore() != "Ospite")
+        {
+            string chiave = GetChiaveSalvataggio();
+            PlayerPrefs.DeleteKey(chiave); 
+        }
         
         StartCoroutine(CaricaScenaConRitardo(indicePrimaScena));
     }
 
     public void CaricaPartita() 
     {
+        if (GetNomeGiocatore() == "Ospite")
+        {
+            if (testoMessaggio != null) testoMessaggio.text = "ERRORE: Gli account Ospite non possono caricare salvataggi!";
+            return; // Ferma la funzione qui, non va avanti a caricare!
+        }
+
         string chiave = GetChiaveSalvataggio();
 
-        // Controlla se esiste il salvataggio per QUESTO utente
         if (PlayerPrefs.HasKey(chiave))
         {
-            if (testoMessaggio != null) testoMessaggio.text = "Accesso a partita caricata...";
+            if (testoMessaggio != null) 
+            {
+                string nome = GetNomeGiocatore();
+                testoMessaggio.text = "Accesso a partita caricata... Bentornato, " + nome + "!";
+            }
             
             int scenaDaCaricare = PlayerPrefs.GetInt(chiave);
             StartCoroutine(CaricaScenaConRitardo(scenaDaCaricare));

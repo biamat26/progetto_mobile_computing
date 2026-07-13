@@ -15,13 +15,13 @@ public class PlayerMovement : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public float attackCooldown = 0.5f; // <-- NUOVO
     private bool isAttacking = false;
+    private float nextAttackTime = 0f; // <-- NUOVO
 
-    // --- NUOVE VARIABILI AUDIO ---
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip swordAttackSound;
-    // -----------------------------
 
     private const string attack = "Attack";
     private const string horizontal = "Horizontal";
@@ -44,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
         
         foreach (Collider2D enemy in hitEnemies)
         {
-            // Dobbiamo cercare lo script dove sta effettivamente TakeDamage
             EnemyHealth eh = enemy.GetComponent<EnemyHealth>(); 
             
             if (eh != null)
@@ -54,8 +53,6 @@ public class PlayerMovement : MonoBehaviour
             }
             else 
             {
-                // Se finisci qui, significa che il Virus ha il collider ma ti sei dimenticato
-                // di trascinargli sopra lo script EnemyHealth nell'Inspector
                 Debug.Log("Ho colpito " + enemy.name + " ma NON ha lo script EnemyHealth!");
             }
         }
@@ -65,21 +62,15 @@ public class PlayerMovement : MonoBehaviour
     {
         isAttacking = true;
 
-        // --- NUOVA RIGA: RIPRODUCI L'AUDIO DELLA SPADA ---
         if (audioSource != null && swordAttackSound != null)
         {
             audioSource.PlayOneShot(swordAttackSound);
         }
-        // --------------------------------------------------
 
-        // Spara l'animazione
         animator.SetTrigger(attack);
 
-        // ASPETTA: qui il tempo deve essere quasi uguale alla durata della tua clip
-        // Se la clip dura 0.5 secondi, aspetta 0.45
         yield return new WaitForSeconds(0.45f); 
 
-        // RESET: puliamo il trigger a mano prima di finire, così Any State non lo rivede
         animator.ResetTrigger(attack);
         
         isAttacking = false;
@@ -104,28 +95,25 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat(lastHorizontal, movement.x);
             animator.SetFloat(lastVertical, movement.y);
 
-            // Chiamiamo la funzione per spostare l'AttackPoint
             UpdateAttackPoint(movement.x, movement.y);
 
             if (movement.x < 0) spriteRenderer.flipX = true;
             else if (movement.x > 0) spriteRenderer.flipX = false;
         }
 
-        if (InputManager.Attack && !isAttacking)
+        // MODIFICATO: aggiunto controllo cooldown
+        if (InputManager.Attack && !isAttacking && Time.time >= nextAttackTime)
         {
+            nextAttackTime = Time.time + attackCooldown;
             StartCoroutine(PerformAttack());
         }
     }
 
-    // Questa funzione sposta l'AttackPoint in base alla direzione
     private void UpdateAttackPoint(float x, float y)
     {
         if (attackPoint == null) return;
 
-        // Definisci quanto deve essere distante dal centro del player
         float offset = 0.7f; 
-        
-        // Sposta l'AttackPoint localmente rispetto al Player
         attackPoint.localPosition = new Vector3(x * offset, y * offset, 0);
     }
 
