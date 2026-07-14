@@ -34,7 +34,7 @@ public class CatButtonHandler : MonoBehaviour
         // Se ha un'immagine, mostra quella — altrimenti usa il terminale come prima
         if (item.immagineDocumento != null)
         {
-            DocumentViewer.Istanza.MostraImmagine(item.immagineDocumento);
+            DocumentViewer.Istanza.MostraImmagine(item);
             return;
         }
 

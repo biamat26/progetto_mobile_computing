@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 89360b3e77c3741eeb514fc40cdd2a1e
+guid: bb57de2d7dbf94ee0bb5613b211b53c8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3758653032097853558
-    second: ram_arrow-2 1_0
+      213: 8068264309163457793
+    second: Integrale_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ram_arrow-2 1_0
+      name: Integrale_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 11
-        width: 835
-        height: 398
+        y: 0
+        width: 1774
+        height: 887
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8fccd34bf496dbc0800000000000000
-      internalID: -3758653032097853558
+      spriteID: 10d76a544ab38ff60800000000000000
+      internalID: 8068264309163457793
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ram_arrow-2 1_0: -3758653032097853558
+      Integrale_0: 8068264309163457793
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
