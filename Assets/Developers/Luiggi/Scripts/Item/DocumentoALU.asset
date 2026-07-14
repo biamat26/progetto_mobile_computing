@@ -16,6 +16,8 @@ MonoBehaviour:
   icon: {fileID: -3369364731776050201, guid: a7f5877b744324eff85c50b88c300e89, type: 3}
   contenuto: DocumentoALU
   keyColor: 0
-  immagineDocumento: {fileID: -4446275852149928523, guid: 4411c1fa1b13c339d9442a7a77464d35, type: 3}
+  immagineDocumento: {fileID: 8068264309163457793, guid: bb57de2d7dbf94ee0bb5613b211b53c8, type: 3}
   itemType: 0
   healAmount: 0
+  usaDimensioniSpeciali: 1
+  dimensioniSpeciali: {x: 1000, y: 500}
