@@ -150,71 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1088101171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &276170250
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 545086929768995962, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_Name
-      value: 'Computer '
-      objectReference: {fileID: 0}
-    - target: {fileID: 1805963150685713252, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: isAluTerminal
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1805963150685713252, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: documentoRichiesto
-      value: DocumentoALU
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 29.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
 --- !u!1001 &315581261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9488,6 +9423,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 545086929768995962, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1806065425}
+    - targetCorrespondingSourceObject: {fileID: 545086929768995962, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1806065426}
   m_SourcePrefab: {fileID: 100100000, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
 --- !u!1 &1806065423 stripped
 GameObject:
@@ -9513,6 +9451,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveTrigger
   waveManager: {fileID: 1471828467}
   tooltipInteragisci: {fileID: 1806065424}
+--- !u!114 &1806065426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806065423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3a414e2ef4846f6b2f45de222d4e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ComputerALU
+  popupConDocumento: {fileID: 0}
+  popupSenzaDocumento: {fileID: 0}
+  waveManager: {fileID: 1471828467}
+  documentoRichiesto: DocumentoALU
 --- !u!1 &1825559112
 GameObject:
   m_ObjectHideFlags: 0
@@ -9659,7 +9613,6 @@ SceneRoots:
   - {fileID: 1767477623}
   - {fileID: 1168945673}
   - {fileID: 315581261}
-  - {fileID: 276170250}
   - {fileID: 1806065422}
   - {fileID: 578605787}
   - {fileID: 1542213156}
