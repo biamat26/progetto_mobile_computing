@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b202ad6d4a4490a39a6a2b2ca893cc5d, type: 3}
+  m_Name: DocumentoALU
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: DocumentoALU
+  icon: {fileID: -3369364731776050201, guid: a7f5877b744324eff85c50b88c300e89, type: 3}
+  contenuto: DocumentoALU
+  keyColor: 0
+  immagineDocumento: {fileID: -4446275852149928523, guid: 4411c1fa1b13c339d9442a7a77464d35, type: 3}
+  itemType: 0
+  healAmount: 0
