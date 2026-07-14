@@ -80,10 +80,15 @@ public class PlayerHealth : MonoBehaviour
         healthBar.gameObject.SetActive(false);
         if (barraVita != null){
             barraVita.SetVita(0);
-            barraVita.gameObject.SetActive(false); // <-- NUOVO: nasconde i cuoricini
+            barraVita.gameObject.SetActive(false); // <-- nasconde i cuoricini
         }
         if (_isDead) return;
         _isDead = true;
+
+        // NUOVO: svuota l'inventario alla morte
+        if (InventorySystem.Instance != null)
+            InventorySystem.Instance.ClearInventory();
+
         Debug.Log($"[PLAYER DIE] chiamato! _isDead={_isDead}");
         Debug.Log(System.Environment.StackTrace);
         Debug.Log("GAME OVER");

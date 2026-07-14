@@ -128,11 +128,19 @@ void Awake()
     string portaChiave = "> ATTENZIONE: Questa porta è serrata! Trova la chiave per aprirla!\n>";
     string fili = "Occhio!In questa stanza c'è un computer!";
     string filiPorta = "Questa porta è bloccata. Sembra ci sia un corto circuito, esplora la mappa e prova a sistemarlo!";
+    string inizioRAM = "Benvenuto nella RAM! Segui i flussi di memoria e trova la strada per il cuore del sistema: la CPU!";
+    string portaRAM = "Questa porta è serrata! Trova la chiave!";
+    string portaFinale = "Da qui in poi pullula di sentinelle! Non voltarti, corri dritto davanti a te finché non trovi l'enorme porta blindata!";
+    string scherzetto = "Ahahah, ci sei cascato! Pensavi fosse così facile? Per aprire questa porta ti serve la password completa. Torna sui tuoi passi e cercala!";
         databaseMessaggi.Add("PortaBit", portaNumeroBinario);
         databaseMessaggi.Add("PasswordPorta", passwordPortaPrincipale);
         databaseMessaggi.Add("PortaChiave", portaChiave);
         databaseMessaggi.Add("FiliPorta",filiPorta);
         databaseMessaggi.Add("Fili",fili);
+        databaseMessaggi.Add("InizioRAM",inizioRAM);
+        databaseMessaggi.Add("PortaRAM",portaRAM);
+        databaseMessaggi.Add("PortaFinale",portaFinale);
+        databaseMessaggi.Add("Scherzetto",scherzetto);
     }
 
     public void ToggleTerminal()

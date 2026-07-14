@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Seconda_Parte_Pass
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Item2
-  icon: {fileID: -4090029923521412468, guid: fa55903a2fd2b88eebb6aacaa5f9c9fc, type: 3}
+  icon: {fileID: 2129483835689956876, guid: 6b10aff82459445bd8c0580c3e7cea75, type: 3}
   contenuto: "una parte della password \xE8 2001"
   keyColor: 0
   immagineDocumento: {fileID: -1862659592480336195, guid: 1fd0d0cacf5059cabafd93138843624e, type: 3}

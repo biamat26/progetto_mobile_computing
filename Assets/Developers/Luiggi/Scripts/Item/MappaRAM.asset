@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b202ad6d4a4490a39a6a2b2ca893cc5d, type: 3}
-  m_Name: Prima_Parte_Pass
+  m_Name: MappaRAM
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Item2
   icon: {fileID: 2129483835689956876, guid: 6b10aff82459445bd8c0580c3e7cea75, type: 3}
-  contenuto: "una parte della password \xE8 2001"
+  contenuto: n
   keyColor: 0
-  immagineDocumento: {fileID: -4446275852149928523, guid: 4411c1fa1b13c339d9442a7a77464d35, type: 3}
+  immagineDocumento: {fileID: -8660333503747196699, guid: 86700cee9410643f88572894d115f2a0, type: 3}
   itemType: 0
   healAmount: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 public class WorldItem : MonoBehaviour
 {
     public ItemData itemData;
-    [SerializeField] private float pickupRange = 1.5f;
+    [SerializeField] private float pickupRange = 5f;
     private GameObject pickupPrompt;
     private Transform playerTransform;
     private bool playerNearby = false;

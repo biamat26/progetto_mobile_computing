@@ -4,6 +4,12 @@ public class CatButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryCanvas;
 
+    // --- NUOVE VARIABILI AUDIO AGGIUNTE QUI ---
+    [Header("Audio")]
+    [Tooltip("Inserisci qui il suono da riprodurre quando si usa il comando cat")]
+    [SerializeField] private AudioClip catSound;
+    // ------------------------------------------
+
     public void OnCat()
     {
         int selectedSlot = InventorySystem.Instance.GetSelectedSlot();
@@ -11,6 +17,13 @@ public class CatButtonHandler : MonoBehaviour
 
         ItemData item = InventorySystem.Instance.GetItem(selectedSlot);
         if (item == null) return;
+
+        // --- RICHIAMO AUDIO AGGIUNTO QUI ---
+        if (AudioManager.instance != null && catSound != null)
+        {
+            AudioManager.instance.PlayClickSound(catSound);
+        }
+        // -----------------------------------
 
         // --- SPEGNAMO LA SELEZIONE ---
         InventorySystem.Instance.DeselectCurrentSlot();

@@ -106,6 +106,25 @@ public class InventorySystem : MonoBehaviour
             selectedSlot = -1;
         }
     }
+    public void ClearInventory()
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != null)
+            {
+                items[i] = null;
+                if (slots[i] != null)
+                {
+                    Transform slot = slots[i].transform;
+                    Transform parent = slot.Find("SlotBG");
+                    if (parent == null) parent = slot;
+                    Transform icon = parent.Find("Icon");
+                    if (icon != null) Destroy(icon.gameObject);
+                }
+            }
+        }
+        DeselectCurrentSlot();
+    }
 
     public bool AddItem(ItemData item)
     {
