@@ -704,7 +704,7 @@ MonoBehaviour:
   mainMenuSceneName: Test_CPU
   velocitaDigitazione: 0.05
   audioSource: {fileID: 1344573284}
-  typingSound: {fileID: 8300000, guid: 412835b4fcc004692bbec37527e7a78e, type: 3}
+  typingSound: {fileID: 8300000, guid: 2a4761e6bdbdf4a93b8b6dbbf908fe1c, type: 3}
   crashSound: {fileID: 8300000, guid: 831a206310216fa4786df4062604eaae, type: 3}
 --- !u!4 &1344573286
 Transform:
