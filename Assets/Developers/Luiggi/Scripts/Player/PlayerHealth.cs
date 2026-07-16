@@ -9,6 +9,12 @@ public class PlayerHealth : MonoBehaviour
     public HealthBar healthBar;
     public BarraVitaCuori barraVita;
 
+    [Header("Audio Morte")]
+    [Tooltip("Inserisci qui il suono o la musica del Game Over")]
+    public AudioClip suonoMorte;
+    [Tooltip("L'AudioSource attaccato al Player (se ne hai uno, altrimenti lascialo vuoto)")]
+    public AudioSource playerAudioSource;
+
     // L'ho messo public così lo vedi nell'Inspector e capisci se il danno funziona
     public int currentHP; 
     public float invulnerabilityDuration = 1.0f;
@@ -84,6 +90,41 @@ public class PlayerHealth : MonoBehaviour
         }
         if (_isDead) return;
         _isDead = true;
+
+        // --- NUOVO: GESTIONE AUDIO DI MORTE ---
+        
+        // 1. Fermiamo lo script SceneAudioController per evitare che rimetta in play la musica
+        SceneAudioController sceneAudio = Object.FindFirstObjectByType<SceneAudioController>();
+        if (sceneAudio != null)
+        {
+            sceneAudio.StopAllCoroutines();
+            sceneAudio.enabled = false;
+        }
+
+        // 2. Stoppiamo qualsiasi musica o suono attualmente in riproduzione nell'AudioManager globale
+        if (AudioManager.instance != null)
+        {
+            AudioSource[] sorgenti = AudioManager.instance.GetComponentsInChildren<AudioSource>();
+            foreach (AudioSource s in sorgenti)
+            {
+                s.Stop();
+            }
+        }
+
+        // 3. Facciamo partire il suono di Game Over
+        if (suonoMorte != null)
+        {
+            if (playerAudioSource != null)
+            {
+                playerAudioSource.PlayOneShot(suonoMorte); // Usa l'AudioSource del player se l'hai assegnato
+            }
+            else
+            {
+                // Se non hai assegnato un AudioSource, Unity creerà un suono "volante" sulla telecamera
+                AudioSource.PlayClipAtPoint(suonoMorte, Camera.main.transform.position, 1f); 
+            }
+        }
+        // --------------------------------------
 
         // NUOVO: svuota l'inventario alla morte
         if (InventorySystem.Instance != null)

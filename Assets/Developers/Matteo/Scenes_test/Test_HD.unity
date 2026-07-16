@@ -64229,6 +64229,14 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 442697861805267888}
+    - target: {fileID: 560689822638728180, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
+      propertyPath: suonoMorte
+      value: 
+      objectReference: {fileID: 8300000, guid: a30697aa96a269c46a9fec4ae34ffa5a, type: 3}
+    - target: {fileID: 560689822638728180, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
+      propertyPath: playerAudioSource
+      value: 
+      objectReference: {fileID: 3965405257064494541}
     - target: {fileID: 1381929388755406328, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: moveSpeed
       value: 7
@@ -64257,6 +64265,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 608224452823355049}
   m_SourcePrefab: {fileID: 100100000, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
+--- !u!82 &3965405257064494541 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1670170034866710879, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
+  m_PrefabInstance: {fileID: 3965405257064494540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4031957759476256531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9018514253356474420, guid: a417fd489d41bb0748e268c997974c55, type: 3}
