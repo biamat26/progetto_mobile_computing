@@ -1,68 +1,64 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio; // <-- Fondamentale per usare l'AudioMixer
 
 public class GestoreOpzioniInGioco : MonoBehaviour
 {
-    [Header("Riferimenti Slider")]
+    [Header("Riferimenti")]
+    [Tooltip("Trascina qui il tuo AudioMixer principale")]
+    public AudioMixer mainMixer; 
     public Slider sliderMusica;
     public Slider sliderEffetti;
 
-    [Header("Impostazioni")]
-    [Tooltip("Lascia la spunta se nel Main Menu i tuoi slider vanno da 0 a 100")]
-    public bool usaScalaCento = true; 
-
     void OnEnable()
     {
-        if (AudioManager.instance != null)
+        // 1. Andiamo a leggere ESATTAMENTE le chiavi del tuo Main Menu
+        float volumeMusicaSalvato = PlayerPrefs.GetFloat("VolMusica", 30f);
+        float volumeEffettiSalvato = PlayerPrefs.GetFloat("VolEffetti", 30f);
+
+        // 2. Impostiamo la scala da 0 a 100 come nel tuo menu
+        sliderMusica.minValue = 0f;
+        sliderMusica.maxValue = 100f;
+        sliderEffetti.minValue = 0f;
+        sliderEffetti.maxValue = 100f;
+
+        // 3. Posizioniamo la levetta nel punto esatto del salvataggio
+        sliderMusica.value = volumeMusicaSalvato;
+        sliderEffetti.value = volumeEffettiSalvato;
+
+        // 4. Colleghiamo gli eventi
+        sliderMusica.onValueChanged.RemoveAllListeners();
+        sliderMusica.onValueChanged.AddListener(CambiaVolumeMusica);
+
+        sliderEffetti.onValueChanged.RemoveAllListeners();
+        sliderEffetti.onValueChanged.AddListener(CambiaVolumeEffetti);
+    }
+
+    private void CambiaVolumeMusica(float valoreSlider)
+    {
+        // Salva in memoria per quando tornerai al Main Menu
+        PlayerPrefs.SetFloat("VolMusica", valoreSlider);
+        PlayerPrefs.Save();
+
+        // Applica al Mixer la stessa identica matematica del Main Menu
+        if (mainMixer != null)
         {
-            if (usaScalaCento)
-            {
-                // Impostiamo gli slider da 0 a 100 come nel Main Menu
-                sliderMusica.minValue = 0f;
-                sliderMusica.maxValue = 100f;
-                sliderEffetti.minValue = 0f;
-                sliderEffetti.maxValue = 100f;
-                
-                // Moltiplichiamo il volume di Unity (che è 0.5) per 100 (così diventa 50)
-                sliderMusica.value = AudioManager.instance.GetMusicVolume() * 100f;
-                sliderEffetti.value = AudioManager.instance.GetSFXVolume() * 100f;
-            }
-            else
-            {
-                sliderMusica.minValue = 0f;
-                sliderMusica.maxValue = 1f;
-                sliderEffetti.minValue = 0f;
-                sliderEffetti.maxValue = 1f;
-                
-                sliderMusica.value = AudioManager.instance.GetMusicVolume();
-                sliderEffetti.value = AudioManager.instance.GetSFXVolume();
-            }
-
-            // Colleghiamo le funzioni
-            sliderMusica.onValueChanged.RemoveAllListeners();
-            sliderMusica.onValueChanged.AddListener(CambiaVolumeMusica);
-
-            sliderEffetti.onValueChanged.RemoveAllListeners();
-            sliderEffetti.onValueChanged.AddListener(CambiaVolumeEffetti);
+            float valoreNormalizzato = Mathf.Clamp(valoreSlider / 100f, 0.0001f, 1f);
+            float decibel = Mathf.Log10(valoreNormalizzato) * 20f;
+            mainMixer.SetFloat("MusicaVol", decibel);
         }
     }
 
-    private void CambiaVolumeMusica(float valore)
+    private void CambiaVolumeEffetti(float valoreSlider)
     {
-        if (AudioManager.instance != null)
-        {
-            // Se usiamo la scala 100, dividiamo per 100 prima di mandarlo all'AudioSource
-            float volumeFinale = usaScalaCento ? (valore / 100f) : valore;
-            AudioManager.instance.SetMusicVolume(volumeFinale);
-        }
-    }
+        PlayerPrefs.SetFloat("VolEffetti", valoreSlider);
+        PlayerPrefs.Save();
 
-    private void CambiaVolumeEffetti(float valore)
-    {
-        if (AudioManager.instance != null)
+        if (mainMixer != null)
         {
-            float volumeFinale = usaScalaCento ? (valore / 100f) : valore;
-            AudioManager.instance.SetSFXVolume(volumeFinale);
+            float valoreNormalizzato = Mathf.Clamp(valoreSlider / 100f, 0.0001f, 1f);
+            float decibel = Mathf.Log10(valoreNormalizzato) * 20f;
+            mainMixer.SetFloat("EffettiVol", decibel);
         }
     }
 }
