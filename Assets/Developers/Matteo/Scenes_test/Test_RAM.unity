@@ -1794,7 +1794,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.05
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000ad3a036dc3be16abe52b22242dd783e0e329eeee
@@ -67765,11 +67765,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.65
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 99.53
+      value: -37.6
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -67817,7 +67817,7 @@ PrefabInstance:
       objectReference: {fileID: 78984182528448826}
     - target: {fileID: 1381929388755406328, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: moveSpeed
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1381929388755406328, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: attackRange
