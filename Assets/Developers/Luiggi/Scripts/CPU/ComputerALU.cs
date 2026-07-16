@@ -5,11 +5,20 @@ public class ComputerALU : MonoBehaviour
 {
     [Header("Riferimenti")]
     [SerializeField] private GameObject popupConDocumento;
+<<<<<<< HEAD
     [SerializeField] private WaveManager waveManager;
 
     [Header("Documento con Password (fine ondate)")]
     [SerializeField] private GameObject documentoConPassword;
     [SerializeField] private Transform puntoUscitaDocumento;
+=======
+    // Rimosso popupSenzaDocumento per usare il terminale
+    [SerializeField] private WaveManager waveManager;
+    
+    [Header("Documento con Password (fine ondate)")]
+    [SerializeField] private GameObject documentoConPassword; // il prefab/oggetto da far apparire
+    [SerializeField] private Transform puntoUscitaDocumento; // dove "vola fuori" dal computer
+>>>>>>> main
 
     [Header("Documento richiesto")]
     [SerializeField] private string documentoRichiesto = "DocumentoALU";
@@ -42,6 +51,7 @@ public class ComputerALU : MonoBehaviour
 
         if (indiceDocumento != -1)
         {
+            // Il player ha il documento
             InventorySystem.Instance.RemoveItem(indiceDocumento);
             eventoAvviato = true;
 
@@ -50,6 +60,7 @@ public class ComputerALU : MonoBehaviour
         }
         else
         {
+<<<<<<< HEAD
             // NUOVO: invece del popup, apriamo il terminale con un messaggio
             if (TerminalManager.Istanza != null)
             {
@@ -61,6 +72,20 @@ public class ComputerALU : MonoBehaviour
                     "> Recuperalo e torna qui per procedere."
                 );
                 TerminalManager.Istanza.ApriTerminale();
+=======
+            // Il player NON ha il documento: manda il messaggio al Terminale
+            string testoErrore = "> ERRORE DI ACCESSO:\n> Manca un documento importante... torna nella RAM a prenderlo!";
+            
+            if (TerminalManager.Istanza != null)
+            {
+                TerminalManager.Istanza.MostraMessaggioLibero(testoErrore);
+                // Apre automaticamente il terminale così il giocatore legge il messaggio all'istante
+                TerminalManager.Istanza.ApriTerminale(); 
+            }
+            else
+            {
+                Debug.LogWarning("TerminalManager non trovato nella scena!");
+>>>>>>> main
             }
         }
     }
@@ -77,6 +102,11 @@ public class ComputerALU : MonoBehaviour
             Debug.LogWarning("WaveManager non assegnato in ComputerALU!");
     }
 
+<<<<<<< HEAD
+=======
+    // (La funzione ChiudiPopupSenzaDocumento è stata rimossa)
+
+>>>>>>> main
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player") || eventoAvviato) return;
@@ -103,7 +133,11 @@ public class ComputerALU : MonoBehaviour
     private IEnumerator AnimaVoloDocumento(GameObject doc)
     {
         Vector3 partenza = doc.transform.position;
+<<<<<<< HEAD
         Vector3 arrivo = partenza + new Vector3(0, 1.5f, 0);
+=======
+        Vector3 arrivo = partenza + new Vector3(0, 1.5f, 0); // vola verso l'alto di 1.5 unità
+>>>>>>> main
 
         float durata = 0.8f;
         float t = 0f;
