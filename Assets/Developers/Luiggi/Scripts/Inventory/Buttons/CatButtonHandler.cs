@@ -4,11 +4,9 @@ public class CatButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryCanvas;
 
-    // --- NUOVE VARIABILI AUDIO AGGIUNTE QUI ---
     [Header("Audio")]
     [Tooltip("Inserisci qui il suono da riprodurre quando si usa il comando cat")]
     [SerializeField] private AudioClip catSound;
-    // ------------------------------------------
 
     public void OnCat()
     {
@@ -18,23 +16,30 @@ public class CatButtonHandler : MonoBehaviour
         ItemData item = InventorySystem.Instance.GetItem(selectedSlot);
         if (item == null) return;
 
-        // --- RICHIAMO AUDIO AGGIUNTO QUI ---
         if (AudioManager.instance != null && catSound != null)
         {
             AudioManager.instance.PlayClickSound(catSound);
         }
-        // -----------------------------------
 
-        // --- SPEGNAMO LA SELEZIONE ---
         InventorySystem.Instance.DeselectCurrentSlot();
 
-        if (inventoryCanvas != null)
-            inventoryCanvas.SetActive(false);
+        // Chiudiamo l'inventario tramite il singleton InventoryToggle,
+        // così rilascia correttamente la pausa richiesta all'apertura (tasto Q).
+        if (InventoryToggle.Istanza != null)
+            InventoryToggle.Istanza.HideInventory();
+        else if (inventoryCanvas != null)
+            inventoryCanvas.SetActive(false); // fallback di sicurezza
 
-        // Se ha un'immagine, mostra quella — altrimenti usa il terminale come prima
         if (item.immagineDocumento != null)
         {
-            DocumentViewer.Istanza.MostraImmagine(item);
+            if (DocumentViewer.Istanza != null)
+            {
+                DocumentViewer.Istanza.MostraImmagine(item);
+            }
+            else
+            {
+                Debug.LogError("Errore: DocumentViewer non è presente nella scena o è stato distrutto!");
+            }
             return;
         }
 
@@ -46,7 +51,6 @@ public class CatButtonHandler : MonoBehaviour
 
         string testo = "> cat " + item.itemName + "\n\n> Contenuto del documento:\n" + item.contenuto;
 
-        // Se il terminale è chiuso, aprilo
         if (!TerminalManager.Istanza.isExpanded)
             TerminalManager.Istanza.ToggleTerminal();
 

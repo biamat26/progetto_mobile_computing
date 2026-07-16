@@ -32,15 +32,17 @@ public class WorldItem : MonoBehaviour
         playerNearby = inRange;
         if (pickupPrompt != null) pickupPrompt.SetActive(inRange);
 
-    if (inRange)
-    {
-        Debug.Log($"[{gameObject.name}] inRange=true | Interact={InputManager.Interact} | Inventory={InventorySystem.Instance != null}");
-    }
-        if (playerNearby && InputManager.Interact)
+        if (inRange)
         {
-            if (InventorySystem.Instance == null) return;
-            bool picked = InventorySystem.Instance.AddItem(itemData);
-            if (picked) Destroy(gameObject);
+            Debug.Log($"[{gameObject.name}] inRange=true | Interact={InputManager.Interact} | Inventory={InventorySystem.Instance != null}");
         }
+
+    if (playerNearby && InputManager.Interact)
+    {
+        if (InventorySystem.Instance == null) return;
+
+        bool picked = InventorySystem.Instance.AddItem(itemData);
+        if (picked) Destroy(gameObject);
     }
+}
 }

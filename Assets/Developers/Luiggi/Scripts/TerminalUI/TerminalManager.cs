@@ -6,285 +6,220 @@ public class TerminalManager : MonoBehaviour
 {
     public static TerminalManager Istanza;
 
+    [Header("Gestione UI Sovrapposta")]
+    [SerializeField] private GameObject waveHUD;
+
     [Header("Componenti")]
     public TerminalUI terminalUI;
-    public RectTransform terminalRect; 
+    public RectTransform terminalRect;
     public GameObject bottoneTerminale;
 
     [Header("Visibilità per Scena")]
-    public string[] sceneDiGioco; // nomi esatti delle scene dove il terminale deve essere visibile
-    public GameObject terminalRoot; // il genitore che contiene bottone + icona + pannello (es. "Terminal" o "ButtonTerminale")
+    public string[] sceneDiGioco;
+    public GameObject terminalRoot;
 
     [Header("Stato e Cronologia")]
     public bool isExpanded = false;
-    public int maxMessaggi = 10; // Quanti messaggi ricorda al massimo
+    public int maxMessaggi = 10;
 
     [Header("Impostazioni Dimensioni")]
     public Vector2 sizeFull = new Vector2(800, 500);
 
     [Header("Notifica")]
-    public GameObject iconaNotifica; // l'oggetto lampeggiante, lo assegni tu nell'Inspector
-    public AudioSource audioSource; // <-- NUOVO
-    public AudioClip suonoNotifica; // <-- NUOVO
-    // Database dei messaggi e Memoria storica
+    public GameObject iconaNotifica;
+    public AudioSource audioSource;
+    public AudioClip suonoNotifica;
+
     private Dictionary<string, string> databaseMessaggi = new Dictionary<string, string>();
     private List<string> cronologiaMessaggi = new List<string>();
     private string ultimoMessaggio = "";
     private bool primaVolta = false;
 
-void Awake()
-{
-    if (Istanza != null && Istanza != this) 
-    { 
-        Destroy(gameObject); 
-        return; 
+    void Awake()
+    {
+        if (Istanza != null && Istanza != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Istanza = this;
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    Istanza = this;
-    
-    transform.SetParent(null); // <-- NUOVO: ora che è fuori da TUTTO_PLAYER, questo lo rende root prima di renderlo persistente
-    DontDestroyOnLoad(gameObject);
-
-    SceneManager.sceneLoaded += OnSceneLoaded;
-}
 
     void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded; // <-- NUOVO
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         bool èSceneDiGioco = System.Array.Exists(sceneDiGioco, nome => nome == scene.name);
-        
         if (terminalRoot != null)
             terminalRoot.SetActive(èSceneDiGioco);
     }
 
     void Start()
     {
-        CaricaMessaggi(); 
-        
-        Time.timeScale = 1f;
+        CaricaMessaggi();
         isExpanded = false;
-        
         terminalRect.gameObject.SetActive(false);
-
-        // Precarica l'intro SENZA accendere la notifica: si apre da sola allo spawn
-        MostraAiuto("Intro", false); // <-- false invece di lasciare il default
-    }
-
-    public void MostraMessaggioLibero(string testo)
-{
-    cronologiaMessaggi.Add(testo);
-    if (cronologiaMessaggi.Count > maxMessaggi)
-        cronologiaMessaggi.RemoveAt(0);
-
-    ultimoMessaggio = testo;
-    primaVolta = true;
-
-    AggiornaTestoTerminale(testo);
-}
-
-    private void CaricaMessaggi()
-    {
-        databaseMessaggi.Clear(); 
-        
-        // --- LA NUOVA INTRO DEL GIOCO CON SPIEGAZIONE E MISSIONI ---
-        string testoIntro = 
-    "> CONNESSIONE AL SISTEMA STABILITA...\n" +
-    "> STATO UTENTE: Digitalizzato.\n\n" +
-    "> BENVENUTO, ALUNNO.\n" +
-    "> Sei stato intrappolato all'interno di un PC gravemente infetto da Virus.\n" +
-    "> La tua posizione attuale: HARD DISK — settore di archiviazione dati.\n\n" +
-    "> SITUAZIONE CRITICA:\n" +
-    "> I Virus stanno corrompendo i dati del sistema.\n" +
-    "> Devi muoverti rapidamente prima che il danno sia irreversibile.\n\n" +
-    "> OBIETTIVO IMMEDIATO:\n" +
-    "> Raggiungi la RAM attraverso il BUS di sistema.\n" +
-    "> La RAM è il prossimo settore — è lì che inizia la vera battaglia.\n\n" +
-    "> Buona fortuna. Il sistema dipende da te.";
-
-        databaseMessaggi.Add("Intro", testoIntro);
-
-        string passwordPortaPrincipale = "> PASSWORD RICHIESTA: Porta Principale\n>" + 
-        "Inserisci la password per accedere al settore successivo.";
-        string portaNumeroBinario = "> ATTENZIONE: Porta rilevata nel settore.\n" +
-    "> Per sbloccarla dovrai parlare come un computer.\n\n" +
-    "> I computer non capiscono i numeri come li conosci tu.\n" +
-    "> Usano solo due stati: SPENTO (0) e ACCESO (1).\n" +
-    "> Questa è la base del sistema BINARIO.\n\n" +
-    "> COME FUNZIONA LA CONVERSIONE:\n" +
-    "> Ogni blocco rappresenta una potenza di 2, da destra verso sinistra.\n" +
-    "> Blocco 1 (dx)  = 2^0 =  1\n" +
-    "> Blocco 2       = 2^1 =  2\n" +
-    "> Blocco 3       = 2^2 =  4\n" +
-    "> Blocco 4       = 2^3 =  8\n" +
-    "> Blocco 5 (sx)  = 2^4 = 16\n" +
-    "> Somma i valori dei blocchi ACCESI per ottenere il numero decimale.\n" +
-    "> Esempio: 0 1 0 1 0 = 2 + 8 = 10\n\n" +
-    "> ISTRUZIONI:\n" +
-    "> Salta sui blocchi per attivarli.\n" +
-    "> Blocco AZZURRO = 1 (acceso).\n" +
-    "> Blocco BLU SCURO  = 0 (spento).\n" +
-    "> Forma il numero corretto per sbloccare la porta.\n\n" +
-    "> Il sistema attende il tuo input...";
-    string portaChiave = "> ATTENZIONE: Questa porta è serrata! Trova la chiave per aprirla!\n>";
-    string fili = "Occhio!In questa stanza c'è un computer!";
-    string filiPorta = "Questa porta è bloccata. Sembra ci sia un corto circuito, esplora la mappa e prova a sistemarlo!";
-    string inizioRAM = "Benvenuto nella RAM! Segui i flussi di memoria e trova la strada per il cuore del sistema: la CPU!";
-    string portaRAM = "Questa porta è serrata! Trova la chiave!";
-    string portaFinale = "Da qui in poi pullula di sentinelle! Non voltarti, corri dritto davanti a te finché non trovi l'enorme porta blindata!";
-    string scherzetto = "Ahahah, ci sei cascato! Pensavi fosse così facile? Per aprire questa porta ti serve la password completa. Torna sui tuoi passi e cercala!";
-        databaseMessaggi.Add("PortaBit", portaNumeroBinario);
-        databaseMessaggi.Add("PasswordPorta", passwordPortaPrincipale);
-        databaseMessaggi.Add("PortaChiave", portaChiave);
-        databaseMessaggi.Add("FiliPorta",filiPorta);
-        databaseMessaggi.Add("Fili",fili);
-        databaseMessaggi.Add("InizioRAM",inizioRAM);
-        databaseMessaggi.Add("PortaRAM",portaRAM);
-        databaseMessaggi.Add("PortaFinale",portaFinale);
-        databaseMessaggi.Add("Scherzetto",scherzetto);
+        MostraAiuto("Intro", false);
     }
 
     public void ToggleTerminal()
     {
+        bool eraEspanso = isExpanded;
         isExpanded = !isExpanded;
-        
-        // Accende o spegne il pannello gigante
+
+        // Gestione HUD "Fantasma" controllata in modo intelligente
+        GestisciHUD(isExpanded);
+
         terminalRect.gameObject.SetActive(isExpanded);
 
-        // Spegne il bottoncino se il terminale è aperto, lo riaccende se è chiuso
-        if(bottoneTerminale != null)
-        {
-            bottoneTerminale.SetActive(!isExpanded); 
-        }
+        if (bottoneTerminale != null)
+            bottoneTerminale.SetActive(!isExpanded);
 
-        AggiornaVisuale();
+        AggiornaVisuale(eraEspanso);
 
-        if (isExpanded)
-{
-    if (cronologiaMessaggi.Count > 0)
-    {
-        if (primaVolta)
+        if (isExpanded && cronologiaMessaggi.Count > 0)
         {
-            primaVolta = false;
-            terminalUI.ScriviMessaggio(ultimoMessaggio, true);
-            AggiornaNotifica();
-        }
-        else
-        {
-            terminalUI.ScriviMessaggio(ultimoMessaggio, false); // senza effetto
+            if (primaVolta)
+            {
+                primaVolta = false;
+                terminalUI.ScriviMessaggio(ultimoMessaggio, true);
+                AggiornaNotifica();
+            }
+            else
+            {
+                terminalUI.ScriviMessaggio(ultimoMessaggio, false);
+            }
         }
     }
-}
+
+    public void ApriTerminale()
+    {
+        if (isExpanded) return;
+
+        bool eraEspanso = isExpanded; // false
+        isExpanded = true;
+        GestisciHUD(true); // Nasconde HUD
+        terminalRect.gameObject.SetActive(true);
+
+        if (bottoneTerminale != null)
+            bottoneTerminale.SetActive(false);
+
+        AggiornaVisuale(eraEspanso);
+
+        if (cronologiaMessaggi.Count > 0)
+        {
+            if (primaVolta)
+            {
+                primaVolta = false;
+                terminalUI.ScriviMessaggio(ultimoMessaggio, true);
+                AggiornaNotifica();
+            }
+            else
+            {
+                terminalUI.ScriviMessaggio(ultimoMessaggio, false);
+            }
+        }
     }
 
-    private void AggiornaVisuale()
+    // Metodo unico per gestire la visibilità HUD
+    private void GestisciHUD(bool terminaleAperto)
     {
-        // Visto che l'oggetto si spegne quando non è expanded, 
-        // ci interessa solo settare le impostazioni di quando è aperto!
+        WaveManager wm = FindFirstObjectByType<WaveManager>();
+        if (wm != null && wm.hudContainer != null)
+        {
+            CanvasGroup cg = wm.hudContainer.GetComponent<CanvasGroup>();
+            if (cg != null)
+            {
+                if (terminaleAperto)
+                {
+                    // Se apro il terminale, nascondo SEMPRE l'HUD
+                    cg.alpha = 0f;
+                    cg.blocksRaycasts = false;
+                }
+                else
+                {
+                    // Se chiudo il terminale, riattivo l'HUD SOLO SE c'è un'ondata in corso
+                    bool inBattaglia = wm.AreWavesInProgress();
+
+                    cg.alpha = inBattaglia ? 1f : 0f;
+                    cg.blocksRaycasts = inBattaglia;
+                }
+            }
+        }
+    }
+
+    // eraEspansoPrima: stato di isExpanded PRIMA di questa chiamata,
+    // serve per evitare doppie richieste/rilasci di pausa sul contatore condiviso.
+    private void AggiornaVisuale(bool eraEspansoPrima)
+    {
         if (isExpanded)
         {
-            Time.timeScale = 0f; 
+            if (!eraEspansoPrima) PauseManager.RequestPause();
+
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None; 
-            
+            Cursor.lockState = CursorLockMode.None;
+
             terminalRect.anchorMin = new Vector2(0.5f, 0.5f);
             terminalRect.anchorMax = new Vector2(0.5f, 0.5f);
             terminalRect.pivot = new Vector2(0.5f, 0.5f);
-            terminalRect.anchoredPosition = Vector2.zero; 
-            terminalRect.sizeDelta = sizeFull; 
+            terminalRect.anchoredPosition = Vector2.zero;
+            terminalRect.sizeDelta = sizeFull;
         }
         else
         {
-            // Quando si chiude, facciamo solo ripartire il tempo
-            Time.timeScale = 1f; 
-            // Cursor.visible = false; // Togli il commento se nascondi il mouse durante il gioco
+            if (eraEspansoPrima) PauseManager.ReleasePause();
         }
     }
 
-public void MostraAiuto(string idMessaggio, bool mostraNotifica = true)
-{
-    if (databaseMessaggi.ContainsKey(idMessaggio))
+    // --- METODI UTILITY ---
+    public void MostraMessaggioLibero(string testo)
     {
-        string nuovoMessaggio = databaseMessaggi[idMessaggio];
-        
-        cronologiaMessaggi.Add(nuovoMessaggio);
-        if (cronologiaMessaggi.Count > maxMessaggi)
-            cronologiaMessaggi.RemoveAt(0);
-
-        ultimoMessaggio = nuovoMessaggio;
+        cronologiaMessaggi.Add(testo);
+        if (cronologiaMessaggi.Count > maxMessaggi) cronologiaMessaggi.RemoveAt(0);
+        ultimoMessaggio = testo;
         primaVolta = true;
-
-        if (mostraNotifica)
-            AggiornaNotifica();
+        terminalUI.ScriviMessaggio(testo, true);
     }
-    else
+
+    private void CaricaMessaggi()
     {
-        Debug.LogWarning("Messaggio non trovato: " + idMessaggio);
+        databaseMessaggi.Clear();
+        databaseMessaggi.Add("Intro", "> CONNESSIONE AL SISTEMA STABILITA...");
+        // Aggiungi qui gli altri messaggi del database
     }
-}
 
-private void AggiornaNotifica()
-{
-    bool nuovoStato = primaVolta && !isExpanded;
-
-    // Suona solo se la notifica sta passando da spenta ad accesa
-    if (iconaNotifica != null)
+    public void MostraAiuto(string idMessaggio, bool mostraNotifica = true)
     {
-        bool eraGiaAttiva = iconaNotifica.activeSelf;
-        
-        if (nuovoStato && !eraGiaAttiva)
-            RiproduciSuonoNotifica();
-
-        iconaNotifica.SetActive(nuovoStato);
+        if (databaseMessaggi.ContainsKey(idMessaggio))
+        {
+            ultimoMessaggio = databaseMessaggi[idMessaggio];
+            primaVolta = true;
+            if (mostraNotifica) AggiornaNotifica();
+        }
     }
-}
 
-private void RiproduciSuonoNotifica()
-{
-    if (audioSource != null && suonoNotifica != null)
-        audioSource.PlayOneShot(suonoNotifica);
-}
-
-    private void AggiornaTestoTerminale(string ultimoMessaggio)
+    private void AggiornaNotifica()
     {
-        // Compiliamo il testo a schermo solo se il terminale è aperto
-       if (isExpanded)
-    {
-        terminalUI.ScriviMessaggio(ultimoMessaggio, true);
-    }
+        bool nuovoStato = primaVolta && !isExpanded;
+        if (iconaNotifica != null)
+        {
+            if (nuovoStato && !iconaNotifica.activeSelf)
+                if (audioSource != null && suonoNotifica != null) audioSource.PlayOneShot(suonoNotifica);
+            iconaNotifica.SetActive(nuovoStato);
+        }
     }
 
     public void ResetProgressoGiocatore()
     {
-        if (!isExpanded) { }
-    }
-
-    public void ApriTerminale()
-{
-    if (isExpanded) return; // già aperto, non fare nulla
-
-    isExpanded = true;
-    terminalRect.gameObject.SetActive(true);
-
-    if (bottoneTerminale != null)
-        bottoneTerminale.SetActive(false);
-
-    AggiornaVisuale();
-
-    if (cronologiaMessaggi.Count > 0)
-    {
-        if (primaVolta)
+        if (!isExpanded)
         {
-            primaVolta = false;
-            terminalUI.ScriviMessaggio(ultimoMessaggio, true);
-            AggiornaNotifica(); // <-- NUOVO
-        }
-        else
-        {
-            terminalUI.ScriviMessaggio(ultimoMessaggio, false);
+            // Istruzioni di reset
         }
     }
-}
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public enum ItemType { Generic, Heal, Key }
-public enum KeyColor { None, Purple, Blue } 
+public enum KeyColor { None, Purple, Blue }
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Inventory/Item")]
 public class ItemData : ScriptableObject
@@ -12,7 +12,7 @@ public class ItemData : ScriptableObject
 
     public KeyColor keyColor;
 
-    public Sprite immagineDocumento; 
+    public Sprite immagineDocumento;
     public ItemType itemType;
     public int healAmount = 30;
 
@@ -20,4 +20,8 @@ public class ItemData : ScriptableObject
     [Tooltip("Spunta se l'immagine ha bisogno di dimensioni specifiche")]
     public bool usaDimensioniSpeciali;
     public Vector2 dimensioniSpeciali = new Vector2(1000, 500);
+
+    [Header("Impostazioni Drop nel Mondo")]
+    [Tooltip("Scala con cui l'oggetto viene ricreato quando lo droppi a terra. Impostala uguale alla scala che l'oggetto ha quando lo piazzi a mano in scena.")]
+    public Vector3 scalaDrop = Vector3.one;
 }
