@@ -74,13 +74,16 @@ void Awake()
     }
 
     public void MostraMessaggioLibero(string testo)
-    {
-        cronologiaMessaggi.Add(testo);
-        if (cronologiaMessaggi.Count > maxMessaggi)
-            cronologiaMessaggi.RemoveAt(0);
-            
-        AggiornaTestoTerminale(testo);
-    }
+{
+    cronologiaMessaggi.Add(testo);
+    if (cronologiaMessaggi.Count > maxMessaggi)
+        cronologiaMessaggi.RemoveAt(0);
+
+    ultimoMessaggio = testo;
+    primaVolta = true;
+
+    AggiornaTestoTerminale(testo);
+}
 
     private void CaricaMessaggi()
     {

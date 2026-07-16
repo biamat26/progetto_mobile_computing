@@ -52,12 +52,13 @@ public class BarraVitaCuori : MonoBehaviour
         vitaAttuale = Mathf.Clamp(nuovaVita, 0, vitaMassima);
         AggiornaVisuale();
     }
+private void AggiornaVisuale()
+{
+    if (cuoriUI == null) return; // <-- AGGIUNGI QUESTA RIGA
 
-    private void AggiornaVisuale()
+    for (int i = 0; i < cuoriUI.Length; i++)
     {
-        for (int i = 0; i < cuoriUI.Length; i++)
-        {
-            cuoriUI[i].sprite = (i < vitaAttuale) ? cuoricinoPieno : cuoricinoVuoto;
-        }
+        cuoriUI[i].sprite = (i < vitaAttuale) ? cuoricinoPieno : cuoricinoVuoto;
     }
+}
 }

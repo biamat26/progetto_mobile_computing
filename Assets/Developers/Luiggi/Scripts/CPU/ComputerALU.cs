@@ -5,11 +5,11 @@ public class ComputerALU : MonoBehaviour
 {
     [Header("Riferimenti")]
     [SerializeField] private GameObject popupConDocumento;
-    [SerializeField] private GameObject popupSenzaDocumento;
     [SerializeField] private WaveManager waveManager;
+
     [Header("Documento con Password (fine ondate)")]
-[SerializeField] private GameObject documentoConPassword; // il prefab/oggetto da far apparire
-[SerializeField] private Transform puntoUscitaDocumento; // dove "vola fuori" dal computer
+    [SerializeField] private GameObject documentoConPassword;
+    [SerializeField] private Transform puntoUscitaDocumento;
 
     [Header("Documento richiesto")]
     [SerializeField] private string documentoRichiesto = "DocumentoALU";
@@ -50,8 +50,18 @@ public class ComputerALU : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 0f;
-            if (popupSenzaDocumento) popupSenzaDocumento.SetActive(true);
+            // NUOVO: invece del popup, apriamo il terminale con un messaggio
+            if (TerminalManager.Istanza != null)
+            {
+                TerminalManager.Istanza.MostraMessaggioLibero(
+                    "> ACCESSO NEGATO.\n" +
+                    "> Documento di autorizzazione mancante.\n\n" +
+                    "> Il file richiesto per avviare i calcoli si trova\n" +
+                    "> archiviato nel settore RAM.\n\n" +
+                    "> Recuperalo e torna qui per procedere."
+                );
+                TerminalManager.Istanza.ApriTerminale();
+            }
         }
     }
 
@@ -67,13 +77,6 @@ public class ComputerALU : MonoBehaviour
             Debug.LogWarning("WaveManager non assegnato in ComputerALU!");
     }
 
-    // Da collegare al bottone "Chiudi" del popup SENZA documento
-    public void ChiudiPopupSenzaDocumento()
-    {
-        Time.timeScale = 1f;
-        if (popupSenzaDocumento) popupSenzaDocumento.SetActive(false);
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player") || eventoAvviato) return;
@@ -87,29 +90,29 @@ public class ComputerALU : MonoBehaviour
     }
 
     public void OnOndateCompletate()
-{
-    Debug.Log("Tutte le ondate completate! Faccio apparire il documento con la password.");
-
-    if (documentoConPassword != null && puntoUscitaDocumento != null)
     {
-        GameObject doc = Instantiate(documentoConPassword, puntoUscitaDocumento.position, Quaternion.identity);
-        StartCoroutine(AnimaVoloDocumento(doc));
+        Debug.Log("Tutte le ondate completate! Faccio apparire il documento con la password.");
+
+        if (documentoConPassword != null && puntoUscitaDocumento != null)
+        {
+            GameObject doc = Instantiate(documentoConPassword, puntoUscitaDocumento.position, Quaternion.identity);
+            StartCoroutine(AnimaVoloDocumento(doc));
+        }
     }
-}
 
-private IEnumerator AnimaVoloDocumento(GameObject doc)
-{
-    Vector3 partenza = doc.transform.position;
-    Vector3 arrivo = partenza + new Vector3(0, 1.5f, 0); // vola verso l'alto di 1.5 unità
-
-    float durata = 0.8f;
-    float t = 0f;
-
-    while (t < durata)
+    private IEnumerator AnimaVoloDocumento(GameObject doc)
     {
-        t += Time.deltaTime;
-        doc.transform.position = Vector3.Lerp(partenza, arrivo, t / durata);
-        yield return null;
+        Vector3 partenza = doc.transform.position;
+        Vector3 arrivo = partenza + new Vector3(0, 1.5f, 0);
+
+        float durata = 0.8f;
+        float t = 0f;
+
+        while (t < durata)
+        {
+            t += Time.deltaTime;
+            doc.transform.position = Vector3.Lerp(partenza, arrivo, t / durata);
+            yield return null;
+        }
     }
-}
 }

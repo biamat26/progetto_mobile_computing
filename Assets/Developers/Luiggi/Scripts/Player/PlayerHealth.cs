@@ -6,7 +6,6 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHP = 4; // coincide con il numero di cuoricini
     public GameoverUI gameOverUI;
-    public HealthBar healthBar;
     public BarraVitaCuori barraVita;
 
     // L'ho messo public così lo vedi nell'Inspector e capisci se il danno funziona
@@ -22,7 +21,6 @@ public class PlayerHealth : MonoBehaviour
     {
         _isDead = false;
         currentHP = maxHP;
-        healthBar.SetMaxHealth(maxHP); 
         if (barraVita != null) {
             barraVita.gameObject.SetActive(true);
             barraVita.SetVita(currentHP);
@@ -40,7 +38,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_isDead) return;
         currentHP = Mathf.Min(currentHP + amount, maxHP);
-        healthBar.SetHealth(currentHP);
         if (barraVita != null) barraVita.SetVita(currentHP);
     }
 
@@ -49,7 +46,6 @@ public class PlayerHealth : MonoBehaviour
         if (isInvulnerable || _isDead) return;   
 
         currentHP -= qt;
-        healthBar.SetHealth(currentHP);
         if (barraVita != null) barraVita.SetVita(currentHP);
         Debug.Log($"Danno ricevuto! HP: {currentHP}");
 
@@ -76,8 +72,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
-        healthBar.SetHealth(0);
-        healthBar.gameObject.SetActive(false);
         if (barraVita != null){
             barraVita.SetVita(0);
             barraVita.gameObject.SetActive(false); // <-- nasconde i cuoricini
@@ -85,7 +79,7 @@ public class PlayerHealth : MonoBehaviour
         if (_isDead) return;
         _isDead = true;
 
-        // NUOVO: svuota l'inventario alla morte
+        // Svuota l'inventario alla morte
         if (InventorySystem.Instance != null)
             InventorySystem.Instance.ClearInventory();
 
