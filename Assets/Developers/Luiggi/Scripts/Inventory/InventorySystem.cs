@@ -42,17 +42,34 @@ public class InventorySystem : MonoBehaviour
         bool èSceneDiGioco = System.Array.Exists(sceneDiGioco, nome => nome == scene.name);
 
         if (èSceneDiGioco)
+        {
+            FindSlotsInScene();
             RefreshUI();
+        }
 
-        // Il pannello riparte sempre chiuso al cambio scena
         if (inventoryRoot != null)
             inventoryRoot.SetActive(false);
     }
 
-    public void SelectSlot(int index)
+    private void FindSlotsInScene()
     {
-        selectedSlot = index;
+        if (inventoryRoot == null)
+            inventoryRoot = GameObject.Find("InventoryRoot");
+
+        if (inventoryRoot == null) return;
+
+        InventorySlotBorder[] foundSlots = inventoryRoot.GetComponentsInChildren<InventorySlotBorder>(true);
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (i < foundSlots.Length)
+                slots[i] = foundSlots[i].gameObject;
+            else
+                slots[i] = null;
+        }
+        Debug.Log("InventorySystem: Slot ricollegati automaticamente.");
     }
+
+    public void SelectSlot(int index) => selectedSlot = index;
 
     public void DeselectCurrentSlot()
     {
@@ -69,8 +86,10 @@ public class InventorySystem : MonoBehaviour
         if (selectedSlot == -1 || items[selectedSlot] == null) return;
 
         ItemData itemToDrop = items[selectedSlot];
-
         GameObject dropped = Instantiate(dropPrefab, playerPosition + Vector3.right, Quaternion.identity);
+
+        // Applica la scala definita sull'asset ItemData
+        dropped.transform.localScale = itemToDrop.scalaDrop;
 
         WorldItem wi = dropped.GetComponent<WorldItem>();
         if (wi != null) wi.itemData = itemToDrop;
@@ -80,8 +99,7 @@ public class InventorySystem : MonoBehaviour
 
         items[selectedSlot] = null;
         Transform slot = slots[selectedSlot].transform;
-        Transform parent = slot.Find("SlotBG");
-        if (parent == null) parent = slot;
+        Transform parent = slot.Find("SlotBG") != null ? slot.Find("SlotBG") : slot;
         Transform icon = parent.Find("Icon");
         if (icon != null) Destroy(icon.gameObject);
 
@@ -92,20 +110,14 @@ public class InventorySystem : MonoBehaviour
     {
         items[index] = null;
         Transform slot = slots[index].transform;
-        Transform parent = slot.Find("SlotBG");
-        if (parent == null) parent = slot;
+        Transform parent = slot.Find("SlotBG") != null ? slot.Find("SlotBG") : slot;
         Transform icon = parent.Find("Icon");
         if (icon != null) Destroy(icon.gameObject);
 
-        if (selectedSlot == index)
-        {
-            DeselectCurrentSlot();
-        }
-        else
-        {
-            selectedSlot = -1;
-        }
+        if (selectedSlot == index) DeselectCurrentSlot();
+        else selectedSlot = -1;
     }
+
     public void ClearInventory()
     {
         for (int i = 0; i < items.Length; i++)
@@ -116,8 +128,7 @@ public class InventorySystem : MonoBehaviour
                 if (slots[i] != null)
                 {
                     Transform slot = slots[i].transform;
-                    Transform parent = slot.Find("SlotBG");
-                    if (parent == null) parent = slot;
+                    Transform parent = slot.Find("SlotBG") != null ? slot.Find("SlotBG") : slot;
                     Transform icon = parent.Find("Icon");
                     if (icon != null) Destroy(icon.gameObject);
                 }
@@ -156,8 +167,7 @@ public class InventorySystem : MonoBehaviour
         if (slots[index] == null) return;
 
         Transform slot = slots[index].transform;
-        Transform parent = slot.Find("SlotBG");
-        if (parent == null) parent = slot;
+        Transform parent = slot.Find("SlotBG") != null ? slot.Find("SlotBG") : slot;
 
         Transform old = parent.Find("Icon");
         if (old != null) Destroy(old.gameObject);

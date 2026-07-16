@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   player: {fileID: 0}
-  moveSpeed: 4
+  moveSpeed: 3
   engageDistance: 5
   attackRange: 2
   attackCoolDown: 1

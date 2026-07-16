@@ -11,7 +11,11 @@ public class WaveManager : MonoBehaviour
         public string nome = "Ondata";
         public GameObject[] nemiciDaSpawnare;
     }
+    public GameObject waveHUD;
+    public static bool CanShowHUD = true;
 
+    public static bool IsHUDBlocked = false;
+    
     [Header("Punti di spawn fissi")]
     public Transform[] spawnPoints;
 
@@ -48,6 +52,11 @@ public class WaveManager : MonoBehaviour
     public bool AreWavesCompleted() => wavesCompleted;
     public bool AreWavesInProgress() => wavesInProgress;
 
+    void Awake()
+    {
+        ForzaSpegnimentoHUD();
+    }
+
     void Start()
     {
         if (progressBar != null)
@@ -57,26 +66,33 @@ public class WaveManager : MonoBehaviour
             progressBar.value = 0f;
         }
         UpdateProgressText(0f);
-
-        if (hudContainer != null) hudContainer.SetActive(false);
     }
 
     // ── Avvio ────────────────────────────────────────────
     public void StartWaves()
     {
         if (wavesInProgress || wavesCompleted) return;
+
         wavesInProgress = true;
 
-        if (hudContainer != null) hudContainer.SetActive(true);
+        if (!IsHUDBlocked) SetHUDVisibility(true);
 
+        // CORREZIONE: Avvia la coroutine che fa partire la musica e lo spawn dei nemici!
         StartCoroutine(SequenzaInizioBattaglia());
+    }
+
+    public void RefreshHUDVisibility()
+    {
+        if (wavesInProgress && !IsHUDBlocked)
+        {
+            SetHUDVisibility(true);
+        }
     }
 
     private IEnumerator SequenzaInizioBattaglia()
     {
         sceneAudioController = FindFirstObjectByType<SceneAudioController>();
 
-        // 1. ZITTIAMO LA MUSICA DI SCENA CHIRURGICAMENTE
         if (sceneAudioController != null)
         {
             sceneAudioController.StopAllCoroutines();
@@ -86,22 +102,17 @@ public class WaveManager : MonoBehaviour
                 AudioSource[] tuttiGliAudio = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
                 foreach (AudioSource src in tuttiGliAudio)
                 {
-                    if (src.clip == sceneAudioController.musicaScena)
-                    {
-                        src.Stop();
-                    }
+                    if (src.clip == sceneAudioController.musicaScena) src.Stop();
                 }
             }
         }
 
-        // 2. PARTE L'INIZIO DELLA BATTAGLIA NEL SILENZIO ASSOLUTO
         if (suonoInizioBattaglia != null)
         {
             AudioSource.PlayClipAtPoint(suonoInizioBattaglia, Camera.main.transform.position);
             yield return new WaitForSeconds(suonoInizioBattaglia.length);
         }
 
-        // 3. ORA PARTE LA MUSICA DI COMBATTIMENTO
         if (AudioManager.instance != null && musicaCombattimento != null)
         {
             AudioManager.instance.PlayMusic(musicaCombattimento, 0f, 0f);
@@ -117,7 +128,6 @@ public class WaveManager : MonoBehaviour
 
         if (currentWaveIndex >= waves.Length)
         {
-            // tutte le ondate completate
             wavesInProgress = false;
             wavesCompleted = true;
             if (waveNameText) waveNameText.text = "TUTTE LE ONDATE SCONFITTE";
@@ -137,7 +147,6 @@ public class WaveManager : MonoBehaviour
 
         yield return StartCoroutine(WaitUntilWaveCleared());
 
-        // ondata completata -> aggiorna barra di caricamento
         float progresso = (float)(currentWaveIndex + 1) / waves.Length;
         SetProgress(progresso);
 
@@ -147,35 +156,28 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SequenzaFineBattaglia()
     {
-        // ZITTIAMO LA MUSICA DI COMBATTIMENTO CHIRURGICAMENTE
         if (musicaCombattimento != null)
         {
             AudioSource[] tuttiGliAudio = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
             foreach (AudioSource src in tuttiGliAudio)
             {
-                if (src.clip == musicaCombattimento)
-                {
-                    src.Stop();
-                }
+                if (src.clip == musicaCombattimento) src.Stop();
             }
         }
 
-        // PARTE IL SUONO DI FINE BATTAGLIA
         if (suonoFineBattaglia != null)
         {
             AudioSource.PlayClipAtPoint(suonoFineBattaglia, Camera.main.transform.position);
             yield return new WaitForSeconds(suonoFineBattaglia.length);
         }
 
-        // RIPRENDE QUELLO INIZIALE
         if (sceneAudioController != null)
         {
-            sceneAudioController.SendMessage("Start");
+            sceneAudioController.RiprendiMusica(); 
         }
 
-        // nascondi l'HUD dopo un attimo
         yield return new WaitForSeconds(1f);
-        if (hudContainer != null) hudContainer.SetActive(false);
+        SetHUDVisibility(false);
     }
 
     void SpawnWave(Wave wave)
@@ -201,29 +203,52 @@ public class WaveManager : MonoBehaviour
             aliveEnemies.RemoveAll(e => e == null);
             UpdateEnemiesLeftText();
 
-            if (aliveEnemies.Count == 0)
-                yield break;
-
+            if (aliveEnemies.Count == 0) yield break;
             yield return new WaitForSeconds(0.3f);
         }
     }
 
     void UpdateEnemiesLeftText()
     {
-        if (enemiesLeftText != null)
-            enemiesLeftText.text = aliveEnemies.Count + " LEFT";
+        if (enemiesLeftText != null) enemiesLeftText.text = aliveEnemies.Count + " LEFT";
     }
 
     void SetProgress(float value)
     {
-        if (progressBar != null)
-            progressBar.value = value;
+        if (progressBar != null) progressBar.value = value;
         UpdateProgressText(value);
     }
 
     void UpdateProgressText(float value)
     {
-        if (progressPercentText != null)
-            progressPercentText.text = Mathf.RoundToInt(value * 100f) + "% COMPLETED";
+        if (progressPercentText != null) progressPercentText.text = Mathf.RoundToInt(value * 100f) + "% COMPLETED";
+    }
+
+    private void ForzaSpegnimentoHUD()
+    {
+        if (hudContainer == null) return;
+        
+        CanvasGroup cg = hudContainer.GetComponent<CanvasGroup>();
+        if (cg == null) cg = hudContainer.AddComponent<CanvasGroup>();
+
+        cg.alpha = 0f;
+        cg.blocksRaycasts = false;
+        cg.interactable = false;
+        
+        hudContainer.SetActive(true);
+    }
+
+    private void SetHUDVisibility(bool visible)
+    {
+        if (hudContainer == null) return;
+
+        CanvasGroup cg = hudContainer.GetComponent<CanvasGroup>();
+        if (cg == null) cg = hudContainer.AddComponent<CanvasGroup>();
+
+        cg.alpha = visible ? 1f : 0f;
+        cg.blocksRaycasts = visible;
+        cg.interactable = visible;
+        
+        hudContainer.SetActive(true); 
     }
 }

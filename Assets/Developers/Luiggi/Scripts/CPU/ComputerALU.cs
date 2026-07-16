@@ -5,18 +5,24 @@ public class ComputerALU : MonoBehaviour
 {
     [Header("Riferimenti")]
     [SerializeField] private GameObject popupConDocumento;
-    // Rimosso popupSenzaDocumento per usare il terminale
     [SerializeField] private WaveManager waveManager;
-    
+
+    [Header("Audio Popup")]
+    [Tooltip("Trascina qui l'AudioSource che contiene il suono da riprodurre durante il popup.")]
+    [SerializeField] private AudioSource audioSourcePopup;
+    [Tooltip("Tempo in secondi della sfumatura (fade in/out) del suono.")]
+    [SerializeField] private float tempoSfumatura = 0.5f;
+
     [Header("Documento con Password (fine ondate)")]
-    [SerializeField] private GameObject documentoConPassword; // il prefab/oggetto da far apparire
-    [SerializeField] private Transform puntoUscitaDocumento; // dove "vola fuori" dal computer
+    [SerializeField] private GameObject documentoConPassword;
+    [SerializeField] private Transform puntoUscitaDocumento;
 
     [Header("Documento richiesto")]
     [SerializeField] private string documentoRichiesto = "DocumentoALU";
 
     private bool playerVicino = false;
     private bool eventoAvviato = false;
+    private Coroutine fadeCoroutine;
 
     void Update()
     {
@@ -47,23 +53,36 @@ public class ComputerALU : MonoBehaviour
             InventorySystem.Instance.RemoveItem(indiceDocumento);
             eventoAvviato = true;
 
-            Time.timeScale = 0f;
+            PauseManager.RequestPause();
             if (popupConDocumento) popupConDocumento.SetActive(true);
+
+            // AVVIO DEL SUONO POPUP CON FADE-IN
+            if (audioSourcePopup != null)
+            {
+                if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+                fadeCoroutine = StartCoroutine(FadeInAudioPopup(audioSourcePopup, tempoSfumatura));
+            }
+
+            // Spegniamo il WaveTrigger adesso che l'evento è iniziato con successo
+            WaveTrigger wt = GetComponent<WaveTrigger>();
+            if (wt != null)
+            {
+                wt.DisattivaTriggerPermanente();
+            }
         }
         else
         {
-            // Il player NON ha il documento: manda il messaggio al Terminale
-            string testoErrore = "> ERRORE DI ACCESSO:\n> Manca un documento importante... torna nella RAM a prenderlo!";
-            
+            // CORRETTO: Usiamo 'Istanza' in italiano come definito nel vostro script
             if (TerminalManager.Istanza != null)
             {
-                TerminalManager.Istanza.MostraMessaggioLibero(testoErrore);
-                // Apre automaticamente il terminale così il giocatore legge il messaggio all'istante
-                TerminalManager.Istanza.ApriTerminale(); 
-            }
-            else
-            {
-                Debug.LogWarning("TerminalManager non trovato nella scena!");
+                TerminalManager.Istanza.MostraMessaggioLibero(
+                    "> ACCESSO NEGATO.\n" +
+                    "> Documento di autorizzazione mancante.\n\n" +
+                    "> Il file richiesto per avviare i calcoli si trova\n" +
+                    "> archiviato nel settore RAM.\n\n" +
+                    "> Recuperalo e torna qui per procedere."
+                );
+                TerminalManager.Istanza.ApriTerminale();
             }
         }
     }
@@ -71,16 +90,59 @@ public class ComputerALU : MonoBehaviour
     // Da collegare al bottone "Chiudi" del popup CON documento
     public void ChiudiPopupConDocumento()
     {
-        Time.timeScale = 1f;
+        if (!eventoAvviato)
+        {
+            Debug.LogWarning("Tentativo di avvio ondate senza autorizzazione!");
+            return;
+        }
+
+        // SFUMATURA IN USCITA DEL SUONO POPUP
+        if (audioSourcePopup != null && audioSourcePopup.isPlaying)
+        {
+            if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+            fadeCoroutine = StartCoroutine(FadeOutAudioPopup(audioSourcePopup, tempoSfumatura));
+        }
+
+        PauseManager.ReleasePause();
         if (popupConDocumento) popupConDocumento.SetActive(false);
 
         if (waveManager != null)
             waveManager.StartWaves();
-        else
-            Debug.LogWarning("WaveManager non assegnato in ComputerALU!");
     }
 
-    // (La funzione ChiudiPopupSenzaDocumento è stata rimossa)
+    // Coroutine per far crescere il suono all'apertura del popup (funziona anche a Time.timeScale = 0)
+    private IEnumerator FadeInAudioPopup(AudioSource source, float durata)
+    {
+        source.volume = 0f;
+        source.Play();
+
+        float t = 0f;
+        while (t < durata)
+        {
+            t += Time.unscaledDeltaTime; // USIAMO UNSCALED!
+            source.volume = Mathf.Lerp(0f, 1f, t / durata);
+            yield return null;
+        }
+
+        source.volume = 1f;
+    }
+
+    // Coroutine per sfumare l'audio in uscita, anche a tempo fermo (Time.timeScale = 0)
+    private IEnumerator FadeOutAudioPopup(AudioSource source, float durata)
+    {
+        float volumeIniziale = source.volume;
+        float t = 0f;
+
+        while (t < durata)
+        {
+            t += Time.unscaledDeltaTime; // USIAMO UNSCALED!
+            source.volume = Mathf.Lerp(volumeIniziale, 0f, t / durata);
+            yield return null;
+        }
+
+        source.Stop();
+        source.volume = 1f; // Ripristiniamo il volume pieno per la prossima apertura
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -108,7 +170,7 @@ public class ComputerALU : MonoBehaviour
     private IEnumerator AnimaVoloDocumento(GameObject doc)
     {
         Vector3 partenza = doc.transform.position;
-        Vector3 arrivo = partenza + new Vector3(0, 1.5f, 0); // vola verso l'alto di 1.5 unità
+        Vector3 arrivo = partenza + new Vector3(0, 1.5f, 0);
 
         float durata = 0.8f;
         float t = 0f;

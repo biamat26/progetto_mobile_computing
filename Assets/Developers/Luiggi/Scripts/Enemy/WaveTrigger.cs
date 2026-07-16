@@ -5,11 +5,22 @@ public class WaveTrigger : MonoBehaviour
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private GameObject tooltipInteragisci;
 
+    [Header("Configurazione Co-op")]
+    [Tooltip("Se attivo, premendo E le ondate partono subito. DISATTIVALO se l'avvio è gestito da un altro script come ComputerALU.")]
+    [SerializeField] private bool avviaOndateAllInterazione = true;
+
     private bool playerVicino = false;
     private bool giaAttivato = false;
 
     void Awake()
     {
+        if (tooltipInteragisci) tooltipInteragisci.SetActive(false);
+    }
+
+    // Metodo pubblico che ComputerALU chiamerà quando l'evento parte DAVVERO con il documento
+    public void DisattivaTriggerPermanente()
+    {
+        giaAttivato = true;
         if (tooltipInteragisci) tooltipInteragisci.SetActive(false);
     }
 
@@ -19,9 +30,12 @@ public class WaveTrigger : MonoBehaviour
 
         if (playerVicino && Input.GetKeyDown(KeyCode.E))
         {
+            // Se non deve avviare le ondate in automatico, non fa nulla (ci pensa ComputerALU)
+            if (!avviaOndateAllInterazione) return;
+
             giaAttivato = true;
             if (tooltipInteragisci) tooltipInteragisci.SetActive(false);
-            waveManager.StartWaves();
+            if (waveManager != null) waveManager.StartWaves();
         }
     }
 

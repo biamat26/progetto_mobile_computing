@@ -104,4 +104,19 @@ public class SceneAudioController : MonoBehaviour
             yield return new WaitForSecondsRealtime(1f);
         }
     }
+
+    public void RiprendiMusica()
+    {
+        // Qui devi inserire la logica che faceva ripartire la musica (quella che avevi nel metodo Start)
+        // Esempio:
+        if (musicaScena != null)
+        {
+            AudioSource source = GetComponent<AudioSource>();
+            if (source != null) 
+            {
+                source.clip = musicaScena;
+                source.Play();
+            }
+        }
+    }
 }

@@ -3,7 +3,15 @@ using System.Collections;
 
 public class InventoryToggle : MonoBehaviour
 {
+    public static InventoryToggle Istanza;
+
     private GameObject inventoryCanvas;
+    private bool pausaRichiestaDaMe = false;
+
+    void Awake()
+    {
+        Istanza = this;
+    }
 
     void Start()
     {
@@ -27,10 +35,21 @@ public class InventoryToggle : MonoBehaviour
 
             bool opening = !inventoryCanvas.activeSelf;
             inventoryCanvas.SetActive(opening);
-            Time.timeScale = opening ? 0f : 1f;
 
             if (opening)
+            {
+                PauseManager.RequestPause();
+                pausaRichiestaDaMe = true;
                 StartCoroutine(RefreshAfterFrame());
+            }
+            else
+            {
+                if (pausaRichiestaDaMe)
+                {
+                    PauseManager.ReleasePause();
+                    pausaRichiestaDaMe = false;
+                }
+            }
         }
     }
 
@@ -51,5 +70,11 @@ public class InventoryToggle : MonoBehaviour
     {
         if (inventoryCanvas != null)
             inventoryCanvas.SetActive(false);
+
+        if (pausaRichiestaDaMe)
+        {
+            PauseManager.ReleasePause();
+            pausaRichiestaDaMe = false;
+        }
     }
 }
