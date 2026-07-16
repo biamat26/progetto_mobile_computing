@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.SceneManagement; // --- AGGIUNTO: Necessario per cambiare scena ---
+using UnityEngine.SceneManagement; 
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -22,7 +22,7 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
 
-    private int lastEnemySpeechIndex = -1; // evita stessa frase consecutiva
+    private int lastEnemySpeechIndex = -1; 
 
     private bool isProcessing = false;
 
@@ -30,7 +30,7 @@ public class BattleSystem : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip attackSound;
 
-    // --- VARIABILI GESTIONE MUSICA E VITTORIA ---
+    // --- VARIABILI GESTIONE MUSICA E VITTORIA/SCONFITTA ---
     [Header("Gestione Audio Battaglia")]
     [Tooltip("L'AudioSource dedicato alla musica (deve essere diverso da quello degli effetti)")]
     public AudioSource musicSource; 
@@ -40,6 +40,9 @@ public class BattleSystem : MonoBehaviour
     
     [Tooltip("Il suono da riprodurre quando vinci")]
     public AudioClip victorySound;  
+
+    [Tooltip("Il suono/musica da riprodurre quando perdi (HP scendono a 0)")] // <-- NUOVO
+    public AudioClip defeatSound;  
     // ------------------------------------------------
 
     void Start()
@@ -48,7 +51,7 @@ public class BattleSystem : MonoBehaviour
         if (musicSource != null && battleMusic != null)
         {
             musicSource.clip = battleMusic;
-            musicSource.loop = true; // Fa riniziare la canzone automaticamente quando finisce!
+            musicSource.loop = true; 
             musicSource.Play();
         }
         // ----------------------------------
@@ -224,13 +227,11 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
-            // 1. Spegniamo la musica di battaglia
             if (musicSource != null)
             {
                 musicSource.Stop(); 
             }
             
-            // 2. Riproduciamo il suono di vittoria
             if (audioSource != null && victorySound != null)
             {
                 audioSource.PlayOneShot(victorySound);
@@ -238,18 +239,29 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = "Congratulazioni! Hai vinto e sconfitto " + enemyUnit.unitName;
 
-            // 3. Facciamo partire il timer per cambiare scena
             StartCoroutine(RitornaAlMenu());
         }
         else if (state == BattleState.LOST)
+        {
+            // --- AGGIUNTA AUDIO SCONFITTA ---
+            if (musicSource != null)
+            {
+                musicSource.Stop(); // Spegniamo la musica concitata della battaglia
+            }
+            
+            if (audioSource != null && defeatSound != null)
+            {
+                audioSource.PlayOneShot(defeatSound); // Facciamo partire il suono o la musica del Game Over
+            }
+            // --------------------------------
+
             StartCoroutine(ShowLostMessageSequence());
+        }
     }
 
     IEnumerator RitornaAlMenu()
     {
-        // Aspetta esattamente 5 secondi
         yield return new WaitForSeconds(5f);
-        
         SceneManager.LoadScene("TitoliDiCoda"); 
     }
 
@@ -262,7 +274,10 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         dialogueText.text = "Addio, processo inutile.";
-
+        
+        // Aspetta qualche secondo prima di cambiare scena per dare tempo alla musica e all'ultima frase di finire
+        yield return new WaitForSeconds(3f); 
+        
         SceneManager.LoadScene("GameOver");
     }
 

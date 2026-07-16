@@ -364,6 +364,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 5054378}
+    - target: {fileID: 3234143378755714234, guid: 2ae089c9e29e2d522999346a63306ff4, type: 3}
+      propertyPath: defeatSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 529cb239ad0bc435fbabf1c425db2dc2, type: 3}
     - target: {fileID: 3330810551407030310, guid: 2ae089c9e29e2d522999346a63306ff4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

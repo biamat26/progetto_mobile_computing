@@ -19,7 +19,7 @@ public class TerminalGameOver : MonoBehaviour
     private string sequenzaDistruzione = 
         "> OVERRIDE DI SISTEMA INIZIATO...\n" +
         "> Acquisizione privilegi di ROOT completata.\n" +
-        "> professor_burlone@kernel:~# sudo rm -rf --no-preserve-root /\n" +
+        "> riccardo_burlone@kernel:~# sudo rm -rf --no-preserve-root /\n" +
         "> Cancellazione file di base in corso...\n" +
         "> Eliminazione OS completata.\n";
 
