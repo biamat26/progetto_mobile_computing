@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.SceneManagement; // Aggiunto per poter cambiare scena!
+using UnityEngine.SceneManagement; 
 
 public class BurloneDialogue : MonoBehaviour
 {
@@ -69,11 +69,12 @@ public class BurloneDialogue : MonoBehaviour
         // --- 3. CONTROLLO MEMORIA (SCELTA DEL DIALOGO) ---
         if (haGiaRifiutato == true)
         {
-            StartCoroutine(ScriviTesto("Di nuovo tu? Hai aggiornato il tuo coraggio o sei qui solo per farmi perdere tempo? Vuoi veramente combattere con me?", MostraScelteSiNo));
+            StartCoroutine(ScriviTesto("Di nuovo tu? Hai capito la differenza tra CISC e RISC?", MostraScelteSiNo));
         }
         else
         {
-            StartCoroutine(ScriviTesto("Ah-ah-ah! Fermo dove sei, intruso! Sento il tuo processore che suda freddo da qui... Guardami bene, utente. Sai chi sono io?", MostraScelteIniziali));
+            // NOTA: Ho unito la stringa su una sola riga di codice usando il \n per evitare errori di compilazione in C#
+            StartCoroutine(ScriviTesto("Ah-ah-ah! Fermo dove sei, intruso! Io sono Riccardo Burlone, il re dei virus. Vediamo se sei degno di stare qui...\nLa mia domanda è: questa operazione logica --> (x AND y) OR [ (y XOR x) AND (x OR z) ] <-- è l'equivalente di...? ", MostraScelteIniziali));
         }
     }
 
@@ -95,21 +96,21 @@ public class BurloneDialogue : MonoBehaviour
     {
         RiproduciSuonoClick();
         gruppoBottoniDomanda1.SetActive(false);
-        StartCoroutine(ScriviTesto("Uffa... che noia. Nessuno apprezza più la suspense al giorno d'oggi! Hai ficcanasato nei file di sistema, eh? Ma passiamo alle cose formali...", ChiediSeVuoleCombattere));
+        StartCoroutine(ScriviTesto("Ahahah!! Lo immaginavo che non avresti saputo collegare due fili su Logisim...", ChiediSeVuoleCombattere));
     }
 
     public void ScegliRisposta2() 
     {
         RiproduciSuonoClick();
         gruppoBottoniDomanda1.SetActive(false);
-        StartCoroutine(ScriviTesto("Magnifico! Adoro il pubblico nuovo! Preparati a formattare le tue certezze, hai davanti il re del caos: BURLONE! Ma dimmi un po'...", ChiediSeVuoleCombattere));
+        StartCoroutine(ScriviTesto("...\nOk va bene, se mi sconfiggerai ti metterò 18", ChiediSeVuoleCombattere));
     }
 
     public void ScegliRisposta3() 
     {
         RiproduciSuonoClick();
         gruppoBottoniDomanda1.SetActive(false);
-        StartCoroutine(ScriviTesto("Come osi...? 'Malware'? IO SONO ARTE DIGITALE PURA! Siete voi utenti il vero virus! Volevo andarci piano, ma ora facciamo sul serio...", ChiediSeVuoleCombattere));
+        StartCoroutine(ScriviTesto("Ahahah!! Lo immaginavo che non avresti saputo collegare due fili su Logisim...", ChiediSeVuoleCombattere));
     }
 
     // --- LA DOMANDA FINALE ---
@@ -128,7 +129,7 @@ public class BurloneDialogue : MonoBehaviour
     {
         RiproduciSuonoClick();
         gruppoBottoniSiNo.SetActive(false);
-        StartCoroutine(ScriviTesto("Eccellente! Maestro, accenda la musica! Che lo spettacolo abbia inizio!", AvviaBattaglia));
+        StartCoroutine(ScriviTesto("Finalmente! Aspettavo questo momento da un po' di tempo. Fatti sotto...", AvviaBattaglia));
     }
 
     public void ScegliDiScappare() 
@@ -136,13 +137,12 @@ public class BurloneDialogue : MonoBehaviour
         RiproduciSuonoClick();
         gruppoBottoniSiNo.SetActive(false);
         haGiaRifiutato = true; 
-        StartCoroutine(ScriviTesto("Codardo! Torna quando avrai aggiornato il tuo coraggio alla versione 2.0!", ChiudiDialogo));
+        StartCoroutine(ScriviTesto("Villano! Torna quando avrai capito la differenza tra CISC e RISC", ChiudiDialogo));
     }
 
     // --- AZIONI FINALI ---
     private void AvviaBattaglia()
     {
-        // Zittiamo la musica del dialogo per evitare che continui mentre carica l'altra scena
         if (musicaDialogo != null)
         {
             AudioSource[] tuttiGliAudio = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
@@ -152,7 +152,6 @@ public class BurloneDialogue : MonoBehaviour
             }
         }
 
-        // CARICA LA SCENA DEL BOSS (Assicurati che il nome sia esatto!)
         SceneManager.LoadScene("Combattimento Finale"); 
     }
 
@@ -182,6 +181,19 @@ public class BurloneDialogue : MonoBehaviour
         
         foreach (char c in testoDaScrivere)
         {
+            // Se incontra il comando "a capo", fa una pausa e pulisce lo schermo
+            if (c == '\n')
+            {
+                // MODIFICA: Ora aspetta 2.5 secondi prima di cancellare
+                yield return new WaitForSeconds(2.5f); 
+                
+                // Cancella il testo dal pannello
+                testoDialogo.text = ""; 
+                
+                // Salta questo ciclo e passa direttamente alla lettera successiva
+                continue; 
+            }
+
             testoDialogo.text += c;
             
             if (suonoScrittura != null && !char.IsWhiteSpace(c))
@@ -189,7 +201,8 @@ public class BurloneDialogue : MonoBehaviour
                 audioScrittura.PlayOneShot(suonoScrittura);
             }
 
-            yield return new WaitForSeconds(0.02f); 
+            // MODIFICA: Generazione testo rallentata da 0.02f a 0.04f
+            yield return new WaitForSeconds(0.04f); 
         }
 
         yield return new WaitForSeconds(0.5f); 

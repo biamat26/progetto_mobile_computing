@@ -224,8 +224,6 @@ public class TerminalLoginUI : MonoBehaviour
         if (systemStatusText != null) systemStatusText.text = "";
     }
 
-    // --- FUNZIONI SICURE PER L'ANIMAZIONE DEL TESTO ---
-
     private void PrintToLoginConsole(string text)
     {
         if (loginTypingCoroutine != null) StopCoroutine(loginTypingCoroutine);
@@ -271,7 +269,6 @@ public class TerminalLoginUI : MonoBehaviour
     {
         string email = loginEmailInput.text.Trim();
 
-        // Controlla se l'utente ha scritto qualcosa nel campo email
         if (string.IsNullOrEmpty(email))
         {
             PlaySound(errorSound);
@@ -308,13 +305,14 @@ public class TerminalLoginUI : MonoBehaviour
 
         PlaySound(successSound);
         
-        // Puoi usare PrintToLoginConsole o PrintToSystemConsole a seconda di dove vuoi il testo
         PrintToSystemConsole("> ACCESSO OSPITE CONSENTITO. BENVENUTO."); 
 
-        // 1. Assicuriamoci di non avere vecchi account in memoria
         if (AuthManager.Instance != null)
         {
             AuthManager.Instance.Logout();
+            
+            // LA RIGA MAGICA: Avvisiamo l'AuthManager che stiamo entrando come Ospite!
+            AuthManager.Instance.LoginAsGuest();
         }
         
         if (UserSession.Instance != null)
@@ -322,7 +320,6 @@ public class TerminalLoginUI : MonoBehaviour
             UserSession.Instance.ClearSession(); 
         }
 
-        // 2. Passiamo al Main Menu dopo 1.5 secondi (per far leggere il testo)
         Invoke(nameof(LoadMainMenuScene), 1.5f);
     }
 
