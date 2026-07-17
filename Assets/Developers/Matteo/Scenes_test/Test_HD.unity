@@ -64179,11 +64179,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.77
+      value: -23.3
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.3
+      value: -61.7
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -64236,7 +64236,7 @@ PrefabInstance:
     - target: {fileID: 560689822638728180, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: suonoMorte
       value: 
-      objectReference: {fileID: 8300000, guid: a30697aa96a269c46a9fec4ae34ffa5a, type: 3}
+      objectReference: {fileID: 8300000, guid: f1dfef19295014b6bb1c91289a2b5099, type: 3}
     - target: {fileID: 560689822638728180, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: playerAudioSource
       value: 

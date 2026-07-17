@@ -134,7 +134,7 @@ public class BattleSystem : MonoBehaviour
         if (isDead)
         {
             state = BattleState.WON;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -213,7 +213,7 @@ public class BattleSystem : MonoBehaviour
         if (isDead)
         {
             state = BattleState.LOST;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -242,7 +242,7 @@ public class BattleSystem : MonoBehaviour
         return newIndex;
     }
 
-    void EndBattle()
+    IEnumerator  EndBattle()
     {
         if (state == BattleState.WON)
         {
@@ -255,7 +255,12 @@ public class BattleSystem : MonoBehaviour
             {
                 audioSource.PlayOneShot(victorySound);
             }
-
+            dialogueText.text = "Argh! Non può essere... Il mio codice è stato sconfitto da un semplice bit di scarto!";
+            yield return new WaitForSeconds(3f);
+            
+            dialogueText.text = "Non posso credere che tu abbia vinto... Ma va bene, ti lascio andare, 18 e buono studio.";
+            yield return new WaitForSeconds(3f);
+            
             dialogueText.text = "Congratulazioni! Hai vinto e sconfitto " + enemyUnit.unitName;
 
             StartCoroutine(RitornaAlMenu());
@@ -286,16 +291,16 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ShowLostMessageSequence()
     {
-        dialogueText.text = "Avvio Garbage Collector...";
+        dialogueText.text = "riccardo_burlone@kernel:~# sudo kill -9 " + playerUnit.unitName;
         yield return new WaitForSeconds(3f);
 
-        dialogueText.text = "Spazio liberato.";
+        dialogueText.text = "registri ripuliti.";
         yield return new WaitForSeconds(3f);
 
         dialogueText.text = "Addio, processo inutile.";
         
         // Aspetta qualche secondo prima di cambiare scena per dare tempo alla musica e all'ultima frase di finire
-        yield return new WaitForSeconds(3f); 
+        yield return new WaitForSeconds(4f); 
         
         SceneManager.LoadScene("GameOver");
     }

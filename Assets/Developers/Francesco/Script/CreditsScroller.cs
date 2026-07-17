@@ -34,7 +34,6 @@ public class CreditsScroller : MonoBehaviour
             "Il codice malevolo noto come 'Riccardo Burlone' è stato isolato, frammentato e definitivamente svuotato dalla memoria cache. " +
             "Il suo disperato tentativo di mandare la CPU in overflow si è rivelato un totale fallimento di fronte alla tua impeccabile logica di sistema.\n\n" +
             "I cicli di clock stanno tornando alla normalità. La RAM respira di nuovo, finalmente ripulita dai blocchi di dati corrotti. " +
-            "L'intera architettura hardware risuona di una rinnovata armonia elettrica.\n\n" +
             "Hai dimostrato che nessuna anomalia, per quanto instabile o aggressiva, è al di là di un buon debugging. Il sistema è salvo. Il Kernel ti è debitore.\n\n\n" +
             "--- SISTEMA RIPRISTINATO DA: ---\n\n" +
             "> " + nomeGiocatore.ToUpper() + " <\n" +
