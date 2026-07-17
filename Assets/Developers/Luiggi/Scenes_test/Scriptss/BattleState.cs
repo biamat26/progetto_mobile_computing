@@ -41,7 +41,7 @@ public class BattleSystem : MonoBehaviour
     [Tooltip("Il suono da riprodurre quando vinci")]
     public AudioClip victorySound;  
 
-    [Tooltip("Il suono/musica da riprodurre quando perdi (HP scendono a 0)")] // <-- NUOVO
+    [Tooltip("Il suono/musica da riprodurre quando perdi (HP scendono a 0)")]
     public AudioClip defeatSound;  
     // ------------------------------------------------
 
@@ -65,26 +65,45 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
 
+        // --- NUOVO: CALCOLO DEL NOME DEL GIOCATORE ---
+        string emailSalvata = PlayerPrefs.GetString("EmailGiocatore", "Ospite"); 
+
+        if (string.IsNullOrEmpty(emailSalvata) || emailSalvata.ToLower() == "ospite")
+        {
+            playerUnit.unitName = "Ospite";
+        }
+        else if (emailSalvata.Contains("@"))
+        {
+            // Taglia la parola a metà al simbolo @ e prende solo la prima parte
+            playerUnit.unitName = emailSalvata.Split('@')[0];
+        }
+        else
+        {
+            // Sicurezza nel caso mancasse la @
+            playerUnit.unitName = emailSalvata;
+        }
+        // --------------------------------------------
+
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         dialogueText.text = "Il cattivo " + enemyUnit.unitName + " si sta avvicinando...";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "Pensavi di aver ripulito la RAM?";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "Illuso.";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "Finché io avrò il controllo della CPU,";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "tu sarai solo un bit di scarto destinato all'overflow!";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "[BOSS BATTLE: PROFESSOR BURLONE]";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -139,7 +158,7 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "si è completamente invertita! Ora ti faccio VedeRAID io!";
             yield return new WaitForSeconds(3f);
 
-            dialogueText.text = "💥 ATTACCO: IMPATTO RAID-ZERO! 💥";
+            dialogueText.text = "ATTACCO: IMPATTO RAID-ZERO!";
             yield return new WaitForSeconds(3f);
         }
         else if (speechIndex == 1)
@@ -153,12 +172,12 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "Preparati al reset asincrono!";
             yield return new WaitForSeconds(3f);
 
-            dialogueText.text = "⚡ ATTACCO: RAGGIO FLIP-FLOP J-K! ⚡";
+            dialogueText.text = "ATTACCO: RAGGIO FLIP-FLOP J-K!";
             yield return new WaitForSeconds(3f);
         }
          else
         {
-            dialogueText.text = "Credi di essere un eroe ";
+            dialogueText.text = "Credi di essere un eroe";
             yield return new WaitForSeconds(2f);
 
             dialogueText.text = "solo perché hai collegato due cavetti colorati su Logisim?!";
@@ -173,7 +192,7 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "Un BIT alla volta!";
             yield return new WaitForSeconds(3f);
 
-            dialogueText.text = "🔥 ATTACCO: OVERFLOW ARITMETICO LETALE! 🔥";
+            dialogueText.text = "ATTACCO: OVERFLOW ARITMETICO LETALE!";
             yield return new WaitForSeconds(3f);
         }
 

@@ -7,12 +7,6 @@ using System;
 // ================================================================
 // AuthManager.cs
 // Gestisce Login e Registrazione tramite Firebase REST API
-//
-// SETUP:
-// 1. Vai su https://console.firebase.google.com
-// 2. Crea un progetto → Authentication → Email/Password → Abilita
-// 3. Impostazioni progetto → Copia la tua WEB_API_KEY
-// 4. Incollala nella variabile firebaseApiKey qui sotto
 // ================================================================
 
 public class AuthManager : MonoBehaviour
@@ -51,7 +45,6 @@ public class AuthManager : MonoBehaviour
 
     // ================================================================
     // REGISTRAZIONE
-    // Chiamata da LoginUI: AuthManager.Instance.Register(email, pass, OnSuccess, OnError)
     // ================================================================
     public void Register(string email, string password,
                          Action onSuccess, Action<string> onError)
@@ -62,7 +55,6 @@ public class AuthManager : MonoBehaviour
     private IEnumerator RegisterCoroutine(string email, string password,
                                           Action onSuccess, Action<string> onError)
     {
-        // Validazione base lato client
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
             onError?.Invoke("Email e password non possono essere vuote.");
@@ -75,7 +67,6 @@ public class AuthManager : MonoBehaviour
             yield break;
         }
 
-        // Costruisce il JSON per Firebase
         string jsonBody = $"{{\"email\":\"{email}\",\"password\":\"{password}\",\"returnSecureToken\":true}}";
         byte[] bodyRaw  = Encoding.UTF8.GetBytes(jsonBody);
 
@@ -89,7 +80,6 @@ public class AuthManager : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                // Registrazione OK → salva i dati
                 ParseAndSaveUser(request.downloadHandler.text);
                 Debug.Log($"[AuthManager] Registrazione OK: {UserEmail}");
                 onSuccess?.Invoke();
@@ -105,7 +95,6 @@ public class AuthManager : MonoBehaviour
 
     // ================================================================
     // LOGIN
-    // Chiamata da LoginUI: AuthManager.Instance.Login(email, pass, OnSuccess, OnError)
     // ================================================================
     public void Login(string email, string password,
                       Action onSuccess, Action<string> onError)
@@ -159,11 +148,12 @@ public class AuthManager : MonoBehaviour
         IsLoggedIn = false;
         PlayerPrefs.DeleteKey("savedEmail");
         PlayerPrefs.DeleteKey("savedPassword");
+        PlayerPrefs.DeleteKey("EmailGiocatore"); 
         Debug.Log("[AuthManager] Logout effettuato.");
     }
 
     // ================================================================
-    // SALVA SESSIONE — Ricordami (opzionale)
+    // SALVA SESSIONE
     // ================================================================
     public void SaveSession(string email, string password)
     {
@@ -194,17 +184,18 @@ public class AuthManager : MonoBehaviour
     // ================================================================
     // UTILITY PRIVATE
     // ================================================================
-
-    // Parsing manuale del JSON di risposta Firebase (senza librerie esterne)
     private void ParseAndSaveUser(string json)
     {
         UserEmail  = ExtractJsonValue(json, "email");
         UserId     = ExtractJsonValue(json, "localId");
         UserToken  = ExtractJsonValue(json, "idToken");
         IsLoggedIn = true;
+
+        // Salva l'email nella memoria del gioco per il BattleSystem
+        PlayerPrefs.SetString("EmailGiocatore", UserEmail);
+        PlayerPrefs.Save();
     }
 
-    // Estrae un valore da una stringa JSON ignorando la formattazione degli spazi
     private string ExtractJsonValue(string json, string key)
     {
         string searchKey = $"\"{key}\"";
@@ -223,7 +214,6 @@ public class AuthManager : MonoBehaviour
         return json.Substring(startQuote + 1, endQuote - startQuote - 1);
     }
 
-    // Traduce gli errori Firebase in messaggi leggibili
     private string ParseFirebaseError(string json)
     {
         if (json.Contains("EMAIL_EXISTS"))         return "Email già registrata.";
@@ -240,8 +230,6 @@ public class AuthManager : MonoBehaviour
     // ================================================================
     // VERIFICA EMAIL
     // ================================================================
-
-    // 1. Invia l'email con il link di verifica
     public void SendEmailVerification(Action onSuccess, Action<string> onError)
     {
         StartCoroutine(SendEmailVerificationCoroutine(onSuccess, onError));
@@ -280,7 +268,6 @@ public class AuthManager : MonoBehaviour
         }
     }
 
-    // 2. Controlla se l'utente ha cliccato il link nell'email
     public void CheckEmailVerificationStatus(Action<bool> onComplete, Action<string> onError)
     {
         StartCoroutine(CheckEmailVerificationStatusCoroutine(onComplete, onError));
@@ -308,7 +295,6 @@ public class AuthManager : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string responseText = request.downloadHandler.text;
-                // Piccolo trucco per leggere il booleano senza librerie esterne complesse
                 IsEmailVerified = responseText.Contains("\"emailVerified\": true") || responseText.Contains("\"emailVerified\":true");
                 
                 Debug.Log($"[AuthManager] Stato verifica email: {IsEmailVerified}");
@@ -339,7 +325,6 @@ public class AuthManager : MonoBehaviour
             yield break;
         }
 
-        // Il payload cambia: specifichiamo PASSWORD_RESET e passiamo l'email
         string jsonBody = $"{{\"requestType\":\"PASSWORD_RESET\",\"email\":\"{email}\"}}";
         byte[] bodyRaw  = Encoding.UTF8.GetBytes(jsonBody);
 
@@ -363,5 +348,15 @@ public class AuthManager : MonoBehaviour
                 onError?.Invoke(errorMsg);
             }
         }
+    }
+
+    // ================================================================
+    // LOGIN COME OSPITE
+    // ================================================================
+    public void LoginAsGuest()
+    {
+        PlayerPrefs.SetString("EmailGiocatore", "Ospite");
+        PlayerPrefs.Save();
+        Debug.Log("[AuthManager] Login effettuato come Ospite.");
     }
 }
