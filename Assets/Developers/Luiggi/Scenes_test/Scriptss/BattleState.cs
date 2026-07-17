@@ -69,22 +69,22 @@ public class BattleSystem : MonoBehaviour
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         dialogueText.text = "Il cattivo " + enemyUnit.unitName + " si sta avvicinando...";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "Pensavi di aver ripulito la RAM?";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "Illuso.";
         yield return new WaitForSeconds(1f);
 
         dialogueText.text = "Finché io avrò il controllo della CPU,";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "tu sarai solo un bit di scarto destinato all'overflow!";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         dialogueText.text = "[BOSS BATTLE: PROFESSOR BURLONE]";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
