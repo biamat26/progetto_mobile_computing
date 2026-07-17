@@ -8,10 +8,25 @@ public class DocumentViewer : MonoBehaviour
     private Vector2 dimensioneOriginale;
     private bool dimensioneSalvata = false;
 
+    private int frameApertura = -1; // NUOVO: per ignorare il click dello stesso frame di apertura
+
     void Awake()
     {
         Istanza = this;
         gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (!gameObject.activeSelf) return;
+
+        // Ignora il click sul frame stesso in cui si e' aperto il popup
+        if (Time.frameCount == frameApertura) return;
+
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            Chiudi();
+        }
     }
 
     private bool AssicuratiImmagineValida()
@@ -40,6 +55,7 @@ public class DocumentViewer : MonoBehaviour
             immagine.rectTransform.sizeDelta = dimensioneOriginale;
 
         gameObject.SetActive(true);
+        frameApertura = Time.frameCount; // NUOVO: registra il frame di apertura
         PauseManager.RequestPause();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -47,7 +63,6 @@ public class DocumentViewer : MonoBehaviour
 
     public void Chiudi()
     {
-        Debug.Log("Chiudi() chiamato!");
         gameObject.SetActive(false);
         PauseManager.ReleasePause();
 

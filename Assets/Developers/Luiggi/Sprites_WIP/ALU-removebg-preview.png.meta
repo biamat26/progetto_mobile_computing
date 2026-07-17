@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b744e78c7f1cfcb4a9be6f7b16f80948
+guid: cf72a6cbd3aa7434cba8d236a81d8577
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2745644151286588418
-    second: batteria_0
+      213: 1966965608857262188
+    second: ALU-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 750
+  spritePixelsToUnits: 530
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: batteria_0
+      name: ALU-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 48
-        width: 979
-        height: 971
+        x: 40
+        y: 39
+        width: 652
+        height: 284
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: efb1fe2013385e9d0800000000000000
-      internalID: -2745644151286588418
+      spriteID: c68d851ccc01c4b10800000000000000
+      internalID: 1966965608857262188
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7b9692f8d495d4302878101243538dd9
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      batteria_0: -2745644151286588418
+      ALU-removebg-preview_0: 1966965608857262188
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -19,3 +19,6 @@ MonoBehaviour:
   immagineDocumento: {fileID: 8738013390874470524, guid: bbd25b4820fa84b8ba883be98cbf9efe, type: 3}
   itemType: 0
   healAmount: 0
+  usaDimensioniSpeciali: 0
+  dimensioniSpeciali: {x: 0, y: 0}
+  scalaDrop: {x: 1, y: 1, z: 1}

@@ -46,14 +46,18 @@ public class CatButtonHandler : MonoBehaviour
         if (string.IsNullOrEmpty(item.contenuto))
         {
             TerminalManager.Istanza.MostraMessaggioLibero("> Errore: questo oggetto non è leggibile.");
+            if (!TerminalManager.Istanza.isExpanded)
+                TerminalManager.Istanza.ToggleTerminal();
             return;
         }
 
         string testo = "> cat " + item.itemName + "\n\n> Contenuto del documento:\n" + item.contenuto;
 
+        // PRIMA impostiamo il messaggio...
+        TerminalManager.Istanza.MostraMessaggioLibero(testo);
+
+        // ...POI apriamo il terminale, che lo scriverà una sola volta, correttamente
         if (!TerminalManager.Istanza.isExpanded)
             TerminalManager.Istanza.ToggleTerminal();
-
-        TerminalManager.Istanza.MostraMessaggioLibero(testo);
     }
 }
