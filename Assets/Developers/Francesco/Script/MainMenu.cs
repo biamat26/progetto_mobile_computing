@@ -14,6 +14,9 @@ public class MainMenu : MonoBehaviour
     [Tooltip("La scena da cui parte una Nuova Partita")]
     public int indicePrimaScena = 2; 
 
+    [Tooltip("Il nome esatto della tua scena di caricamento")]
+    public string nomeScenaDownload = "SchermataDownload";
+
     private string GetChiaveSalvataggio()
     {
         string emailUtente = "Ospite"; 
@@ -88,8 +91,15 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator CaricaScenaConRitardo(int indiceScena)
     {
+        // 1. Salviamo l'INDICE numerico della scena in un PlayerPrefs
+        PlayerPrefs.SetInt("IndiceScenaDestinazione", indiceScena);
+        PlayerPrefs.Save();
+
+        // Aspetta che finisca il testo a schermo
         yield return new WaitForSeconds(1.5f); 
-        SceneManager.LoadSceneAsync(indiceScena);
+        
+        // 2. Carica la barra di simulazione!
+        SceneManager.LoadSceneAsync(nomeScenaDownload);
     }
 
     public void QuitGame() 

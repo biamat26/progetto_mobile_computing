@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Developers/Francesco/Scenes_test/Main Menu.unity
     guid: 9af6291ddcc8240c79408e7e2d1ac5ba
   - enabled: 1
+    path: Assets/Developers/Francesco/Scenes_test/SchermataDownload.unity
+    guid: cc8d6b753263d4293b072b636ea5866a
+  - enabled: 1
     path: Assets/Developers/Matteo/Scenes_test/Test_HD.unity
     guid: 5a65a2b9fb0bb4abf94908917bdc18a9
   - enabled: 1
