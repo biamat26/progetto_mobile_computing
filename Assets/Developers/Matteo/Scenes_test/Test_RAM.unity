@@ -36468,7 +36468,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2167408748003763197, guid: 7b455af9de610467f96b30208cd3cfde, type: 3}
   m_PrefabInstance: {fileID: 1459556849}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1001 &1672536079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36651,8 +36650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f31bba6f298428595cd2d8d354fe6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BarraVitaCuori
-=======
->>>>>>> d7e3f844bd9c53bb70528aa90e0f810f7b5d4501
 --- !u!1 &1709087181
 GameObject:
   m_ObjectHideFlags: 0
@@ -67977,19 +67974,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.x
-<<<<<<< HEAD
       value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.y
       value: 98.93
-=======
-      value: -0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -38.5
->>>>>>> d7e3f844bd9c53bb70528aa90e0f810f7b5d4501
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.z
