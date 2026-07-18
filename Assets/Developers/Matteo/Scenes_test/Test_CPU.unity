@@ -452,7 +452,7 @@ RectTransform:
   m_GameObject: {fileID: 164575905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 20, z: 1}
+  m_LocalScale: {x: 10, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1756178524}
@@ -460,7 +460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: -57}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 117.4498, y: 36.4614}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &164575907
@@ -17359,7 +17359,6 @@ MonoBehaviour:
   - nome: Ondata 3
     nemiciDaSpawnare:
     - {fileID: 8758092963831612514, guid: caff503e1976a46c8be266fc93d5566c, type: 3}
-    - {fileID: 8758092963831612514, guid: caff503e1976a46c8be266fc93d5566c, type: 3}
   musicaCombattimento: {fileID: 8300000, guid: 847b59bc0c490456a95f9c5a9c59b14b, type: 3}
   suonoInizioBattaglia: {fileID: 8300000, guid: 75506621ce6884dc9993cb6d8570d137, type: 3}
   suonoFineBattaglia: {fileID: 8300000, guid: 6f6ef6e166d8a4b5ca54fe718b3ca54b, type: 3}
@@ -19800,7 +19799,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 767707656241413059, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
       propertyPath: maxHP
-      value: 10000
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 767707656241413059, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
       propertyPath: barraVita
@@ -19810,6 +19809,14 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 1246397488}
+    - target: {fileID: 767707656241413059, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
+      propertyPath: suonoMorte
+      value: 
+      objectReference: {fileID: 8300000, guid: f1dfef19295014b6bb1c91289a2b5099, type: 3}
+    - target: {fileID: 767707656241413059, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
+      propertyPath: playerAudioSource
+      value: 
+      objectReference: {fileID: 8014924381291462942}
     - target: {fileID: 917984552192289705, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.71
@@ -19852,7 +19859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2183422366256944591, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
       propertyPath: damage
-      value: 1000
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2907276070729308014, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
       propertyPath: m_Name
@@ -19863,6 +19870,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
+--- !u!82 &8014924381291462942 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1895215736530956648, guid: e84e35488ef494ee0897f19a9c76329c, type: 3}
+  m_PrefabInstance: {fileID: 8014924381291462941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
