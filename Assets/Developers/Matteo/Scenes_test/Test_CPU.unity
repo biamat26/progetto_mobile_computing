@@ -16965,7 +16965,7 @@ PrefabInstance:
       objectReference: {fileID: 1694218146}
     - target: {fileID: 6238556880583615010, guid: b59d5e15186ca41d6a418544ed194a44, type: 3}
       propertyPath: m_Name
-      value: TORLONE
+      value: BURLONE
       objectReference: {fileID: 0}
     - target: {fileID: 6238556880583615010, guid: b59d5e15186ca41d6a418544ed194a44, type: 3}
       propertyPath: m_TagString
@@ -19365,7 +19365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5126199723822503559, guid: 212fb91655634423db1bd60fa18f99cb, type: 3}
       propertyPath: m_LocalPosition.z

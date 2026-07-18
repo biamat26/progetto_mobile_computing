@@ -77,10 +77,10 @@ public class ComputerALU : MonoBehaviour
             {
                 TerminalManager.Istanza.MostraMessaggioLibero(
                     "> ACCESSO NEGATO.\n" +
-                    "> Documento di autorizzazione mancante.\n\n" +
-                    "> Il file richiesto per avviare i calcoli si trova\n" +
+                    "> Nessun documento con operazioni trovate.\n\n" +
+                    "> Il file con i calcoli si trova\n" +
                     "> archiviato nel settore RAM.\n\n" +
-                    "> Recuperalo e torna qui per procedere."
+                    "> Recuperalo e torna qui per poterlo analizzare."
                 );
                 TerminalManager.Istanza.ApriTerminale();
             }
