@@ -261,6 +261,14 @@ Non deviare dal percorso, schiva le sentinelle che pattugliano la zona e corri d
 string testoChiaveMatteo = "Accidenti serve una chiave! Esplora la RAM e le sue zone nascoste per aprire la porta!";
 string testoDeviati = @"> Maledizione, ci hanno deviato la rotta!
 Siamo arrivati davanti alla porta della CPU, ma l'accesso è blindato da un codice di sicurezza. Non possiamo passare da qui: dobbiamo tornare sui nostri passi e trovare la password per sbloccarla!";
+string CPU = "> BENVENUTO NELLA CPU!\n" +
+"> Stato del sistema: CRITICO.\n" +
+"> Minaccia rilevata: Infezione da malware rilevata nei registri ALU.\n" +
+"> Richiesto intervento immediato di debug.";
+string portaCPU = "> ATTENZIONE! L'accesso alla CPU è bloccato da un firewall di sicurezza.\n" +
+"> Per proseguire, devi trovare la password di accesso corretta e inserirla nel terminale di sblocco.\n" +
+"> Solo così potrai aprire la porta e accedere al cuore del computer.";
+
         databaseMessaggi.Add("Intro", testoIntro);
         databaseMessaggi.Add("PortaChiave",portaSerrata);
         databaseMessaggi.Add("PortaBit",testoBinario);
@@ -270,6 +278,8 @@ Siamo arrivati davanti alla porta della CPU, ma l'accesso è blindato da un codi
         databaseMessaggi.Add("PortaRAM",testoChiaveMatteo);
         databaseMessaggi.Add("PortaFinale",testoObiettivoRam);
         databaseMessaggi.Add("Scherzetto",testoDeviati);
+        databaseMessaggi.Add("InizioCPU",CPU);
+        databaseMessaggi.Add("PortaCPU",portaCPU);
         // Aggiungi qui gli altri messaggi del database
     }
 
