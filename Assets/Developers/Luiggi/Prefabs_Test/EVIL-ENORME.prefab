@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1551039340385448322, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: maxHP
-      value: 150
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1551039340385448322, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: invulnerabilityDuration
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2813656394103204484, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: m_LocalScale.x
@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7511353824993513781, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: attackRange
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7511353824993513781, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: audioSource
@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7511353824993513781, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: engageDistance
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7511353824993513781, guid: 6ce8c9f6ea28bdf2ea07950f18e46e0e, type: 3}
       propertyPath: obstacleLayer.m_Bits

@@ -201,15 +201,24 @@ public void MostraMessaggioLibero(string testo)
     private void CaricaMessaggi()
     {
         databaseMessaggi.Clear();
-        string testoIntro = @"> CONNESSIONE AL SISTEMA STABILITA...
-SISTEMA DIGITALIZZATO — Inizializzazione protocollo di emergenza.
+        string testoIntro = @"> ESECUZIONE BOOT SEQUENCE...
+> CONNESSIONE NEURALE STABILITA.
 
-Rilevamento anomalia: coscienza biologica tradotta in codice binario.
-Ti trovi attualmente all'interno dell'architettura fisica del computer.
-L'intero settore è compromesso da un'infezione malware su larga scala che sta corrompendo i flussi di dati.
+ATTENZIONE: Elemento umano, in versione analogica, digitalizzata con successo. Campionamento e quantizzazione effettuata nel migliore dei modi!!
+Status Posizione: INIETTATO NEI SETTORI DELL'HARD DISK.
 
-Direttiva primaria: Bonificare l'area eliminando ogni minaccia virale attiva e aprirsi un varco di sicurezza per procedere verso la memoria RAM.
- La stabilità dell'intero sistema dipende da te.";
+Ti trovi alla base dell'architettura fisica del sistema. L'intero drive è attualmente compromesso da un'infezione malware su larga scala che sta frammentando i dati e corrompendo il File System.
+
+La tua roadmap operativa è tracciata:
+1. Neutralizzare i cluster infetti dell'Hard Disk.
+2. Sbloccare i bus di sistema per transitare nella memoria RAM.
+3. Raggiungere il nucleo di elaborazione: la CPU.
+
+Rilevamenti critici indicano che la CPU è stata completamente isolata. Un'anomalia, con privilegi di Amministratore Assoluto (Root), ne ha preso il controllo totale; la sua firma digitale è attualmente criptata, ma tutto fa pensare a un'Entità Supervisore di altissimo livello.
+
+Direttiva primaria: Apriti un varco eliminando i processi virali attivi. Raggiungi il processore e scopri chi ha preso in ostaggio il cuore della macchina. 
+La stabilità dell'intero sistema dipende da te.";
+
         string portaSerrata = "Attenzione! Questa porta è serrata! Esplora la mappa e trova la chiave!";
         string testoBinario = @"> ACCESSO AL SETTORE LOGICO: PROTOCOLLO BINARIO...
 REGISTRO DI DIAGNOSTICA: Griglia di commutazione locale attiva.
@@ -250,15 +259,15 @@ Per riattivare l'interfaccia e poter interagire con il computer, devi ripristina
 
 Solo quando tutti i flussi di corrente saranno correttamente stabilizzati il terminale si accenderà, permettendoti di accedere ai suoi sistemi di controllo.";
 string testoBenvenutoRam = @"> Sei finalmente dentro la memoria RAM!
-Qui tutto si muove a una velocità folle e cambia a ogni millisecondo.
+Qui tutto si muove a una velocità diversa dal mondo reale.
 
 Fai la massima attenzione: qui dentro le regole sono spietate. 
-Il Garbage Collector è costantemente in funzione per fare pulizia, eliminando senza pietà qualsiasi dato considerato superfluo. Inoltre, l'area è pattugliata da sentinelle di sicurezza; se ti intercettano, verrai catturato e rimosso dalla memoria.
+Il Garbage Collector è costantemente in funzione per fare pulizia, eliminando qualsiasi dato considerato superfluo. Inoltre, l'area è pattugliata da sentinelle di sicurezza; se ti intercettano, verrai catturato e rimosso dalla memoria.
 
-Muoviti con prudenza, eludi la sorveglianza e pianifica i tuoi spostamenti. Il tuo obiettivo finale è aprirti un varco per raggiungere il cervello del computer: la CPU.";
+Muoviti con prudenza, eludi la sorveglianza e pianifica i tuoi spostamenti. Il tuo obiettivo finale è aprirti un varco per raggiungere la CPU.";
 string testoObiettivoRam = @"> Il tuo obiettivo qui nella RAM è andare dritto fino in fondo!
 Non deviare dal percorso, schiva le sentinelle che pattugliano la zona e corri dritto verso l'ingresso della CPU!";
-string testoChiaveMatteo = "Accidenti serve una chiave! Esplora la RAM e le sue zone nascoste per aprire la porta!";
+string testoChiaveMatteo = "Accidenti serve una chiave! Esplora le sue zone nascoste per aprire la porta!";
 string testoDeviati = @"> Maledizione, ci hanno deviato la rotta!
 Siamo arrivati davanti alla porta della CPU, ma l'accesso è blindato da un codice di sicurezza. Non possiamo passare da qui: dobbiamo tornare sui nostri passi e trovare la password per sbloccarla!";
 string CPU = "> BENVENUTO NELLA CPU!\n" +

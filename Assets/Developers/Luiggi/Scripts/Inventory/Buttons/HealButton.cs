@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class HealButton : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
+    // Ho rimosso la variabile "public PlayerHealth playerHealth"
+    // Ora lo script lo trova da solo in automatico, a prova di crash e di riavvii!
 
-    // --- NUOVE VARIABILI AUDIO AGGIUNTE ---
     [Header("Audio Cura")]
     public AudioSource audioSource;
     public AudioClip healSound;
-    // --------------------------------------
 
     public void OnHealClicked()
     {
@@ -22,6 +21,17 @@ public class HealButton : MonoBehaviour
 
         if (item.itemType != ItemType.Heal) { Debug.Log("Non è una cura!"); return; }
 
+        // --- IL TRUCCO CHE RISOLVE IL BUG ---
+        // Cerca il PlayerHealth "fresco" appena spawnato in questa scena
+        PlayerHealth playerAttuale = Object.FindFirstObjectByType<PlayerHealth>();
+
+        if (playerAttuale == null)
+        {
+            Debug.LogWarning("Nessun giocatore trovato nella scena per essere curato!");
+            return;
+        }
+        // ------------------------------------
+
         // --- AVVIO AUDIO CURA ---
         if (audioSource != null && healSound != null)
         {
@@ -29,10 +39,10 @@ public class HealButton : MonoBehaviour
         }
         // ------------------------
 
-        // Curalo
-        playerHealth.Heal(item.healAmount);
+        // Curalo passando la quantità presa dall'oggetto
+        playerAttuale.Heal(item.healAmount);
         
-        // Rimuove l'oggetto e spegne in automatico il quadratino verde!
+        // Rimuove l'oggetto e spegne in automatico il quadratino verde
         inv.RemoveItem(slot);
     }
 }

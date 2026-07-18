@@ -20,10 +20,8 @@ public class VisionCone : MonoBehaviour
     [Header("UI")]
     public GameObject gameOverPanel;  // trascina il Panel qui dall'Inspector
 
-    // --- NUOVA VARIABILE AGGIUNTA ---
     [Header("Audio")]
     public SentinellaAudio sentinellaAudio; // Collegamento allo script audio
-    // --------------------------------
 
     private Mesh         _mesh;
     private MeshFilter   _mf;
@@ -44,10 +42,8 @@ public class VisionCone : MonoBehaviour
         _mesh = new Mesh { name = "VisionConeMesh" };
         _mf.mesh = _mesh;
 
-        // --- NUOVA RIGA AGGIUNTA ---
         // Se dimentichi di trascinare lo script nell'Inspector, prova a cercarlo da solo!
         if (sentinellaAudio == null) sentinellaAudio = GetComponentInParent<SentinellaAudio>();
-        // ---------------------------
     }
 
     void LateUpdate()
@@ -82,21 +78,43 @@ public class VisionCone : MonoBehaviour
     }
 
     void ShowGameOver()
-{
-    if (sentinellaAudio != null)
     {
-        sentinellaAudio.AttivaSuonoCattura();
+        if (sentinellaAudio != null)
+        {
+            sentinellaAudio.AttivaSuonoCattura();
+        }
+
+        // Svuota l'inventario anche quando cattura la sentinella
+        if (InventorySystem.Instance != null)
+            InventorySystem.Instance.ClearInventory();
+
+        // --- CHIUSURA FORZATA DELLA UI ---
+        // Disabilita completamente terminale
+        if (TerminalManager.Istanza != null)
+        {
+            TerminalManager.Istanza.enabled = false;
+            if (TerminalManager.Istanza.terminalRect != null)
+            {
+                TerminalManager.Istanza.terminalRect.gameObject.SetActive(false);
+            }
+        }
+
+        // Chiudi e disabilita l'inventario
+        InventoryToggle invToggle = Object.FindFirstObjectByType<InventoryToggle>();
+        if (invToggle != null)
+        {
+            invToggle.HideInventory(); // Tassativo: chiude la grafica dell'inventario
+            invToggle.enabled = false; // Blocca il tasto di apertura
+        }
+        // ---------------------------------
+
+        // Congela il tempo
+        Time.timeScale = 0f;
+
+        // Mostra il pannello
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
     }
-
-    // NUOVO: svuota l'inventario anche quando cattura la sentinella
-    if (InventorySystem.Instance != null)
-        InventorySystem.Instance.ClearInventory();
-
-    Time.timeScale = 0f;
-
-    if (gameOverPanel != null)
-        gameOverPanel.SetActive(true);
-}
 
     // Chiama questo dal bottone "Riprova"
     public void RestartLevel()

@@ -107,16 +107,15 @@ public class SceneAudioController : MonoBehaviour
 
     public void RiprendiMusica()
     {
-        // Qui devi inserire la logica che faceva ripartire la musica (quella che avevi nel metodo Start)
-        // Esempio:
-        if (musicaScena != null)
+        // Controlliamo che ci sia la musica e che l'AudioManager sia attivo
+        if (musicaScena != null && AudioManager.instance != null)
         {
-            AudioSource source = GetComponent<AudioSource>();
-            if (source != null) 
-            {
-                source.clip = musicaScena;
-                source.Play();
-            }
+            // Facciamo ripartire la tua coroutine che gestisce tutto il loop e il fade!
+            StartCoroutine(GestisciLoopAudio());
+        }
+        else
+        {
+            Debug.LogWarning("Impossibile riprendere la musica: manca l'Audio Clip o l'AudioManager.");
         }
     }
 }

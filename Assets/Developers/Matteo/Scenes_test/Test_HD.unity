@@ -64253,17 +64253,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca9c59d85e424cf5a9c91e9f0766ee6, type: 3}
---- !u!114 &3512820345449305656 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 560689822638728180, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
-  m_PrefabInstance: {fileID: 3965405257064494540}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314982214882622101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63cd1a2632702d9db854a5b29aee7f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
 --- !u!1 &3868340703213754701 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9183769320085780074, guid: a417fd489d41bb0748e268c997974c55, type: 3}
@@ -64284,11 +64273,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.4
+      value: -23.5
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -61.7
+      value: -60.8
       objectReference: {fileID: 0}
     - target: {fileID: 134505945280852894, guid: b891fa46d9c41463aac000aef7bb13cf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -64697,7 +64686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4603ceac6ddb7cb6875081a5d423476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealButton
-  playerHealth: {fileID: 3512820345449305656}
   audioSource: {fileID: 0}
   healSound: {fileID: 0}
 --- !u!1001 &4964147963773771981
