@@ -234,11 +234,14 @@ Per capire come un computer legge i numeri, devi usare il sistema posizionale ba
 ...e così via (32, 64, 128...).
 
 Per comporre un numero, ti basta sommare i valori dei bit attivi (pari a 1). 
-Ad esempio, per rappresentare il numero 5, devi attivare il 1° bit (valore 1) e il 3° bit (valore 4), lasciando spenti gli altri. Otterrai la sequenza binaria '0101' (ovvero: 4 + 0 + 1).
+Ad esempio, per rappresentare il numero 5, devi avere 1 sul 1° bit (valore 1) 0 sul 2° bit (valore 2)  e 1 sul 3° bit (valore 4), lasciando spenti gli altri. Otterrai la sequenza binaria '101' (ovvero: 1*1 + 0*2 + 1*4).
 
 La griglia di pedane sul pavimento rappresenta questo registro di memoria. Configura i bit modificando lo stato delle pedane:
-- Sali su una casella per colorarla di BLU CELESTE: in questo modo la attivi, impostando il suo valore logico su 1.
-- Sali nuovamente sulla stessa casella per farla tornare NERA: in questo modo la disattivi, ripristinando il suo valore logico su 0.
+- Sali su una casella attivarla, in questo modo verrà considerata nel conteggio.
+- Sali nuovamente sulla stessa casella per disattivarla, in questo modo non verrà considerata nel conteggio.
+Esempio: se vuoi rappresentare il numero 7 ti basterà attivare tutti gli 1 lascinado spenti gli 0, ottenendo la sequenza '111'.
+se vuoi rappresentare il numero 10 ti basterà attivare tutti i bit tranne il primo da destra, così da ottenere '1010'.
+se vuoi rappresentare il numero 4 ti basterà attivare il primo bit da sinistra e tutti gli zeri. Così da ottenere '100'.
 
 Calcola il valore richiesto, configura la griglia e sblocca il varco verso la RAM.";
     string testoPortaBloccata = @"> ALLARME: VARCO DI ACCESSO COMPROMESSO...
