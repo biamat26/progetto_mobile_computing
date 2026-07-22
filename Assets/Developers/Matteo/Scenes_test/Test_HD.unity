@@ -33808,6 +33808,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5023184795774964179, guid: 1ebc81029dae247afb17d5e256684f1b, type: 3}
+      propertyPath: BaseTileMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: af062c976bb92408db97e0f548502ed2, type: 2}
     - target: {fileID: 7491683078357350568, guid: 1ebc81029dae247afb17d5e256684f1b, type: 3}
       propertyPath: m_Name
       value: RAMSystem

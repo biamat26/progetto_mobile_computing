@@ -3,30 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// RAMChunkSystem v6 — riscrittura completa
-/// 
-/// Cambiamenti chiave rispetto alle versioni precedenti:
-/// - Ogni SpriteRenderer ha transform.localScale = Vector3.one * TileWorld
-///   invece di drawMode Sliced/Simple — funziona sempre, indipendente dal PPU
-/// - I chunk non hanno più transform intermedi che possono causare offset
-/// - Il lift è testato con Debug.Log espliciti
-/// - Se vedi "[RAM] LIFT START" in Console ma non vedi il tile muoversi,
-///   significa che il tile è coperto da qualcosa sopra
+/// RAMChunkSystem v6.1 — fix materiale runtime
+///
+/// COSA È CAMBIATO rispetto alla v6:
+/// - RIMOSSO: new Material(Shader.Find("...")) a runtime.
+///   Questo era rischioso perché in build Unity può "strippare" gli shader
+///   non referenziati staticamente da nessun asset del progetto, causando
+///   Shader.Find() == null e quindi materiali rosa/invisibili in build
+///   (anche se in Editor funzionava, perché l'Editor non stripa nulla).
+/// - AGGIUNTO: campo pubblico "BaseTileMaterial" da assegnare in Inspector.
+///   Così il materiale è un vero asset referenziato nel progetto: Unity
+///   non lo stripperà mai, build o non build. Se lasci il campo vuoto,
+///   lo script usa il materiale di default dello Sprite Renderer (Sprites/Default),
+///   che è già incluso di default in "Always Included Shaders".
 ///
 /// SETUP RAPIDO:
 ///   1. RAMSystem (0,0,0) → RAMChunkSystem
 ///   2. BaseSprites  → 4 sprite tile_base_*
 ///   3. FancySprites → 8 sprite tile_fancy_*
 ///   4. CamTransform → Main Camera
-///   5. Tutti i PNG importati con PPU=16, Filter=Point, Compression=None
-///   6. SortingLayer "Background" in Project Settings → Graphics → Sorting Layers
-///   7. Player SortingOrder >= 0  (i tile fancy stanno a -9, base a -10)
+///   5. BaseTileMaterial → crea un Material asset con shader
+///      "Universal Render Pipeline/2D/Sprite-Unlit-Default" e trascinalo qui
+///   6. Tutti i PNG importati con PPU=16, Filter=Point, Compression=None
+///   7. SortingLayer "Background" in Project Settings → Graphics → Sorting Layers
+///   8. Player SortingOrder >= 0  (i tile fancy stanno a -9, base a -10)
 /// </summary>
 public class RAMChunkSystem : MonoBehaviour
 {
     [Header("Sprites (PPU=16, Filter=Point)")]
     public Sprite[] BaseSprites;
     public Sprite[] FancySprites;
+
+    [Header("Materiale (assegna un asset, NON lasciare a runtime Shader.Find)")]
+    [Tooltip("Crea un Material asset nel progetto con shader " +
+             "'Universal Render Pipeline/2D/Sprite-Unlit-Default' e trascinalo qui. " +
+             "Se lo lasci vuoto, viene usato il materiale di default dello SpriteRenderer.")]
+    public Material BaseTileMaterial;
 
     [Header("Griglia")]
     public int   MapWidth   = 300;
@@ -83,6 +95,9 @@ public class RAMChunkSystem : MonoBehaviour
 
         if (BaseSprites  == null || BaseSprites.Length  == 0) { Debug.LogError("[RAM] BaseSprites vuoto!");  enabled = false; return; }
         if (FancySprites == null || FancySprites.Length == 0) { Debug.LogError("[RAM] FancySprites vuoto!"); enabled = false; return; }
+
+        if (BaseTileMaterial == null)
+            Debug.LogWarning("[RAM] BaseTileMaterial non assegnato: uso il materiale di default dello SpriteRenderer.");
 
         _mapOX   = -MapWidth  * TileWorld * 0.5f;
         _mapOY   = -MapHeight * TileWorld * 0.5f;
@@ -214,20 +229,21 @@ public class RAMChunkSystem : MonoBehaviour
         for (int i = 0; i < chunk.Tiles.Length; i++)
         {
             // BASE GO
-var gb = new GameObject("B");
-gb.transform.SetParent(transform, false);
-var srb = gb.AddComponent<SpriteRenderer>();
-srb.material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")); // sempre visibile
-gb.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
-gb.SetActive(false);
+            var gb = new GameObject("B");
+            gb.transform.SetParent(transform, false);
+            var srb = gb.AddComponent<SpriteRenderer>();
+            if (BaseTileMaterial != null) srb.material = BaseTileMaterial; // asset referenziato, mai stripato
+            gb.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
+            gb.SetActive(false);
 
-// FANCY GO
-var gf = new GameObject("F");
-gf.transform.SetParent(transform, false);
-var srf = gf.AddComponent<SpriteRenderer>();
-// nessun materiale custom — usa il default Lit, oscurato dalla luce globale
-gf.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
-gf.SetActive(false);
+            // FANCY GO
+            var gf = new GameObject("F");
+            gf.transform.SetParent(transform, false);
+            var srf = gf.AddComponent<SpriteRenderer>();
+            // nessun materiale custom — usa il default Lit, oscurato dalla luce globale
+            gf.transform.localScale = new Vector3(TileWorld, TileWorld, 1f);
+            gf.SetActive(false);
+
             chunk.Tiles[i] = new TileGO
             {
                 BaseGO  = gb, BaseSR  = srb,
